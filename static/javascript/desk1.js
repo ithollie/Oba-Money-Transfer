@@ -10,6 +10,8 @@ Controller.initialize  =  function(eventObject){
   Model.recipient =     window.localStorage.getItem('recipient');
   Model.recipientSelectButtonState = window.localStorage.getItem('buttonState');
 
+  View.topup = document.getElementById("topup");
+
   View.data_key_customer_data = document.getElementById("data-key-customer-data");
 
   View.sendMoneyMainbutton = document.getElementById("sendMoneyMainbutton");
@@ -69,6 +71,14 @@ Controller.initialize  =  function(eventObject){
   View.amountConverted = document.getElementById("amountConverted");
   View.charge          = document.getElementById("charge"); 
   
+  if(View.topup != null){
+
+    View.topup.addEventListener('click',  function(){
+
+        alert("View.topup has  been  clicked ");
+    });
+  }
+
   if( View.addcard  != null){
 
         View.addcard.addEventListener('click', Controller.addcard)
@@ -99,8 +109,6 @@ Controller.initialize  =  function(eventObject){
         View.recipiantAddOtherRecipient.addEventListener('click' ,  Controller.recipiantAddOtherRecipient);
   }
  
-  //View.recipients.addEventListener('click', Controller.selectRecipient); 
-  
   if(View.customerNotFoundNumber != null){
 
     View.customerNotFoundNumber.addEventListener('click' , Controller.customerNotFoundNumber);
@@ -160,12 +168,10 @@ Controller.initialize  =  function(eventObject){
       View.search.addEventListener('keyup' , Controller.validateForm);
   
  }
-  
 Controller.selectRecipient();
    
 }
 
- 
 $(document).keyup(function(event) {
     if (event.which === 13) {
         let value =  View.phoneInput.value;
@@ -239,7 +245,7 @@ Controller.addcard =  function(){
 
 }
 
-Controller.storeCustomer =  function(){
+Controller.storeCustomer = function(){
 
         let firstname  =  View.inputFirstNameCustomer.value;
         let lastname   =  View.inputLastNameCustomer.value;
@@ -282,21 +288,17 @@ Controller.customerState =  function(){
 
 Controller.sendMoneyMainbutton = function(){
 
-    alert("You  are  sending  money ---> "); 
+     alert("You  are  sending  money ---> "); 
 
-     Controller.storeCustomer();
-     
      let  amoutInDallor    = View.amoutInDallor.value; 
      let  amountConverted  = View.amountConverted.value;
 
-    if (amountConverted.length > 3 
-        && amoutInDallor.length > 3
-        &&  Model.customerState != null
-        &&  Model.recipient !=  null
-        
-        
-        ){  
-        
+    if (amountConverted.length > 3 && amoutInDallor.length > 3 &&  Model.customerState != null &&  Model.recipient !=  null){  
+            
+            if( Model.recipient !=  null){
+                alert(" Model.recipient ==  null "); 
+            }
+
             if(!isNaN(amountConverted) && !isNaN(amoutInDallor)){
                 alert("Everything  is fine "); 
 
@@ -348,12 +350,16 @@ Controller.sendMoneyMainbutton = function(){
 
                         setInterval(Controller.refreshPage, 1000);
 
+                        window.localStorage.removeItem('customer');
+                        window.localStorage.removeItem('recipient');
+                        window.localStorage.removeItem('buttonState');
+                        
                         event.preventDefault(); 
                         
-                    }else{
+                }else{
 
                         alert("One   or  more  fields don't   meet  the requirement ");
-                    }
+               }
             }else{
 
                 alert("That is  not  a number "); 
@@ -361,7 +367,8 @@ Controller.sendMoneyMainbutton = function(){
 
     }else{
 
-        alert(" Fields are  Empty please  enter dallor amount  ")
+
+        alert("Fields are  Empty please  enter dallor amount");
     }
     
     
@@ -389,19 +396,15 @@ Controller.customerIsNoTAvaliable =  function(){
 Controller.selectRecipient =  function(){
 
     
-    if(View.recipients != undefined ){
+    if(View.recipients != undefined &&  View.recipients != null){
 
         for (let i = 0; i < View.recipients.length; i++) {
 
             View.recipients[i].addEventListener('click', Controller.runRecipient);
         }
-    }else{
-
-        alert("Undefined ");
     }
 
 }
-
 Controller.recipiantAddOtherRecipient = function(event){
     
     let  v  = document.getElementById("recipiantAddOtherRecipientTable").style.display= "block";
@@ -421,69 +424,79 @@ Controller.runRecipient = function(event){
       let  amount  = View.amoutInDallor.value;
       let  amountConverted =  View.amountConverted.value; 
      
-     if (View.amoutInDallor.value != null && View.amoutInDallor.value != ""
-            && View.amountConverted.value != null &&  View.amountConverted.value !=""
-            && View.charge.value          != null &&  View.charge.value !=""
-     
-     )
-     {      
-            if(!isNaN(amount) && !isNaN(View.amountConverted.value) && !isNaN(View.charge.value)){
+     if (View.amoutInDallor.value != null && View.amoutInDallor.value != "" && View.amountConverted.value != null &&  View.amountConverted.value !="" && View.charge.value          != null &&  View.charge.value !=""){      
+        
+       var xhttp = new XMLHttpRequest();
+       xhttp.onreadystatechange = function() {
 
-                    let _id        =        event.target.attributes[1].nodeValue;
-                    let firstname  =        event.target.attributes[2].nodeValue;
-                    let lastname   =        event.target.attributes[3].nodeValue;
-                    let address    =        event.target.attributes[4].nodeValue;
-                    let contact    =        event.target.attributes[5].nodeValue;
-                    let country    =        event.target.attributes[6].nodeValue;
+            if (this.readyState == 4 && this.status == 200) {
 
-                    let senderPhoneNumber      =        event.target.attributes[7].nodeValue;
-                    let recipientPhoneNumber     =        event.target.attributes[8].nodeValue;
-                
-                    let amount =   View.amountConverted.value;
+                if(!isNaN(amount) && !isNaN(View.amountConverted.value) && !isNaN(View.charge.value)){
 
-                    console.log(event.path[0].innerText);
+                                    let _id        =        event.target.attributes[1].nodeValue;
+                                    let firstname  =        event.target.attributes[2].nodeValue;
+                                    let lastname   =        event.target.attributes[3].nodeValue;
+                                    let address    =        event.target.attributes[4].nodeValue;
+                                    let contact    =        event.target.attributes[5].nodeValue;
+                                    let country    =        event.target.attributes[6].nodeValue;
 
-                    let  name = event.path[0].innerText
+                                    let senderPhoneNumber      =        event.target.attributes[7].nodeValue;
+                                    let recipientPhoneNumber     =        event.target.attributes[8].nodeValue;
+                                
+                                    let amount =   View.amountConverted.value;
 
-                    event.path[0].style.backgroundColor="blue";
+                                    console.log(event.path[0].innerText);
 
-                    let data  = {
+                                    let  name = event.path[0].innerText
 
-                                "_id":_id,
-                                "firstname":firstname,
-                                "lastname":lastname,
-                                "address":address,
-                                "contact":contact,
-                                "country":country,
-                                "senderPhoneNumber":senderPhoneNumber,
-                                "recipientPhoneNumber":recipientPhoneNumber,
-                                "amount":amount
+                                    event.path[0].style.backgroundColor="blue";
 
-                    } ;
+                                    let data  = {
 
-                    let  buttonState  = {
-                        "click":true
-                    };
+                                                "_id":_id,
+                                                "firstname":firstname,
+                                                "lastname":lastname,
+                                                "address":address,
+                                                "contact":contact,
+                                                "country":country,
+                                                "senderPhoneNumber":senderPhoneNumber,
+                                                "recipientPhoneNumber":recipientPhoneNumber,
+                                                "amount":amount
+
+                                    } ;
+
+                                    let  buttonState  = {
+                                        "click":true
+                                    };
+                                    
+                                    selectMessage.childNodes[0].innerHTML = text; 
                     
-                    selectMessage.childNodes[0].innerHTML = text; 
-    
-                    selectMessage.style.display    = "block";
-                    selectMessage.style.background = "black";
-                    selectMessage.style.border ="25px";
+                                    selectMessage.style.display    = "block";
+                                    selectMessage.style.background = "black";
+                                    selectMessage.style.border ="25px";
 
-                    window.localStorage.setItem('recipient', JSON.stringify(data));
+                                    window.localStorage.setItem('recipient', JSON.stringify(data));
+                                
+                                    window.localStorage.setItem('buttonState',JSON.stringify(buttonState));
+
+                                    Controller.storeCustomer();
+
+                                    Model.recipientSelectButtonState = window.localStorage.getItem('buttonState');
+                                    Model.recipient = window.localStorage.getItem('recipient');
+                                    Model.customerState =  window.localStorage.getItem("customer");
+                                     
+                }else{
+
+                    alert("Please  enter dollar  number amount"); 
+                }
                 
-                    window.localStorage.setItem('buttonState',JSON.stringify(buttonState));
-
-                    Model.recipientSelectButtonState = window.localStorage.getItem('buttonState');
-                    
-
-            }else{
-
-                alert("Please  enter dollar  number amount"); 
             }
+       };
+       xhttp.open("GET", "ajax_info.txt", true);
+       xhttp.send();
+          
 
-
+        
            
     }else{
 
