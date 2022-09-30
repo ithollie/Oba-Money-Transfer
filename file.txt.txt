@@ -1,0 +1,6 @@
+pymongo
+flask
+seleiunm
+flask_wft
+flask_mail
+passlib

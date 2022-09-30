@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <head>
+
+        </head>
+
+        <style>
+            .res-circle {
+              /* (A) PERCENTAGE WIDTH & BORDER RADIUS */
+              width: 20%;
+              border-radius: 50%;
+            
+              /* (B) BACKGROUND COLOR */ 
+              background: #bcd6ff;
+             
+              /* (C) NECESSARY TO POSITION TEXT BLOCK */
+              line-height: 0;
+              position: relative;
+            }
+             
+            /* (D) MATCH HEIGHT */
+            .res-circle::after {
+              content: "";
+              display: block;
+              padding-bottom: 100%;
+            }
+             
+            /* (E) TEXT BLOCK */
+            .circle-txt {
+              /* (E1) CENTER TEXT IN CIRCLE */
+              position: absolute;
+              bottom: 50%;
+              width: 100%;
+              font-weight: 700;
+              text-align: center;
+             
+              /* (E2) THE FONT - NOT REALLY IMPORTANT */
+              font-family: arial, sans-serif;
+              font-weight: bold;
+            }
+            </style>
+             
+            <div id="" style="background-color:red;  text-align: center; width:100%;height:30%">
+
+            
+                <div class="res-circle" style="float:right;background-color:yellow">
+                <div class="circle-txt"><a  href="{{url_for('login')}}" style="text-decoration: none; text-align: center;font-size:100%">Oba money transfer </a> </div>
+                </div>
+                <div class="res-circle" style="float:left;background-color:green">
+                    <div class="circle-txt" ><a href=" " style="text-decoration: none; text-align:center;font-size:100%" >Ruler credit transfer</a> </div>
+                </div>
+        </div>
+    </body>
+</html>

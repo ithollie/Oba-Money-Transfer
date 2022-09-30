@@ -1,0 +1,129 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="IbrahimThollie">
+<title>Oba Login </title>
+<link rel="stylesheet" href="{{url_for('static',filename='css/login.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='css/stylel.css')}}">
+<link rel='stylesheet' media='screen and (min-width: 164px) and (max-width: 900px)' href="{{url_for('static',filename='css/convert.css')}}" />
+<link type="text/css" rel="stylesheet" href="{{url_for('static', filename='css/materialize.min.css')}}"  media="screen,projection"/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+<link rel="shortcut icon" href="{{ url_for('static', filename='images/images.png') }}">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="{{url_for('static', filename='javascript/ajax.js')}}"></script>
+
+<script src="{{url_for('static', filename='javascript/system.js')}}"></script>
+<script src="{{url_for('static', filename='javascript/desk1.js')}}"></script>
+<script src="{{url_for('static', filename='javascript/requests.js')}}"></script>
+<script src="{{url_for('static', filename='javascript/likes.js')}}"></script>
+<script src="{{url_for('static', filename='javascript/carasal.js')}}"></script>
+
+
+</head>
+<body style="background:;background-image: url({{url_for('static', filename='images/nature.jp')}});background-repeat:no-repeat;background-size:cover;background-position:center;">
+	<div id="titlelogins" style="text-align:center;width:100%; height:10%;background-color:">
+        <div id="site_title" style="text-align:center">
+            <h1 style="text-align:center;margin: auto;padding-top:11px;text-align:center;background-color:#ff0066; font-size:42px; font-weight:700;color:rgb(7, 0, 0)">Oba Money Transfer</h1>
+
+        </div>
+   
+            <div id="" style="text-align:center; background-color:#ff0066;">
+                {% block body %}
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                        <ul>
+                            {% for message in messages %}
+                                <li style="font-family: Times, Times New Roman, Georgia, serif;color:black;font-size:43px;font-weight:700">{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    {% endwith %}
+                {% endblock %}
+            </div>
+	</div>
+  
+	<div id="wrapper">
+		<div id="state" style="padding-top: 1px;text-align:center; width:100%; height:100%">
+			<div id="stt" style="padding-top: 5px;width:60%; height:100%; text-align:center;margin:auto">
+				<div class="container">
+          <div class="row">
+            <div class="Absolute-Center is-Responsive">
+              
+              <div class="col-sm-12 col-md-10 col-md-offset-1">
+                <form  id="loginForm"  action="{{url_for('login_process')}}" method="post" role="form">
+                  <div class="form-group input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                    <input id="email" style="font-size:24px;border-radius: 10px;padding-left:12px;background-color:white;  color:black" class="form-control" type="text" name="email" placeholder="email" required/>
+                  </div>
+                  <div class="form-group input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                    <input id="password" style="border-radius: 10px;font-size:24px;padding-left:12px;color:black;background-color:white" class="form-control" type="password" name="password" placeholder="password" required/>
+                  </div>
+                  
+                  <div class="payer" style="font-size: 30px;">
+                    
+                       <a href="{{url_for('admin_login')}}" style="font-weight: 700;color:red">Payer login</a>
+                   
+                  </div>
+                  <div class="form-group" style="text-align:center;background-color:white;width:100%;">
+                    <button  id="btn" style="text-align: center;" type="submit" class="btnlogin btn btn-def btn-block">login</button>
+                  </div>
+                  <div class="form-group text-center">
+                    <a href="{{url_for('changePassword')}}" style="color:black;text-decoration: none;  font-weight:300;">Forgot Password</a>&nbsp;|&nbsp;<a href="#" style="color:white;font-weight:700;text-decoration: none;">Support</a>|&nbsp;<a href="{{url_for('register')}}" style="color:black;  font-weight:300;text-decoration: none;">signup</a>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+			</div>		
+			
+			</div>
+			
+        <!-- content items ends  -->
+        <footer class="page-footer" style="height:30%;position:relative;clear:both;background-color:#ff0066;">
+          <div class="container">
+            <div class="row">
+              <div class="col l6 s12">
+                <h5 class="white-text">Mission Statement</h5>
+                <span style="background:;color:white">Send with joy</span>
+              </div>
+              <div class="col l4 offset-l2 s12">
+                <ul>
+                  <li><a class="grey-text text-lighten-3" href="#!"></a></li>
+                  <li><a class="grey-text text-lighten-3" href="#!"></a></li>
+
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="">
+            <div class="container">
+              phone : 4844746760
+            </div>
+          </div>
+          <div class="">
+            <div class="container">
+              email :ithollie@yahoo.com
+            </div>
+          </div>
+          <div class="footer-copyright">
+            <div class="container">
+            © 2022 Copyright Oba Banking & Money  Transfer LLC.
+            </div>
+          </div>
+</footer>
+<!--  footer ends-->
+</div>
+
+<script>
+window.addEventListener(`DOMContentLoaded` ,cs.initialize);
+
+</script>
+</body>
+</html>

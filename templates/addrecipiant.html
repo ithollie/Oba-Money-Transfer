@@ -1,0 +1,443 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+      <!-- Modal meta -->
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+      <!-- title -->
+      <title>Oba Money  Transfer</title>
+      <!-- Modal Structure -->
+
+      <link   rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+      
+      <!-- Modal stylesheet -->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    	<link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
+    
+    
+      <link rel="stylesheet" href="{{url_for('static',filename='css/normalize.css')}}">
+      <!-- icon-->
+      <link rel="shortcut icon" href="{{ url_for('static', filename='images/images.png') }}">
+
+      
+      <!-- Modal Materialize -->
+
+      <link rel="stylesheet" href="{{url_for('static',filename='css/login.css')}}">
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      
+      <!-- Modal media jquery -->
+    	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <!-- Modal media queries -->
+      <link rel='stylesheet' media='screen and (min-width: 164px) and (max-width: 900px)' href="{{url_for('static',filename='css/convert.css')}}" />
+      <link rel="stylesheet" media='screen and (min-width: 163px) and (max-width: 482px)' href="{{url_for('static',filename='css/small.css')}}">
+      <link rel='stylesheet' media='screen and (min-width: 701px) and (max-width: 900px)' href='css/medium.css' />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Modal javascript links -->
+      <script src="{{url_for('static', filename='javascript/desk1.js')}}"></script>
+     
+</head>
+<body background-color:gray>
+        
+
+        <div id="modal2" class="modal" style="background-color:white; height:7%;top: 9%;position: absolute;overflow-y:;">
+            <div id="state" style="padding-top: 1px;background-image: url({{url_for('static', filename='images/.jpg')}}); background-color:;text-align:center; width:100%; height:100%">
+                  <div id="stt" style="padding-top: 5px;width:60%; height:100%; background-color:; text-align:center;margin:auto">
+                            <div class="container" style="background-color:">
+                                <div class="row">
+                                    <div class="Absolute-Center is-Responsive">
+                                    
+                                        <div class="col-sm-12 col-md-10 col-md-offset-1">
+                                            <form  id="loginForm" action="{{url_for('profile_picture')}}" method="post" enctype ="multipart/form-data">
+                                                <div class="form-group input-group">
+                                                    <span style="color:white" class="input-group-addon"><i class="glyphicon glyphicon-lock">select image</i></span>
+                                                    <input style="width:100%; border-radius: 0px;padding-left:12px;background-color:white" class="form-control" type="file" cols="80" name="file"  />
+                                                </div>
+                                                <div class="form-group">
+                                                    <button type="submit" class="btn btn-def btn-block">Submit</button>
+                                                </div>
+                                            
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                   </div>		
+                </div>
+        </div>
+
+      
+
+    
+        </div>
+
+        <!--  main wrapper start -->
+        <div id="wrapper" style="background-color:tail" data-key-id="" data-key-email="" data-key-first-name=""  data-key-last-name="">
+                  
+          <div id="userlogin" style="width:100%;  height:40%;position: relative; background-color: red;text-align: center;">
+
+              <div id="lastfirst" style="width:100%;height:100%;top:0px; background-color:white">
+                
+                <!-- lastname starts -->
+                <div id="" style="float:right;width:50%;height:100%;background-color:rgb(3, 3, 3)">
+                  <h1 id="login_user_last_name" style="font-size:21px;color:white;font-weight:700;font-style:bold">Ibrahim </h1>
+                </div>
+
+                <!--  lastname ends -->
+                <div id="" style="float:left;width:50%;height:100%;background-color:rgb(7, 7, 7)">
+                  <h1 id="login_user_first_name" class="iden" style="font-size:21px;color:white;font-weight:700;font-style:">Thollie</h1>
+                </div>
+              </div>
+          </div>
+
+          <div id="" class="inwork" style="margin-top:20px; margin-bottom:20px; width:100%; height:20%;background-color:;position:relative;text-align:center">
+
+                                        <div id="te">
+                                            <ul style="text-align:center;">
+                                                    <li><img class=" responsive-img" style="border-radius:0%;width: 10%;height: 10%;" src="/static/uploads/reg/download.png"  alt="" ></li>
+                                                    <li><img class=" responsive-img" style="border-radius:0%;width: 10%;height: 10%;" src="/static/uploads/reg/ghana.png"  alt=""></li>
+                                                    <li><img class=" responsive-img" style="border-radius:0%;width: 10%;height: 10%;" src="/static/uploads/reg/nigeria.png" alt=""></li>
+                                                    <li><img class=" responsive-img" style="border-radius:0%;width: 10%;height: 10%;" src="/static/uploads/reg/gunia.png"  alt=""></li>
+                                                    <li><img class=" responsive-img" style="border-radius:0%;width: 10%;height: 10%;" src="/static/uploads/reg/ivorcost.png" alt=""></li>
+                                                    <li><img class=" responsive-img" style="border-radius:0%;width: 10%;height: 10%;" src="/static/uploads/reg/Kana.png"  alt=""></li>
+                                            </ul>
+                                        </div>
+                      </div>
+                      <br>
+                  
+                      
+          <div id="notifications" style="width:100%; height:20%;background-color:#ffffff">
+            <div id="te" style="background-color:#ffffff; padding-top:0px;position:relative">
+                <ul>
+                    <li><a class="waves-effect waves-light btn lightgray" style="width:100px;color:white; text-decoration:none;background-color:" href="">Ruler</a></li>
+
+
+                    <li id="logout" ><a class="waves-effect waves-light btn red" style="text-transform: lowercase;color:white; text-decoration:none;background-color:" href="/logout"><i class="material-icons"></i>logout</i></a></li>
+                    <li id="addRecipiant"><a class="waves-effect waves-light btn lightgray" style="text-transform: uppercase;color:white; text-decoration:none;background-color:" href="{{url_for('addrecipiant')}}"><i class="material-icons"></i>Add recipiant</i></a></li>
+
+                </ul>
+              </div>
+        </div>
+        
+                    <h1 style="margin:auto; padding:0; text-align: center; font-weight: 700;"> Welcome  to  Oba money   transfer</h1>
+                    
+                    <div id="profile_image" style="width:100%;position: relative;  height:40%; background-color:;margin:auto;text-align: center;">
+                       <a class="modal-trigger" style="text-align:center;width:10%;height:auto; padding-top: 0px; margin: 0px;background-color:" href="#modal2">
+                        <img  class="circle responsive-img"  style="margin:auto" src="/static/uploads/{{image}}"  alt="">
+                        </a>
+                    </div>
+                    <div id="addphote" style="text-align: center;text-decoration:none;"><a class="modal-trigger" id="pasue" style="text-transform: lowercase;color:black; text-decoration:none;font-weight: bold;" href="#modal2"><i class=" small material-icons ">add_a_photo</i></a></div>
+
+         
+     
+  
+                    <!-- header starts -->
+                    <div  id="header" data-login="{{email}}" data-login-id="{{_id}}" style="background-position: 100px 5px;  background-size: 150px;text-align:center;    z-index: auto; background-color:white !important;background-image: url({{url_for('static', filename='images/.jpg')}});background-repeat:no-repeat;background-size:cover;background-position:center;" class="carousel-item red white-text" href="#one!">
+
+                      <div id="putid">
+                          <div id="put" style="margin:auto;width:80%;padding: 7px;">
+
+                              <input id="input" style="border: 3px solid black;background:white;font-weight:500; font-size:20px;padding-left:2px;background-color:white;color:black;border-radius:6px;width:60%;height:50px;-webkit-transition: width 0.4s ease-in-out;transition: width 0.4s ease-in-out;font-family: Times, Times New Roman, Georgia, serif;" type="text" name="post" placeholder=" Phone number" required="required">
+
+                          </div>
+                          <li id="sendBits"><a class="waves-effect waves-light btn red" style="text-transform: lowercase;color:white; text-decoration:none;background-color:red;  font-size:20px" ><i class="material-icons"></i>Search</i></a></li>
+                      </div>
+                      <div id="found_user" style="width:100%; height:70%;  background-color: gray;">
+                         <!--  div for first and last name-->
+                        <div id="profile_items" style="width:100%;height:20%;position:relative;top:0px; background-color:rgb(236, 219, 219)">
+                          
+                          <h1 style="margin:auto; padding:0;color:black; font-weight: 700;"> User   is found  or not  found</h1>
+                          <!-- lastname starts -->
+                          <div id="" style="float:right;width:50%;height:100%;background-color:#4a0741c7;">
+                            <h1 id="login_user_last_name" style="font-size:21px;color:white;font-weight:700;font-style:bold">Ibrahim </h1>
+                          </div>
+
+                          <!--  lastname ends -->
+                          <div id="" style="float:left;width:50%;height:100%;background-color:#4a0741c7">
+                            <h1 id="login_user_first_name" class="iden" style="font-size:21px;color:white;font-weight:700;font-style:">Thollie</h1>
+                          </div>
+                        </div>
+                        <table>
+                          <tr>
+                            <th style="color:black;font-weight: 700;">First Name</th>
+                            <th style="color:black;font-weight: 700">Last Name</th>
+                            <th style="color:black;font-weight: 700">Address</th>
+                            <th style="color:black;font-weight: 700">Contact</th>
+                            <th style="color:black;font-weight: 700">Country</th>
+                            <th style="color:black;font-weight: 700">Phone  Number</th>
+                          </tr>
+                          <tr>
+                            <td style="color:black;font-weight: 700;"><input id="" style="border: 3px solid black;background:white;font-weight:500; font-size:20px;padding-left:2px;background-color:white;color:black;border-radius:6px;width:60%;height:50px;-webkit-transition: width 0.4s ease-in-out;transition: width 0.4s ease-in-out;font-family: Times, Times New Roman, Georgia, serif;" type="text" name="post" placeholder=" First  Name" required="required">
+                              Ibrahim </td>
+                            <td style="color:black;font-weight: 700;">Thollie</td>
+                            <td style="color:black;font-weight: 700;">226 Wright  Avenue Darby PA  19023</td>
+                            <td style="color:black;font-weight: 700;">Phone</td>
+                            <td style="color:black;font-weight: 700;">United State </td>
+                            <td style="color:black;font-weight: 700;">4844746760</td>
+                          </tr>
+                          
+                        </table>
+                        <input type=number” />
+                        <input type=number” />
+                        <input type=number” />
+
+                        <li id="sendMoney"><a class="waves-effect waves-light btn green" style="margin-top:340px; text-transform: lowercase;color:white; text-decoration:none;background-color:red;  font-size:20px" ><i class="material-icons"></i>Send</i></a></li>
+
+                      </div>
+                       
+                        
+                     
+                       <!-- images -->
+                      <!--
+                         <div id="te" style="background-color:#ffffff;top: 15px; padding-top:0px;position:relative">
+                        <ul>
+                            <li style="margin:13px" id="sendmessages"><a class="" style="text-transform: lowercase;color:black; text-decoration:none;background-color:" href="#modal1"><i class="material-icons">cloud_upload</i></a></li>
+                            <li style="margin:13px;"id="sendmessages"><a class="" style="text-transform: lowercase;color:black; text-decoration:none;background-color:" href="/create_message"><i class="material-icons">create</i></a></li>
+                            <li style="margin:13px;" id="messages"><a class="" style="text-transform: lowercase;color:black; text-decoration:none;background-color:" href="/message"><i class="material-icons" >message</i>{{messageRe}}</a></li>
+                            <li style="margin:13px;" id="friends_accepted"><a class="" style="text-transform: lowercase;color:black; text-decoration:none;background-color:" href="/friends"><i class="material-icons">person_pin</i>{{friends}}</a></li>
+                            <li style="margin:13px;" id="friendRequest"><a class="" style="text-transform: lowercase;color:red; text-decoration:none;background-color:" href="/request"><i class="material-icons">feedback</i>{{requests}}</a></li>
+                        </ul>
+                      </div>
+                      -->
+                      
+
+                       <!-- images -->
+                      <div id="note" parent-data-key-parent="united states of america" style="width:100%;height:30%;background:white">
+
+                        <div id="alertDisplay" style="text-align:center;color:black; width:100%;height:auto;background-color:white">
+                          {% for i  in saysomething %}
+                          <div  style="margin: 1px; background:white">
+                              <p id="saysomethingi" style="text-align:left;background-color:white" id="{{i['login_email']+"paragraph"}}">
+                              {{i['text']}}
+                              </p>
+                                <div id="te" style="background-color:#ffffff; padding-top: 0px;">
+                                                <ul>  
+                                                
+                                                            <li class="requests waves-effect waves-light " href="#modal1" style="color:black; background-color:"><a style="color:black; text-decoration:none; text-transform: lowercase;"><i class="tiny material-icons">list</i></a></li><a style="color:black; text-decoration:none; text-transform: lowercase;">
+                                                            </a><li class="requests waves-effect waves-light "><a style="color:black; text-decoration:none; text-transform: lowercase;"></a><a style="color:black; text-decoration:none; text-transform: lowercase;"> <i class="tiny material-icons">comment</i><span style=""></span></a></li>
+                                                            <li class="requests waves-effect waves-light "><a style="color:black; text-decoration:none; text-transform: lowercase;"><i class="tiny material-icons">thumb_up</i><span style="font-size:18px ">0</span></a></li>
+                                                            <li class="requests waves-effect waves-light "><a style="color:black; text-decoration:none; text-transform: lowercase;"><i class="tiny material-icons">thumb_down</i><span style="font-size:18px ">0</span></a></li>
+                                                            <li class="requests waves-effect waves-light "><a style="color:black; text-decoration:none; text-transform: lowercase;"></a></li>
+                                              
+                                                </ul>
+                                  </div>
+                              
+                          </div>
+                        {% endfor %}
+                    </div>
+                      </div>
+
+                      <!-- images -->
+                      <div id="" style="text-align:center;padding-top:3px; width:100%;background-color:white">
+                          <h1 style="border-radius: 25px;color:#907f27;font-size:calc(calc(2vw + 1vh) + 0px); font-weight: 700;"></h1>
+                      </div>
+                     <!-- images -->
+                      
+                  
+                      </div>
+                
+                      <!-- images -->
+                      <div id="images">
+                          <div id="newimg_upload" style="margin-top: 12px;width:100%; height:20%;padding-right: 12px;background-color:white;position:relative">
+                                          <div id="te" style="height:40%;background-color:white; padding-top: 0px;">
+                                            <ul style="margin: 0px;text-align:left;">
+                                            {% for upload in uploads %}
+                                                <li style="margin: 0px;">
+                                                   <p style="background-color:white">{{upload['text']}}</p>
+                                                   <div id="pictwo" style="width:100%;background-color:white">
+                                                      <ul>
+                                                       
+                                                        <li style="margin:70px;">
+                                                          <img id="myImg" style="width:100%;padding-left:1px;padding-right:1px" src="/static/myboo/{{upload['img']}}" alt="" class=" responsive-img">
+                                                        </li>
+                                                        <li style="margin:70px;">
+                                                          <img id="myImg" style="width:100%;padding-left:1px;padding-right:1px" src="/static/myboo/{{upload['img']}}" alt="" class=" responsive-img">
+                                                        </li>
+                                                      </ul>
+                                                   </div>
+                                                   <div id="te" style="background-color:#ffffff; padding-top: 4px;">
+                                                        <ul>  
+                                            
+                                                            <li class="requests waves-effect waves-light " href="#modal1" style="color:black; background-color:"><a style="color:black; text-decoration:none; text-transform: lowercase;"><i class="small material-icons">list</i></li>
+                                                            <li class="requests waves-effect waves-light "><a style="color:black; text-decoration:none; text-transform: lowercase;"> <i class="tiny material-icons">comment</i><span style="font-size:18px"></span></a></li>
+                                                            <li class="requests waves-effect waves-light "><a style="color:black; text-decoration:none; text-transform: lowercase;"><i class="tiny material-icons">thumb_up</i><span style=" font-size:18px">{{upload['likes']}}</span></a></li>
+                                                            <li class="requests waves-effect waves-light "><a style="color:black; text-decoration:none; text-transform: lowercase;"><i class="tiny material-icons">thumb_down</i><span style=" font-size:18px">{{upload['dislikes']}}</span></a></li>
+                                                            <li class="requests waves-effect waves-light "><a style="color:black; text-decoration:none; text-transform: lowercase;"></a></li>
+                                          
+                                                        </ul>
+                                                    </div>
+                                                </li>
+                                            {% endfor %}    
+                                            </ul>
+                                          </div> 
+                                          
+                    
+                                         
+                          </div>
+                          
+                          <div id="te" class="" style="display: inline-flex;background-color:white;padding-top: 4px;margin:auto">
+                            {% block pictures %}
+                                {% for picture in pictures %}
+                                  <ul>  
+                                        <li><img  style="width: 50%;height: 90%;" src="/static/uploads/{{picture['img']}}" alt=""class=" responsive-img"></li>                
+                                  </ul>   
+                                {% endfor %}
+                            {% endblock %}        
+                          </div>
+                      </div>
+                
+                      <!-- content items start -->
+                      <div id="contents_items" style=" background-size: 150px;padding-top: 1px; background-color:#fcfbfb;text-align:center; width:100%; height:35%">
+                            {% block content %}
+                            {% for posts in blogs %}
+                            <!--  contents starts -->
+                            <div id="contents" data-key-author="{{posts['author']}}" data-key-name="{{posts['title']}}" data-key-email="{{posts['email']}}" data-key-id="{{posts['_id']}}"style="float:left;width:100%; height:100%; background-color:#ffffff; text-align:center;margin:auto; position:relative">	
+                                        <div id="div_video_and_picture" style="width:100%">
+                                            
+                                            <div id="picvide" >
+                                                <img id="myImg" src="static/uploads/{{posts['img']}}" alt="Snow" class=" responsive-img" >
+                                            </div>
+                                            <div id="tvshow">
+                                                <iframe id="youtub" width="100%" height="315" src="https://www.youtube.com/embed/xD6ACe2sUJM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                            </div>
+                                        </div>
+                                        
+                                        <div id="myModal" class="modals">
+                                              
+                                              <!-- notice the "circle" class -->
+                                              <div id="myModal" class="modalmg">
+
+                                                    <!-- The Close Button -->
+                                                    <span class="close">&times;</span>
+
+                                                    <!-- Modal Content (The Image) -->
+                                                    <img class="modal-content" id="img01">
+
+                                                    <!-- Modal Caption (Image Text) -->
+                                                    <div id="caption"></div>
+                                              </div>
+                                        </div>
+                                        
+                                        <div id="details" style="border-raduis: 15px;width:;padding-top: 15px;background:#ffffff;margin:12px;height: 60px;">
+                                            <h2  style="color:black;float:left; font-size:1vw;font-style: normal; font-weight:700;  margin:auto; text-align:center;"><i class="material-icons">person</i><span id="ut">{{posts['author']}}</span></h2>
+                                            <h2  style="color:black;float:right; font-size:1vw;font-style: normal; font-weight:700;  margin:auto; text-align:center;"><i class="material-icons">title</i><span id="ut">{{posts['title']}}</span></h2>
+                                        </div>
+                                        
+                                        <div class="">
+
+                                            <P style="color:black; background-color:white">hello   ___{{posts['description']}}</P>
+                                          
+                                                
+                                            
+                                            <div id="title" data="{{posts['title']}}" style="width:100%;margin:center; height:5%;background-color:#ffffff">
+                                                <ul id="post-key-post-email" data-key-post-name="{{posts['title']}}" data-key-post-email="{{posts['email']}}" data-key-post-id="{{posts['_id']}}">
+                                                    <li data-key-author="{{posts['author']}}" data-key-name="{{posts['title']}}" data-key-email="{{posts['email']}}" data-key-id="{{posts['_id']}}" id="createRequests" data-key-receiver="{{posts['_id']}}" data-key-post="{{posts['_id']}}" class="requests waves-effect waves-light " href="#modal1" style="color:black; background-color:"><a style="color:black; text-decoration:none; text-transform: lowercase;"><i class=" small material-icons">list</i></li>
+                                                    <li data-key-author="{{posts['author']}}" data-key-name="{{posts['title']}}" data-key-email="{{posts['email']}}" data-key-id="{{posts['_id']}}" id="createRequests" data-key-receiver="{{posts['_id']}}" data-key-post="{{posts['_id']}}" class="requests waves-effect waves-light " href="#modal1" style="color:black; background-color:"><a style="color:black; text-decoration:none; text-transform: lowercase;"><i class="delete small material-icons">delete</i></li>
+                                                    <li data-key-author="{{posts['author']}}" data-key-name="{{posts['title']}}" data-key-email="{{posts['email']}}" data-key-id="{{posts['_id']}}" id="createRequests" data-key-receiver="{{posts['_id']}}" data-key-post="{{posts['_id']}}" class="requests waves-effect waves-light " href="#modal1" style="color:black; background-color:"><a style="color:black; text-decoration:none; text-transform: lowercase;"><i class=" tiny material-icons">mode_comment</i></li>
+                                                    <li data-key-author="{{posts['author']}}" data-key-name="{{posts['title']}}" data-key-email="{{posts['email']}}" data-key-id="{{posts['_id']}}" id="requests" data-key-receiver="{{posts['_id']}}" data-key-post="{{posts['_id']}}" class="requests waves-effect waves-light " style="color:black; background-color:"><a style="color:black; text-decoration:none;text-transform: lowercase;"><i class="tiny material-icons">import_export</i></li>
+                                                    <li data-key-author="{{posts['author']}}" data-key-name="{{posts['title']}}" data-key-email="{{posts['email']}}" data-key-id="{{posts['_id']}}" id="comments" data-key-commenter="" data-key-post="{{posts['_id']}}" class="waves-effect waves-light   modal-trigger" href="#modal1" style="color:black; background-color:"><a style="color:black; text-decoration:none;text-transform: lowercase;"><i class="tiny material-icons">comment</i><span id="{{posts['title']+"_blogcomment"}}"> {{posts['numberOfcomments']}}</span></a></li>
+                                                    <li data-key-author="{{posts['author']}}" data-key-name="{{posts['title']}}" data-key-email="{{posts['email']}}" data-key-id="{{posts['_id']}}" id="likes" data-key-likes="" data-key-post="{{posts['_id']}}" class="waves-effect waves-light" style="color:black; background-color:"><a id="num" style="color:black; text-decoration:none;  text-transform: lowercase;"><i class="tiny material-icons">thumb_up</i><span style="font-size:18px" id="splikes">  {{posts['likes']}}</span></li>
+                                                    <li data-key-author="{{posts['author']}}" data-key-name="{{posts['title']}}" data-key-email="{{posts['email']}}" data-key-id="{{posts['_id']}}" id="dislikes" data-key-dilikes="" data-key-post="{{posts['_id']}}" class="waves-effect waves-light" style="color:black; background-color:"><a id="num" style="color:black; text-decoration:none; text-transform: lowercase;"><i class="tiny material-icons">thumb_down</i><span style="font-size:18px" id="spdislikes">{{posts['dislikes']}}</span></li>
+                                                </ul>
+                                            </div>
+
+                                        </div>
+                                        <div class="holder" holder-data-key-title="{{posts['title']}}"  style="color:black;:white; width:100%;text-decoration:none; text-align:left; background-color:; height:auto"></div>
+                                        
+                                        <div parent-data-key-parent="{{posts['title']}}" style="background-color:white" >
+                                              <input class="_input" id="{{posts['title']}}" style="border: 1px solid lightgray; font-size:19px;padding-left:2px;background-color:#f1f4f7;color:black;border-radius:7px;width:90%;-webkit-transition: width 0.4s ease-in-out;transition: width 0.4s ease-in-out;" type="text" name="post" placeholder="leave a comment" required>
+                                              <span id="send" style="color:black;font-size:20px; background-color:white;" data-key-author="{{posts['author']}}" data-key-name="{{posts['title']}}" data-key-email="{{posts['email']}}" data-key-id="{{posts['_id']}}"id="comments" data-key-commenter=""  data-key-post="{{posts['_id']}}" class="send" >send</span>
+                                            
+                                        </div>
+                          
+                              </div>  
+                              <!-- contents   ends -->
+                            
+                            {% endfor %}
+                            {% endblock %}
+                      </div>
+                       <!-- content items ends  -->
+                        <footer class="page-footer" style="height:30%;position:relative;clear:both;background-color:#1c1216;">
+                              <div class="container">
+                                <div class="row">
+                                  <div class="col l6 s12">
+                                    <h5 class="white-text">Mission Statement</h5>
+                                    <span style="background:;color:white">Send with joy</span>
+                                  </div>
+                                  <div class="col l4 offset-l2 s12">
+                                    <ul>
+                                      <li><a class="grey-text text-lighten-3" href="#!"></a></li>
+                                      <li><a class="grey-text text-lighten-3" href="#!"></a></li>
+
+                                    </ul>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="footer-copyright">
+                                <div class="container">
+                                © 2019 Copyright PayBits inc.
+                                </div>
+                              </div>
+                    </footer>
+                        <!--  footer ends-->
+            </div>
+
+      
+
+        <script> 
+
+                document.addEventListener('DOMContentLoaded', function() {
+                    var elems = document.querySelectorAll('.modal');
+                    var instances = M.Modal.init(elems);
+                  });
+
+                  // Or with jQuery
+
+                  $(document).ready(function(){
+                    $('.modal').modal();
+                  });
+                  $(document).ready(function(){
+                    $('.modal').modal();
+                  });
+                  var instance = M.Modal.getInstance(true);
+                  
+        </script>
+            
+        <script>
+              // Get the modal
+              var modal = document.getElementById("myModal");
+
+              // Get the image and insert it inside the modal - use its "alt" text as a caption
+              var img = document.querySelectorAll("#myImg");
+              var modalImg = document.getElementById("img01");
+              var captionText = document.getElementById("caption");
+
+              img.forEach(elements=>{
+                  elements.addEventListener('click',function(){
+                  modal.style.display = "block";
+                  modalImg.src = this.src;
+                  captionText.innerHTML = this.alt;
+                })
+              });
+
+              // Get the <span> element that closes the modal
+              var span = document.getElementsByClassName("close")[0];
+
+              // When the user clicks on <span> (x), close the modal
+            if (span != null) {
+                span.onclick = function () {
+                    modal.style.display = "none";
+                }
+            }
+        </script>
+
+        <script>
+
+                window.addEventListener(`DOMContentLoaded` ,Controller.initialize);
+     
+        </script>
+</body>
+</html>

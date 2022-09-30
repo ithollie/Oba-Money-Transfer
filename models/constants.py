@@ -1,0 +1,3 @@
+COLLECTION="users"
+CUSTOMER_COLLECTION="customers"
+RECIPIENT_COLLECTION="recipients"
