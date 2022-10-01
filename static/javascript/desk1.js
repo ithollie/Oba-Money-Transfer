@@ -231,7 +231,6 @@ $(document).keyup(function(event) {
     }
     }
 });
-
 Controller.cardSubmitButton = function(){
 
     let carMessage  = document.getElementById("cardMessage");
@@ -244,7 +243,6 @@ Controller.addcard =  function(){
     alert("addcard button  has been  clicked ");
 
 }
-
 Controller.storeCustomer = function(){
 
         let firstname  =  View.inputFirstNameCustomer.value;
@@ -252,20 +250,31 @@ Controller.storeCustomer = function(){
         let address    =  View.inputAddressCustomer.value;
         let contact    =  View.inputContactCustomer.value;
         let country    =  View.inputCountryCustomer.value;
-        let phone      =  View.inputPhoneNumberCustomer.value; 
+        let phone      =  View.inputPhoneNumberCustomer.value;
+        let _id        =  View.inputFirstNameCustomer.attributes[1].nodeValue;
+
+        console.log(_id);
 
         let data   =  null;  
 
         if(firstname.length > 3  &&  lastname.length > 3 &&  address.length > 3){
 
-           data =  {"first":firstname,"lastname":lastname, "address":address,"contact":contact,"country":country, "phone":phone, "state":true};
+           data =  {"first":firstname,
+           "lastname":lastname, 
+           "address":address,
+           "contact":contact,
+           "country":country, 
+           "phone":phone, 
+           "_id":_id,
+           "state":true,
+
+        };
            
            window.localStorage.setItem('customer', JSON.stringify(data)); 
         }
         
         
 }
-
 Controller.customerState =  function(){
 
     
@@ -285,7 +294,6 @@ Controller.customerState =  function(){
     }
 
 }
-
 Controller.sendMoneyMainbutton = function(){
 
      alert("You  are  sending  money ---> "); 
@@ -295,11 +303,9 @@ Controller.sendMoneyMainbutton = function(){
 
     if (amountConverted.length > 3 && amoutInDallor.length > 3 &&  Model.customerState != null &&  Model.recipient !=  null){  
             
-            if( Model.recipient !=  null){
-                alert(" Model.recipient ==  null "); 
-            }
-
+           
             if(!isNaN(amountConverted) && !isNaN(amoutInDallor)){
+
                 alert("Everything  is fine "); 
 
                 console.log("CUSTOMER  DATA  "); 
@@ -335,6 +341,7 @@ Controller.sendMoneyMainbutton = function(){
                             "address":recipient['address'],
                             "contact":recipient['contact'],
                             "country":recipient['country'],
+                            "_id":recipient['_id'],
                             "senderPhoneNumber":recipient['senderPhoneNumber'],
                             "recipientPhoneNumber":recipient['recipientPhoneNumber']
                         
@@ -353,7 +360,7 @@ Controller.sendMoneyMainbutton = function(){
                         window.localStorage.removeItem('customer');
                         window.localStorage.removeItem('recipient');
                         window.localStorage.removeItem('buttonState');
-                        
+
                         event.preventDefault(); 
                         
                 }else{
@@ -374,7 +381,6 @@ Controller.sendMoneyMainbutton = function(){
     
    
 }
-
 Controller.customerIsNoTAvaliable =  function(){
 
     let v  = null; 
@@ -392,7 +398,6 @@ Controller.customerIsNoTAvaliable =  function(){
         View.addNewCustomer.style.display="block";
     }
 }
-
 Controller.selectRecipient =  function(){
 
     
@@ -403,7 +408,6 @@ Controller.selectRecipient =  function(){
             View.recipients[i].addEventListener('click', Controller.runRecipient);
         }
     }
-
 }
 Controller.recipiantAddOtherRecipient = function(event){
     

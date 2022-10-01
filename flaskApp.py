@@ -11,7 +11,8 @@ import datetime
 import socket
 from hashlib import md5
 from flask import   jsonify
-
+import  secrets
+import string 
 from common.database import Database
 from common.Utils import utils
 from RegisterForm.RegisterForm import RegForm as Form
@@ -212,24 +213,30 @@ def api():
 @app.route('/submitPayment' ,  methods=['GET', 'POST'])
 def  submitPayment():
     if  request.method == "POST":
-
+        N = 7
         recipientFirstName  =  request.get_json()['firstname']
         recipientLasttName  =  request.get_json()['lastname']
         recipientAddress  =  request.get_json()['address']
         recipientContact  =  request.get_json()['contact']
         recipientCountry  =  request.get_json()['country']
+        Recipient_id      =  request.get_json()['_id']
         recipientPhoneNumber  =  request.get_json()['recipientPhoneNumber']
-
         senderPhoneNumber  =  request.get_json()['senderPhoneNumber']
-
 
         email  = request.cookies.get('login_email')
 
-        print(recipientFirstName)
+        # using secrets.choice()
+        # generating random strings
+        res = ''.join(secrets.choice(string.ascii_uppercase + string.digits)
+              for i in range(N))
+
+        print(res)
+        print("Recipient  first name " +  recipientFirstName)
         print(recipientLasttName)
         print(recipientAddress)
         print(recipientContact)
         print(recipientCountry)
+        print(Recipient_id)
         print("Recipient  phone number " +  recipientPhoneNumber)
         print("Reciver phone  number " + senderPhoneNumber )
 
