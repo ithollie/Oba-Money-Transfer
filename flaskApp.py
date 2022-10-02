@@ -247,9 +247,6 @@ def  submitPayment():
         return redirect(url_for('welcome' ,  email=email))  
 
 
-    
-   
-
 @app.route('/editSender', methods=['GET', 'POST'])
 def editSender():
         

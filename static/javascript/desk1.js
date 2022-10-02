@@ -9,6 +9,7 @@ Controller.initialize  =  function(eventObject){
   Model.customerState =  window.localStorage.getItem("customer");
   Model.recipient =     window.localStorage.getItem('recipient');
   Model.recipientSelectButtonState = window.localStorage.getItem('buttonState');
+  Model.paymentMethod  = window.localStorage.getItem('paymentMethod');
 
   View.topup = document.getElementById("topup");
 
@@ -313,7 +314,6 @@ Controller.sendMoneyMainbutton = function(){
         
         ){  
             
-           
             if(!isNaN(amountConverted) && !isNaN(amoutInDallor)){
 
 
@@ -441,12 +441,10 @@ Controller.selectRecipient =  function(){
         }
     }
 }
-
 Controller.paymentMethod =  function(){
 
     if(View.paymentMethods != undefined &&  View.paymentMethods != null){
 
-    
         for (let i = 0; i < View.paymentMethods.length; i++) {
 
             View.paymentMethods[i].addEventListener('click', Controller.activePayment);
@@ -454,12 +452,26 @@ Controller.paymentMethod =  function(){
     }
 
 }
-
 Controller.activePayment = function(event){
 
-    alert("Pay   has  been  activated ");
-}
+    if(Model.paymentMethod == null){
 
+        console.log("CONDITION this"  + event.target.attributes[1].nodeValue);
+
+        Model.paymentMethod =  window.localStorage.setItem('paymentMethod',JSON.stringify({"paymentMethod":event.target.attributes[1].nodeValue}));
+
+
+    }
+
+    if(Model.paymentMethod != null){
+
+        console.log("CONDITION " +  event.target.attributes[1].nodeValue);
+
+        Model.paymentMethod =  window.localStorage.setItem('paymentMethod',JSON.stringify({"paymentMethod":event.target.attributes[1].nodeValue}));
+
+    }
+    
+}
 Controller.recipiantAddOtherRecipient = function(event){
     
     let  v  = document.getElementById("recipiantAddOtherRecipientTable").style.display= "block";
