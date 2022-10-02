@@ -212,39 +212,43 @@ def api():
 
 @app.route('/submitPayment' ,  methods=['GET', 'POST'])
 def  submitPayment():
-    if  request.method == "POST":
-        N = 7
-        recipientFirstName  =  request.get_json()['firstname']
-        recipientLasttName  =  request.get_json()['lastname']
-        recipientAddress  =  request.get_json()['address']
-        recipientContact  =  request.get_json()['contact']
-        recipientCountry  =  request.get_json()['country']
-        Recipient_id      =  request.get_json()['_id']
-        recipientPhoneNumber  =  request.get_json()['recipientPhoneNumber']
-        senderPhoneNumber  =  request.get_json()['senderPhoneNumber']
+        if  request.method == "POST":
 
+            try:
+                    N = 3
+                    recipientFirstName  =  request.get_json()['firstname']
+                    recipientLasttName  =  request.get_json()['lastname']
+                    recipientAddress  =    request.get_json()['address']
+                    recipientContact  =    request.get_json()['contact']
+                    recipientCountry  =    request.get_json()['country']
+                    Recipient_id      =    request.get_json()['_id']
+                    recipientPhoneNumber  =  request.get_json()['recipientPhoneNumber']
+                    senderPhoneNumber  =   request.get_json()['senderPhoneNumber']
+                    sentAmount          =  request.get_json()['sentAmount']
+
+                    email  = request.cookies.get('login_email')
+
+                    code = 'AA'.join(secrets.choice(string.ascii_uppercase + string.digits)
+                        for i in range(N))
+
+                    Database.insert("payments", { "recipientFirstName":recipientFirstName,"recipientLastName":recipientLasttName, 
+                        "recipientAddress":recipientAddress,"recipientContact":recipientContact,"recipientCountry":recipientCountry,
+                        "recipient_id":Recipient_id,"recipientPhoneNumber":recipientPhoneNumber,
+                        "senderPhoneNumber":senderPhoneNumber,"amount":sentAmount,"code":code})
+
+                    print("recipientFirstName => " + recipientLasttName)
+
+                    return redirect(url_for('welcome' ,  email=email))
+            except Exception  as  e:
+                print(e)
+            
         email  = request.cookies.get('login_email')
+        print("Some  thing is  wrong ")
+        return redirect(url_for('welcome' ,  email=email))  
 
-        # using secrets.choice()
-        # generating random strings
-        res = ''.join(secrets.choice(string.ascii_uppercase + string.digits)
-              for i in range(N))
 
-        print(res)
-        print("Recipient  first name " +  recipientFirstName)
-        print(recipientLasttName)
-        print(recipientAddress)
-        print(recipientContact)
-        print(recipientCountry)
-        print(Recipient_id)
-        print("Recipient  phone number " +  recipientPhoneNumber)
-        print("Reciver phone  number " + senderPhoneNumber )
-
-        return redirect(url_for('welcome' ,  email=email))
-
-    email  = request.cookies.get('login_email')
-
-    return redirect(url_for('welcome' ,  email=email))
+    
+   
 
 @app.route('/editSender', methods=['GET', 'POST'])
 def editSender():

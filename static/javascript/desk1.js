@@ -24,6 +24,7 @@ Controller.initialize  =  function(eventObject){
   View.addNewCustomer = document.getElementById("addNewCustomer");
   
   View.recipients   = document.querySelectorAll(".recipient");
+  View.paymentMethods =  document.querySelectorAll(".paymentMethod");
 
   View.search = document.getElementById("search");
 
@@ -152,23 +153,24 @@ Controller.initialize  =  function(eventObject){
 
  }
 
-  if(View.save_sender !=  null){
+if(View.save_sender !=  null){
 
     View.save_sender.addEventListener('click' ,  Controller.editSender);
 
-  }
+}
   
-  if(View.clear  != null){
+if(View.clear  != null){
 
     View.clear.addEventListener('click', Controller.clear);
-  }
+}
 
- if(View.search != null){
+if(View.search != null){
 
       View.search.addEventListener('keyup' , Controller.validateForm);
   
- }
+}
 Controller.selectRecipient();
+Controller.paymentMethod();
    
 }
 
@@ -296,17 +298,24 @@ Controller.customerState =  function(){
 }
 Controller.sendMoneyMainbutton = function(){
 
-     alert("You  are  sending  money ---> "); 
+     alert("You  are  sending  money "); 
 
      let  amoutInDallor    = View.amoutInDallor.value; 
      let  amountConverted  = View.amountConverted.value;
 
-    if (amountConverted.length > 3 && amoutInDallor.length > 3 &&  Model.customerState != null &&  Model.recipient !=  null){  
+    if (amountConverted.length > 3 && amoutInDallor.length > 3 && 
+        
+        Model.customerState != null &&  Model.recipient !=  null
+
+        &&  amountConverted  != "" && amoutInDallor != ""
+
+        && amoutInDallor.replace(/\s/g, "") !=  "" &&  amountConverted.replace(/\s/g, "") !=""
+        
+        ){  
             
            
             if(!isNaN(amountConverted) && !isNaN(amoutInDallor)){
 
-                alert("Everything  is fine "); 
 
                 console.log("CUSTOMER  DATA  "); 
                 console.log(Model.customerState);
@@ -343,8 +352,9 @@ Controller.sendMoneyMainbutton = function(){
                             "country":recipient['country'],
                             "_id":recipient['_id'],
                             "senderPhoneNumber":recipient['senderPhoneNumber'],
-                            "recipientPhoneNumber":recipient['recipientPhoneNumber']
-                        
+                            "recipientPhoneNumber":recipient['recipientPhoneNumber'], 
+                            "sentAmount":recipient['amount']
+                           
                             } ),
                             contentType: "application/json; charset=utf-8",
                             dataType: "json",
@@ -374,8 +384,29 @@ Controller.sendMoneyMainbutton = function(){
 
     }else{
 
+        if(Model.customerState == null &&  Model.recipient ==  null){
 
-        alert("Fields are  Empty please  enter dallor amount");
+            alert("Please select a recipient to  continue ");
+
+        }
+
+        if(amountConverted.length < 3 && amoutInDallor.length < 3 ){
+            
+            alert("Input must  be  greater  than 3 ");
+
+        }
+
+        if(amountConverted  == "" && amoutInDallor == ""){
+
+            alert("One  or  two  fields are  Empty");
+
+        }
+
+        if(amoutInDallor.replace(/\s/g, "") ==  "" &&  amountConverted.replace(/\s/g, "") ==""){
+
+            alert("Please  enter  some valuable  value");
+        }
+       
     }
     
     
@@ -403,12 +434,32 @@ Controller.selectRecipient =  function(){
     
     if(View.recipients != undefined &&  View.recipients != null){
 
+    
         for (let i = 0; i < View.recipients.length; i++) {
 
             View.recipients[i].addEventListener('click', Controller.runRecipient);
         }
     }
 }
+
+Controller.paymentMethod =  function(){
+
+    if(View.paymentMethods != undefined &&  View.paymentMethods != null){
+
+    
+        for (let i = 0; i < View.paymentMethods.length; i++) {
+
+            View.paymentMethods[i].addEventListener('click', Controller.activePayment);
+        }
+    }
+
+}
+
+Controller.activePayment = function(event){
+
+    alert("Pay   has  been  activated ");
+}
+
 Controller.recipiantAddOtherRecipient = function(event){
     
     let  v  = document.getElementById("recipiantAddOtherRecipientTable").style.display= "block";
@@ -430,6 +481,12 @@ Controller.runRecipient = function(event){
      
      if (View.amoutInDallor.value != null && View.amoutInDallor.value != "" && View.amountConverted.value != null &&  View.amountConverted.value !="" && View.charge.value          != null &&  View.charge.value !=""){      
         
+       let  charge  =  document.getElementById("charge");
+
+       console.log("The changing value " +  charge.value); 
+
+       charge.value =  "8.5";
+
        var xhttp = new XMLHttpRequest();
        xhttp.onreadystatechange = function() {
 
@@ -522,7 +579,6 @@ Controller.insertCustomer = function(event){
 
     alert("insertCustomer  has  been  clicked yaya ");
 
-    
     // Customer  table id's 
     let firstname  =  View.inputFirstNameCustomer.value;
     let lastname   =  View.inputLastNameCustomer.value;
@@ -601,7 +657,7 @@ Controller.insertCustomer = function(event){
         
     }else{
 
-        //alert("The  function  return " +  Controller.senderLoop(inputArray));
+
         alert("One   or  more  fields don't   meet  the requirement ");
     }
 
@@ -911,84 +967,7 @@ Controller.refreshPage = function(){
 
     View.found_user.style.display = "block"
 }
-Controller.saysomething = function(event){
 
-    console.log($(".iden")[0].innerText);
-    console.log($("#header")[0].attributes[1].value);
-    console.log($("#header")[0].attributes[2].value);
-    let saysomething_comment = document.getElementById($("#header")[0].attributes[1].value+"_comment").value;
-    if (saysomething_comment === '') {
-        alert("You must write something!");
-    }
-    if(saysomething_comment !="" && document.getElementById("ithollie@yahoo.comparagraph") == null){
-        
-        let saysomething_comment = document.getElementById($("#header")[0].attributes[1].value+"_comment").value;
-        
-       $.ajax({
-              type: "POST",
-              url: "/saysomething",
-              data: JSON.stringify({
-        
-              "_user":$(".iden")[0].innerText,
-              "_email":$("#header")[0].attributes[1].value, 
-              "_id":$("#header")[0].attributes[2].value,
-              "_text":saysomething_comment
-
-               
-              } ),
-              contentType: "application/json; charset=utf-8",
-              dataType: "json",
-              success: function (data) {
-                    console.log(data);
-              }
-          })
-        event.preventDefault();
-        document.getElementById($("#header")[0].attributes[1].value+"_comment").value = ""
-        
-        for(let i = 0; i < View.holder.length; i++){
-            if (View.holder[i].attributes[1].value == title){   
-                View.holder[i].appendChild(li);
-                event.target.parentNode.childNodes[1].value ="";
-                
-           }
-       }
-    }
-    if (saysomething_comment !="" && document.getElementById("ithollie@yahoo.comparagraph").innerHTML !=""){
-    
-        let saysomething_comment = document.getElementById($("#header")[0].attributes[1].value+"_comment").value;
-        document.getElementById("ithollie@yahoo.comparagraph").innerHTML = saysomething_comment;
-       $.ajax({
-              type: "POST",
-              url: "/saysomething",
-              data: JSON.stringify({
-        
-              "_user":$(".iden")[0].innerText,
-              "_email":$("#header")[0].attributes[1].value, 
-              "_id":$("#header")[0].attributes[2].value,
-              "_text":saysomething_comment
-
-               
-              } ),
-              contentType: "application/json; charset=utf-8",
-              dataType: "json",
-              success: function (data) {
-                    console.log(data);
-              }
-          })
-        event.preventDefault();
-        document.getElementById($("#header")[0].attributes[1].value+"_comment").value = ""
-        for(let i = 0; i < View.holder.length; i++){
-            if (View.holder[i].attributes[1].value == title){   
-                View.holder[i].appendChild(li);
-                event.target.parentNode.childNodes[1].value ="";
-                
-           }
-       }
-    }
-    
-   
-    
-}
 
 
 
