@@ -4,13 +4,20 @@ const  View =  {};
 const  Controller =  {};
 
 
+Model.recipientSelectButtonState = window.localStorage.getItem('buttonState');
+Model.paymentMethod  =      window.localStorage.getItem('paymentMethod');
+Model.paymentClick         = window.localStorage.getItem('paymentClick'); 
+
+
 Controller.initialize  =  function(eventObject){
 
   Model.customerState =  window.localStorage.getItem("customer");
   Model.recipient =     window.localStorage.getItem('recipient');
-  Model.recipientSelectButtonState = window.localStorage.getItem('buttonState');
-  Model.paymentMethod  = window.localStorage.getItem('paymentMethod');
 
+
+  View.paymentCard  =  document.getElementById("paymentCard");
+  View.paymentCash  =  document.getElementById("paymentCash");
+  
   View.topup = document.getElementById("topup");
 
   View.data_key_customer_data = document.getElementById("data-key-customer-data");
@@ -443,35 +450,104 @@ Controller.selectRecipient =  function(){
 }
 Controller.paymentMethod =  function(){
 
-    if(View.paymentMethods != undefined &&  View.paymentMethods != null){
+    for (let i = 0; i < View.paymentMethods.length; i++) {
+            
+            if(Model.paymentMethod == null){
 
-        for (let i = 0; i < View.paymentMethods.length; i++) {
+                View.paymentMethods[i].addEventListener('click', Controller.activePayment);
 
-            View.paymentMethods[i].addEventListener('click', Controller.activePayment);
-        }
-    }
-
-}
-Controller.activePayment = function(event){
-
-    if(Model.paymentMethod == null){
-
-        console.log("CONDITION this"  + event.target.attributes[1].nodeValue);
-
-        Model.paymentMethod =  window.localStorage.setItem('paymentMethod',JSON.stringify({"paymentMethod":event.target.attributes[1].nodeValue}));
+            }
+             if(Model.paymentMethod != null){
 
 
-    }
-
-    if(Model.paymentMethod != null){
-
-        console.log("CONDITION " +  event.target.attributes[1].nodeValue);
-
-        Model.paymentMethod =  window.localStorage.setItem('paymentMethod',JSON.stringify({"paymentMethod":event.target.attributes[1].nodeValue}));
-
+                View.paymentMethods[i].addEventListener('click', Controller.activePayment);
+ 
+            }
     }
     
 }
+Controller.activePayment = function(event){
+
+    //  check  for  card or  cash 
+    let  currentBackgroundColorStyle  = null; 
+
+   
+    if(Model.paymentMethod == null && Model.paymentClick == null){
+
+        View.paymentCard.style.backgroundColor = "black";
+
+        console.log("first try "  + event.target.attributes[1].nodeValue + " and  model paymentMethod = " + Model.paymentMethod);
+
+        window.localStorage.setItem('paymentMethod',JSON.stringify({"paymentMethod":event.target.attributes[1].nodeValue}));
+
+        Model.paymentMethod =  JSON.parse(window.localStorage.getItem("paymentMethod"));
+
+        console.log("NEW  INSERTION " +  window.localStorage.getItem("paymentMethod")+ "  AND " + Model.paymentMethod['paymentMethod']); 
+
+        window.localStorage.setItem('paymentClick',JSON.stringify({"paymentClick":1}));
+
+        Model.paymentClick =  JSON.parse(window.localStorage.getItem("paymentClick"));
+
+        View.paymentCash.style.backgroundColor = "green";
+
+
+    }else{
+
+        View.paymentCard.style.backgroundColor = "green";
+
+        console.log("first try "  + event.target.attributes[1].nodeValue + " and  model paymentMethod = " + Model.paymentMethod);
+
+        window.localStorage.setItem('paymentMethod',JSON.stringify({"paymentMethod":event.target.attributes[1].nodeValue}));
+
+        Model.paymentMethod =  JSON.parse(window.localStorage.getItem("paymentMethod"));
+
+        console.log("NEW  INSERTION " +  window.localStorage.getItem("paymentMethod")+ "  AND " + Model.paymentMethod['paymentMethod']); 
+
+        window.localStorage.setItem('paymentClick',JSON.stringify({"paymentClick":1}));
+
+        Model.paymentClick =  JSON.parse(window.localStorage.getItem("paymentClick"));
+
+        View.paymentCash.style.backgroundColor = "black";
+    }
+    
+    if(Model.paymentMethod != null && Model.paymentClick != null){
+           
+            Model.paymentMethod = null ;
+
+            Model.paymentClick = null;
+
+            View.paymentCard.style.backgroundColor = "green";
+           
+            currentBackgroundColorStyle   = currentBackgroundColorStyle;
+
+            event.target.style.backgroundColor = "";
+            
+            window.localStorage.removeItem("paymentMethod"); 
+
+            window.localStorage.removeItem("paymentClick");
+
+            console.log("second  try" +  event.target.attributes[1].nodeValue);
+
+            window.localStorage.setItem('paymentMethod',JSON.stringify({"paymentMethod":event.target.attributes[1].nodeValue}));
+        
+            window.localStorage.setItem('paymentClick',JSON.stringify({"paymentClick":0}));
+
+            Model.paymentMethod =  JSON.parse(window.localStorage.getItem("paymentMethod"));
+
+            Model.paymentClick =  JSON.parse(window.localStorage.getItem("paymentClick"));
+
+            View.paymentCash.style.backgroundColor = "black";
+
+            console.log("NEW  INSERTION " +  window.localStorage.getItem("paymentMethod")+ "  AND " + Model.paymentMethod['paymentMethod']); 
+    
+        }else{
+
+            console.log(Model.paymentClick == null); 
+
+            console.log("ERROR ");
+        }
+}
+  
 Controller.recipiantAddOtherRecipient = function(event){
     
     let  v  = document.getElementById("recipiantAddOtherRecipientTable").style.display= "block";
