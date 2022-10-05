@@ -182,6 +182,25 @@ Controller.paymentMethod();
    
 }
 
+Controller.apiResult = function(){
+
+        var myHeaders = new Headers();
+        myHeaders.append("apikey", "FoLzpNufmZOWlGZNvdEEgU1kPwwmQBsN");
+
+        var requestOptions = {
+             method: 'GET',
+             redirect: 'follow',
+             headers: myHeaders
+        };
+
+        fetch("https://api.apilayer.com/fixer/convert?to=SLL&from=USD&amount=100", requestOptions)
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error)
+            
+        );
+}
+
 $(document).keyup(function(event) {
     if (event.which === 13) {
         let value =  View.phoneInput.value;
@@ -468,84 +487,25 @@ Controller.paymentMethod =  function(){
 }
 Controller.activePayment = function(event){
 
-    //  check  for  card or  cash 
-    let  currentBackgroundColorStyle  = null; 
+    let  payment  = event.target.attributes[1].value; 
 
-   
-    if(Model.paymentMethod == null && Model.paymentClick == null){
+    if(payment == "card"){
 
-        View.paymentCard.style.backgroundColor = "black";
+        alert("alert card ");
 
-        console.log("first try "  + event.target.attributes[1].nodeValue + " and  model paymentMethod = " + Model.paymentMethod);
-
-        window.localStorage.setItem('paymentMethod',JSON.stringify({"paymentMethod":event.target.attributes[1].nodeValue}));
-
-        Model.paymentMethod =  JSON.parse(window.localStorage.getItem("paymentMethod"));
-
-        console.log("NEW  INSERTION " +  window.localStorage.getItem("paymentMethod")+ "  AND " + Model.paymentMethod['paymentMethod']); 
-
-        window.localStorage.setItem('paymentClick',JSON.stringify({"paymentClick":1}));
-
-        Model.paymentClick =  JSON.parse(window.localStorage.getItem("paymentClick"));
-
-        View.paymentCash.style.backgroundColor = "green";
-
-
-    }else{
-
-        View.paymentCard.style.backgroundColor = "green";
-
-        console.log("first try "  + event.target.attributes[1].nodeValue + " and  model paymentMethod = " + Model.paymentMethod);
-
-        window.localStorage.setItem('paymentMethod',JSON.stringify({"paymentMethod":event.target.attributes[1].nodeValue}));
-
-        Model.paymentMethod =  JSON.parse(window.localStorage.getItem("paymentMethod"));
-
-        console.log("NEW  INSERTION " +  window.localStorage.getItem("paymentMethod")+ "  AND " + Model.paymentMethod['paymentMethod']); 
-
-        window.localStorage.setItem('paymentClick',JSON.stringify({"paymentClick":1}));
-
-        Model.paymentClick =  JSON.parse(window.localStorage.getItem("paymentClick"));
-
-        View.paymentCash.style.backgroundColor = "black";
     }
     
-    if(Model.paymentMethod != null && Model.paymentClick != null){
-           
-            Model.paymentMethod = null ;
+    if(payment == "cash"){
 
-            Model.paymentClick = null;
+        alert("alert cash ");
 
-            View.paymentCard.style.backgroundColor = "green";
-           
-            currentBackgroundColorStyle   = currentBackgroundColorStyle;
+    }
+    if(payment == "paypal"){
 
-            event.target.style.backgroundColor = "";
-            
-            window.localStorage.removeItem("paymentMethod"); 
+        alert("alert paypal ");
 
-            window.localStorage.removeItem("paymentClick");
-
-            console.log("second  try" +  event.target.attributes[1].nodeValue);
-
-            window.localStorage.setItem('paymentMethod',JSON.stringify({"paymentMethod":event.target.attributes[1].nodeValue}));
-        
-            window.localStorage.setItem('paymentClick',JSON.stringify({"paymentClick":0}));
-
-            Model.paymentMethod =  JSON.parse(window.localStorage.getItem("paymentMethod"));
-
-            Model.paymentClick =  JSON.parse(window.localStorage.getItem("paymentClick"));
-
-            View.paymentCash.style.backgroundColor = "black";
-
-            console.log("NEW  INSERTION " +  window.localStorage.getItem("paymentMethod")+ "  AND " + Model.paymentMethod['paymentMethod']); 
+    }
     
-        }else{
-
-            console.log(Model.paymentClick == null); 
-
-            console.log("ERROR ");
-        }
 }
   
 Controller.recipiantAddOtherRecipient = function(event){
