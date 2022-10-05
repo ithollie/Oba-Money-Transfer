@@ -6,8 +6,6 @@ const  Controller =  {};
 
 Model.recipientSelectButtonState = window.localStorage.getItem('buttonState');
 Model.paymentMethod  =      window.localStorage.getItem('paymentMethod');
-Model.paymentClick         = window.localStorage.getItem('paymentClick'); 
-
 
 Controller.initialize  =  function(eventObject){
 
@@ -304,6 +302,8 @@ Controller.storeCustomer = function(){
         
         
 }
+
+
 Controller.customerState =  function(){
 
     
@@ -329,15 +329,19 @@ Controller.sendMoneyMainbutton = function(){
 
      let  amoutInDallor    = View.amoutInDallor.value; 
      let  amountConverted  = View.amountConverted.value;
+     let  fee              = View.charge.value;
 
-    if (amountConverted.length > 3 && amoutInDallor.length > 3 && 
+    if (amountConverted.length <= 9 && amoutInDallor.length >= 1 &&  fee.length >= 1 
+
         
-        Model.customerState != null &&  Model.recipient !=  null
+        &&  Model.customerState != null &&  Model.recipient !=  null && Model.paymentMethod != null
 
         &&  amountConverted  != "" && amoutInDallor != ""
 
         && amoutInDallor.replace(/\s/g, "") !=  "" &&  amountConverted.replace(/\s/g, "") !=""
         
+        && fee.replace(/\s/g, "") !=""
+
         ){  
             
             if(!isNaN(amountConverted) && !isNaN(amoutInDallor)){
@@ -396,6 +400,7 @@ Controller.sendMoneyMainbutton = function(){
                         window.localStorage.removeItem('customer');
                         window.localStorage.removeItem('recipient');
                         window.localStorage.removeItem('buttonState');
+                        window.localStorage.removeItem('paymentMethod');
 
                         event.preventDefault(); 
                         
@@ -409,6 +414,12 @@ Controller.sendMoneyMainbutton = function(){
             }
 
     }else{
+
+        if(Model.paymentMethod == null){
+
+            alert("Please  select  payment type to  continue"); 
+
+        }
 
         if(Model.customerState == null &&  Model.recipient ==  null){
 
@@ -493,17 +504,41 @@ Controller.activePayment = function(event){
 
         alert("alert card ");
 
+        let  data  =  {"paymentMethod":"card"}; 
+
+        window.localStorage.setItem('paymentMethod', JSON.stringify(data));
+
+        Model.paymentMethod =  window.localStorage.getItem('paymentMethod');
+
+        console.log(window.localStorage.getItem('paymentMethod')); 
+
     }
     
     if(payment == "cash"){
 
         alert("alert cash ");
 
+        let  data  =  {"paymentMethod":"cash"}; 
+
+        window.localStorage.setItem('paymentMethod', JSON.stringify(data));
+
+        Model.paymentMethod =  window.localStorage.getItem('paymentMethod');
+
+        console.log(window.localStorage.getItem('paymentMethod')); 
+
+
     }
     if(payment == "paypal"){
 
         alert("alert paypal ");
 
+        let  data  =  {"paymentMethod":"paypal"}; 
+
+        window.localStorage.setItem('paymentMethod', JSON.stringify(data));
+
+        Model.paymentMethod =  window.localStorage.getItem('paymentMethod');
+
+        console.log(window.localStorage.getItem('paymentMethod')); 
     }
     
 }
