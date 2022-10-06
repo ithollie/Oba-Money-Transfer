@@ -286,9 +286,47 @@ Controller.cardSubmitButton = function(){
 }
 Controller.addcard =  function(){
     
-    alert("addcard button  has been  clicked ");
+    console.log("addcard button  has been  clicked ");
 
 }
+
+Controller.checkPhoneNumber =  function(phone){
+
+
+    if (phone != "") {
+
+        if (/^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/g.test(phone)) {
+
+            //alert("Please enter a  valiable  phone  number ");
+
+            //document.formname.txt.focus();
+
+            return false;
+
+        }else{
+
+            return  true; 
+        }
+    }
+}
+Controller.checkForSpecialCharacter =  function(checkString){
+
+    if (checkString != "") {
+
+        if (/[^A-Za-z\d]/.test(checkString)) {
+
+            alert("Please enter only letter and numeric characters");
+
+            //document.formname.txt.focus();
+
+            return false;
+        }else{
+
+            return  true; 
+        }
+    }
+}
+
 Controller.storeCustomer = function(){
 
         let firstname  =  View.inputFirstNameCustomer.value;
@@ -474,30 +512,36 @@ Controller.sendMoneyMainbutton = function(){
 }
 Controller.selectOption =  function(){
 
-    document.getElementById('my-select').addEventListener('change', function(event) {
+    if(document.getElementById('my-select') != null){
 
-        let  data  = {};  
+        document.getElementById('my-select').addEventListener('change', function(event) {
 
-        for(let  i  = 0;  i <  Countries.length ;  i++){
+                let  data  = {};  
 
-            if(Countries[i]['index'] == this.value){
+                for(let  i  = 0;  i <  Countries.length ;  i++){
+
+                    if(Countries[i]['index'] == this.value){
+                        
+                        data = Countries[i];
+
+                        console.log('You selected: ', this.value);
+
+                        window.localStorage.setItem('selectCountry', JSON.stringify(data));
+
+                        Model.selectCountry =  window.localStorage.getItem('selectCountry');
+
+                        console.log(JSON.parse(window.localStorage.getItem('selectCountry'))['name']); 
+
+                    }
+
+                }
                 
-                data = Countries[i];
 
-                console.log('You selected: ', this.value);
+            });
+    }
+    
 
-                window.localStorage.setItem('selectCountry', JSON.stringify(data));
 
-                Model.selectCountry =  window.localStorage.getItem('selectCountry');
-
-                console.log(JSON.parse(window.localStorage.getItem('selectCountry'))['name']); 
-
-            }
-
-        }
-        
-
-    });
 } 
 Controller.customerIsNoTAvaliable =  function(){
 
@@ -552,7 +596,8 @@ Controller.activePayment = function(event){
 
     if(payment == "card"){
 
-        alert("alert card ");
+    
+        let  paymentSelectMessage  =  document.getElementById("paymentSelectMessage");
 
         let  data  =  {"paymentMethod":"card"}; 
 
@@ -560,13 +605,17 @@ Controller.activePayment = function(event){
 
         Model.paymentMethod =  window.localStorage.getItem('paymentMethod');
 
+        paymentSelectMessage.style.display="block";
+
         console.log(window.localStorage.getItem('paymentMethod')); 
+
+        paymentSelectMessage.childNodes[1].childNodes[0].innerText = JSON.parse(window.localStorage.getItem('paymentMethod'))['paymentMethod'];
 
     }
     
     if(payment == "cash"){
 
-        alert("alert cash ");
+        let  paymentSelectMessage  =  document.getElementById("paymentSelectMessage");
 
         let  data  =  {"paymentMethod":"cash"}; 
 
@@ -574,13 +623,18 @@ Controller.activePayment = function(event){
 
         Model.paymentMethod =  window.localStorage.getItem('paymentMethod');
 
+        paymentSelectMessage.style.display="block";
+
         console.log(window.localStorage.getItem('paymentMethod')); 
+
+        paymentSelectMessage.childNodes[1].childNodes[0].innerText = JSON.parse(window.localStorage.getItem('paymentMethod'))['paymentMethod'];
 
 
     }
     if(payment == "paypal"){
 
-        alert("alert paypal ");
+      
+        let  paymentSelectMessage  =  document.getElementById("paymentSelectMessage");
 
         let  data  =  {"paymentMethod":"paypal"}; 
 
@@ -588,13 +642,27 @@ Controller.activePayment = function(event){
 
         Model.paymentMethod =  window.localStorage.getItem('paymentMethod');
 
+        paymentSelectMessage.style.display="block";
+
         console.log(window.localStorage.getItem('paymentMethod')); 
+
+        paymentSelectMessage.childNodes[1].childNodes[0].innerText = JSON.parse(window.localStorage.getItem('paymentMethod'))['paymentMethod'];
     }
     
 }
 Controller.recipiantAddOtherRecipient = function(event){
     
-    let  v  = document.getElementById("recipiantAddOtherRecipientTable").style.display= "block";
+    let  x  = document.getElementById("recipiantAddOtherRecipientTable");
+
+    if (x.style.display === "none") {
+
+        x.style.display = "block";
+
+      } else {
+
+        x.style.display = "none";
+
+    }
 }
 Controller.recipiantNotFoundNumber = function(event){
 
@@ -699,9 +767,19 @@ Controller.runRecipient = function(event){
 }
 Controller.customerNotFoundNumber = function(){
 
-    let  v  = document.getElementById("found_user_false");
+    let  x  = document.getElementById("found_user_false");
 
-    v.style.display="block";
+    if (x.style.display === "none") {
+
+        x.style.display = "block";
+
+      } else {
+
+        x.style.display = "none";
+
+      }
+
+    //v.style.display="block";
 }
 Controller.showAddrecipiant =  function(event){
 
@@ -732,7 +810,7 @@ Controller.insertCustomer = function(event){
 
     console.log("Save  sender  has been  clicked " +  inputArray[0] + " " + inputArray[1] + " " + inputArray[2] + " " + inputArray[3] + " " + inputArray[4] + " " + inputArray[5]);
 
-    if (firstname.length > 3   &&  lastname.length > 3 &&  address.length > 3 &&  phone.length > 9 ) {
+    if (firstname.length > 3   &&  lastname.length > 3 &&  address.length > 3 &&  phone.length > 9 && phone.length == 10) {
 
         if(firstname ==  undefined  &&  lastname == undefined  &&  address == undefined &&  contact == undefined  && country== undefined &&  phone== undefined){
 
@@ -748,7 +826,7 @@ Controller.insertCustomer = function(event){
         alert("Fields are  Empty or  phone number  is  not   greater  than  9 ")
     }
     
-    if(isNaN(phone)){
+    if(isNaN(inputArray[5])){
 
         alert("The  phone  filed must be   a   number ");
 
@@ -971,13 +1049,26 @@ Controller.editSender = function(event){
     
     if(isNaN(phone)){
 
-        alert("The  phone  filed must be   a   number ");
+        alert("The  phone  filed must be   a   number  to  edit  customer or  sender");
 
         return  false
     }
 
     
-    if(Controller.senderLoop(inputArray) == 0){
+    if(Controller.senderLoop(inputArray) == 0 
+    
+    
+                &&  Controller.checkForSpecialCharacter(firstname) ==  true
+
+                &&  Controller.checkForSpecialCharacter(lastname)  == true
+
+                && Controller.checkForSpecialCharacter(contact) ==    true
+
+                && Controller.checkForSpecialCharacter(country) ==    true
+
+                && Controller.checkPhoneNumber(phone) ==  true
+                
+                ){
 
 
         $.ajax({
@@ -1010,8 +1101,20 @@ Controller.editSender = function(event){
         
     }else{
 
-        //alert("The  function  return " +  Controller.senderLoop(inputArray));
-        alert("One   or  more  fields don't   meet  the requirement ");
+        if(Controller.senderLoop(inputArray) != 0 ){
+
+             alert("One   or  more  fields don't   meet  the requirement ");
+
+        }else if(Controller.checkPhoneNumber(phone) ==  false) {
+            
+            alert("pleas enter a  valiable  phone  number and  phone  number  must  contain 2  sets  of  3  and  one  set  of 4 ");
+    
+       }else{
+
+        alert("One  or more   fields  have  a   special  character except email  address "); 
+
+       }
+
     }
 
     
