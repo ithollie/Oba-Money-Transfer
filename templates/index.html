@@ -370,7 +370,7 @@
                           <br>
                           
                           <div class="custom-select" style="border-radius: 2px black; margin:auto; width:50%; height:100px;background-color: ;">
-                            <select style="color:white; background-color:#ff0066; border-radius: 5px;">
+                            <select id="my-select"  style="color:white; background-color:#ff0066; border-radius: 5px;">
                               <option value="0" style="color:white">Select Country:</option>
                               <option value="1" style="color:white">Sierra Leone</option>
                               <option value="2" style="color:white">Guinea</option>
@@ -379,7 +379,6 @@
                               <option value="5" style="color:white">Mali</option>
                               <option value="6" style="color:white">Mauritania</option>
                               <option value="7" style="color:white">Niger</option>
-                              <option value="8" style="color:white">Mercedes</option>
                               <option value="9" style="color:white">Nigeria</option>
                               <option value="10" style="color:white">Senegal</option>
                               <option value="11" style="color:white">Togo</option>
@@ -388,7 +387,7 @@
                               <option value="15" style="color:white">Côte D'Ivoire</option>
                               <option value="16" style="color:white">Cape Verde</option>
                               <option value="17" style="color:white">Burkina Faso</option>
-                              <option value="17" style="color:white">Benin</option>
+                              <option value="18" style="color:white">Benin</option>
 
                             </select>
                           </div>
@@ -396,11 +395,11 @@
                           
                               <tr style="border-bottom: 12px solid white">
 
-                                <td style="color:black;font-weight: 300;margin: 16px;"></td><input type=number” id="amoutInDallor"  placeholder="amoutInDallor" style="border: 1px solid black;background:white;font-weight:300; font-size:20px;padding-left:2px;margin:16px; background-color:white;color:black;border-radius:6px;width:20%;height:50px;-webkit-transition: width 0.4s ease-in-out;transition: width 0.4s ease-in-out;font-family: Times, Times New Roman, Georgia, serif;" /></td>
+                                <td style="color:black;font-weight: 300;margin: 16px;"></td><input type=number” id="amoutInDallor"  placeholder="$amout" style="border: 1px solid black;background:white;font-weight:300; font-size:20px;padding-left:2px;margin:16px; background-color:white;color:black;border-radius:6px;width:20%;height:50px;-webkit-transition: width 0.4s ease-in-out;transition: width 0.4s ease-in-out;font-family: Times, Times New Roman, Georgia, serif;" /></td>
                                 
                                 <td style="color:black;font-weight: 300;margin: 16px;"></td><input type=number” id="amountConverted" placeholder="amountConverted" style="border: 1px solid black;background:white;font-weight:300; font-size:20px;padding-left:2px; margin:16px; background-color:white;color:black;border-radius:6px;width:20%;height:50px;-webkit-transition: width 0.4s ease-in-out;transition: width 0.4s ease-in-out;font-family: Times, Times New Roman, Georgia, serif;"/></td>
                                 
-                                <td style="color:black;font-weight: 300;margin: 16px;"></td><input type=number” id="charge" placeholder="charge" style="border: 1px solid black;background:white;font-weight:500; font-size:20px;padding-left:2px; margin:16px; background-color:white;color:black;border-radius:6px;width:20%;height:50px;-webkit-transition: width 0.4s ease-in-out;transition: width 0.4s ease-in-out;font-family: Times, Times New Roman, Georgia, serif;"/></td>
+                                <td style="color:black;font-weight: 300;margin: 16px;"></td><input type=number” id="charge" placeholder="fee" style="border: 1px solid black;background:white;font-weight:500; font-size:20px;padding-left:2px; margin:16px; background-color:white;color:black;border-radius:6px;width:20%;height:50px;-webkit-transition: width 0.4s ease-in-out;transition: width 0.4s ease-in-out;font-family: Times, Times New Roman, Georgia, serif;"/></td>
                               </tr>
                           
                           </table>
@@ -419,6 +418,10 @@
                             </div>
                           </div>
                           
+                          <div id="">
+
+                            <h1>payment selected  is card  or cash </h1>
+                          </div>
 
                           <span id="" style="text-align: center  ; border-radius: 50%;  width:90px; height:90px;background-color: #ff0066; display: inline-block;"><h1 style="color:white;font-size: 30px;" id="sendMoneyMainbutton">send </h1></span>
 

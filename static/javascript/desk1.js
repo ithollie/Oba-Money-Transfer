@@ -6,6 +6,7 @@ const  Controller =  {};
 
 Model.recipientSelectButtonState = window.localStorage.getItem('buttonState');
 Model.paymentMethod  =      window.localStorage.getItem('paymentMethod');
+Model.selectCountry        =      window.localStorage.getItem('selectCountry');
 
 Controller.initialize  =  function(eventObject){
 
@@ -177,28 +178,46 @@ if(View.search != null){
 }
 Controller.selectRecipient();
 Controller.paymentMethod();
+Controller.selectOption();
+
+
+$("#amoutInDallor").on("keyup", function (e){
+
+    let amount  =  document.getElementById("amoutInDallor");
+
+    Controller.apiResult(amount.value, "USD",  "SLL");
+
+});
    
 }
 
-Controller.apiResult = function(){
+
+
+Controller.apiResult = function(amount, currentCountryCode,  receivingCountryCode){
+
+        let  v  = document.getElementById("amountConverted");
+
+        let charge  = document.getElementById("charge");
 
         var myHeaders = new Headers();
+
         myHeaders.append("apikey", "FoLzpNufmZOWlGZNvdEEgU1kPwwmQBsN");
 
-        var requestOptions = {
-             method: 'GET',
-             redirect: 'follow',
-             headers: myHeaders
-        };
+        var requestOptions = { method: 'GET', redirect: 'follow', headers: myHeaders };
 
-        fetch("https://api.apilayer.com/fixer/convert?to=SLL&from=USD&amount=100", requestOptions)
-            .then(response => response.text())
-            .then(result => console.log(result))
-            .catch(error => console.log('error', error)
-            
-        );
+    let x =  fetch(`https://api.apilayer.com/fixer/convert?to=${receivingCountryCode}&from=${currentCountryCode}&amount=${amount}`, requestOptions)
+        .then((response) => response.json())
+        .then((responseJSON) => {
+
+            v.value =   responseJSON['result']; 
+
+            charge.value  = 13.00
+
+        // do stuff with responseJSON here...
+        console.log(responseJSON);
+        });
+    console.log(x);
 }
-
 $(document).keyup(function(event) {
     if (event.which === 13) {
         let value =  View.phoneInput.value;
@@ -302,8 +321,6 @@ Controller.storeCustomer = function(){
         
         
 }
-
-
 Controller.customerState =  function(){
 
     
@@ -334,9 +351,9 @@ Controller.sendMoneyMainbutton = function(){
     if (amountConverted.length <= 9 && amoutInDallor.length >= 1 &&  fee.length >= 1 
 
         
-        &&  Model.customerState != null &&  Model.recipient !=  null && Model.paymentMethod != null
+        &&  Model.customerState != null &&  Model.recipient !=  null && Model.paymentMethod != null 
 
-        &&  amountConverted  != "" && amoutInDallor != ""
+        &&  Model.selectCountry != null  &&  amountConverted  != "" && amoutInDallor != ""
 
         && amoutInDallor.replace(/\s/g, "") !=  "" &&  amountConverted.replace(/\s/g, "") !=""
         
@@ -401,6 +418,7 @@ Controller.sendMoneyMainbutton = function(){
                         window.localStorage.removeItem('recipient');
                         window.localStorage.removeItem('buttonState');
                         window.localStorage.removeItem('paymentMethod');
+                        window.localStorage.removeItem('selectCountry');
 
                         event.preventDefault(); 
                         
@@ -443,12 +461,44 @@ Controller.sendMoneyMainbutton = function(){
 
             alert("Please  enter  some valuable  value");
         }
+
+        if(Model.selectCountry ==  null){
+
+            alert("Please  select  a  country where  the  recipient lives "); 
+        }
        
     }
     
     
    
 }
+Controller.selectOption =  function(){
+
+    document.getElementById('my-select').addEventListener('change', function(event) {
+
+        let  data  = {};  
+
+        for(let  i  = 0;  i <  Countries.length ;  i++){
+
+            if(Countries[i]['index'] == this.value){
+                
+                data = Countries[i];
+
+                console.log('You selected: ', this.value);
+
+                window.localStorage.setItem('selectCountry', JSON.stringify(data));
+
+                Model.selectCountry =  window.localStorage.getItem('selectCountry');
+
+                console.log(JSON.parse(window.localStorage.getItem('selectCountry'))['name']); 
+
+            }
+
+        }
+        
+
+    });
+} 
 Controller.customerIsNoTAvaliable =  function(){
 
     let v  = null; 
@@ -542,7 +592,6 @@ Controller.activePayment = function(event){
     }
     
 }
-  
 Controller.recipiantAddOtherRecipient = function(event){
     
     let  v  = document.getElementById("recipiantAddOtherRecipientTable").style.display= "block";

@@ -375,6 +375,7 @@ const  Countries = [
 			"name": "West African CFA franc",
 			"symbol": "Fr"
 		},
+		"index":18,
 		"language": {
 			"code": "fr",
 			"name": "French",
@@ -615,6 +616,7 @@ const  Countries = [
 			"name": "West African CFA franc",
 			"symbol": "Fr"
 		},
+		"index":17,
 		"language": {
 			"code": "fr",
 			"name": "French",
@@ -695,6 +697,7 @@ const  Countries = [
 			"name": "Cape Verdean escudo",
 			"symbol": "Esc"
 		},
+		"index":16,
 		"language": {
 			"code": "pt",
 			"iso639_2": "por",
@@ -1116,6 +1119,7 @@ const  Countries = [
 			"name": "Central African CFA franc",
 			"symbol": "Fr"
 		},
+		"index":2,
 		"language": {
 			"code": "es",
 			"iso639_2": "spa",
@@ -1329,6 +1333,7 @@ const  Countries = [
 			"name": "Gambian dalasi",
 			"symbol": "D"
 		},
+		"index":14,
 		"language": {
 			"code": "en",
 			"name": "English",
@@ -1377,6 +1382,7 @@ const  Countries = [
 			"name": "Ghanaian cedi",
 			"symbol": "₵"
 		},
+		"index":13,
 		"language": {
 			"code": "en",
 			"name": "English",
@@ -1537,6 +1543,7 @@ const  Countries = [
             "name": "West African CFA franc",
             "symbol": "Fr"
 		},
+		"index":3,
       	"language": {
             "code": "pt",
             "name": "Portuguese",
@@ -1713,6 +1720,7 @@ const  Countries = [
             "name": "West African CFA franc",
             "symbol": "Fr"
      	},
+		"index":15,
       	"language": {
             "code": "fr",
             "name": "French",
@@ -2035,6 +2043,7 @@ const  Countries = [
             "name": "Liberian dollar",
             "symbol": "$"
      	},
+		"index":4,
       	"language": {
             "code": "en",
             "name": "English",
@@ -2211,6 +2220,7 @@ const  Countries = [
             "name": "West African CFA franc",
             "symbol": "Fr"
      	},
+		"index":5,
       	"language": {
             "code": "fr",
             "name": "French",
@@ -2275,6 +2285,7 @@ const  Countries = [
             "name": "Mauritanian ouguiya",
             "symbol": "UM"
      	},
+		"index":6,
       	"language": {
             "code": "ar",
             "name": "Arabic",
@@ -2595,6 +2606,7 @@ const  Countries = [
             "name": "West African CFA franc",
             "symbol": "Fr"
      	},
+		"index":7,
       	"language": {
             "code": "fr",
             "name": "French",
@@ -2611,6 +2623,7 @@ const  Countries = [
             "name": "Nigerian naira",
             "symbol": "₦"
  		},
+		"index":9,
       	"language": {
             "code": "en",
             "name": "English",
@@ -3187,6 +3200,7 @@ const  Countries = [
             "name": "West African CFA franc",
             "symbol": "Fr"
      	},
+		"index":10,
       	"language": {
             "code": "fr",
             "name": "French",
@@ -3235,6 +3249,7 @@ const  Countries = [
             "name": "Sierra Leonean leone",
             "symbol": "Le"
      	},
+		"index":1,
       	"language": {
             "code": "en",
             "name": "English",
@@ -3639,6 +3654,7 @@ const  Countries = [
             "name": "West African CFA franc",
             "symbol": "Fr"
      	},
+		"index":11,
       	"language": {
             "code": "fr",
             "name": "French",
