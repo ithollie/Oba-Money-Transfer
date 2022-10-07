@@ -246,6 +246,24 @@ def  submitPayment():
         print("Some  thing is  wrong ")
         return redirect(url_for('welcome' ,  email=email))  
 
+@app.route('/selectedPayment' , methods=['GET', 'POST'])
+def selectedPayment():
+
+    if request.method == 'POST':
+        try:
+            currentSelectedPaymentId =  request.get_json()['currentSelectedPaymentId']
+
+            session['selectedPaymentId']  = currentSelectedPaymentId
+
+            email  = request.cookies.get('login_email')
+
+            return redirect(url_for('welcome' ,  email=email))
+
+        except Exception  as  ex:
+
+            print(ex)
+
+    return redirect(url_for('login'))
 
 @app.route('/editSender', methods=['GET', 'POST'])
 def editSender():
@@ -569,9 +587,9 @@ def login_process():
 
                         render_template('login.html', title='login', error=error)
 
-        except Exception  as  exception:
+        except Exception  as  ex:
 
-            print("An  exception  occured in login  process " + exception.__str__()) 
+            print(ex.__str__()) 
                        
     flash('User  name or  password  not   correct')
 
@@ -704,6 +722,10 @@ def welcome(email):
             recipients =  ""
             array = None
             arrayLen = None
+            currentSelectedPaymentId =None
+
+            paymentsArray = None
+
             try:
             
                     com_text = Users.text_avaliable(Database.find_one('profileImage', {"useremail":request.cookies.get('login_email')}))
@@ -767,7 +789,24 @@ def welcome(email):
         
                     if  request.cookies.get('login_email') != "" :
                         
-                      
+                        currentSelectedPaymentId  =  session.get('selectedPaymentId')
+
+                        paymentsArray = []
+                        
+                        currentPaymentSelected  =  Database.find("payments" ,  {"recipient_id":currentSelectedPaymentId})
+
+                        print("Hello " + currentPaymentSelected)
+
+                        payments  =  Database.find("payments",{})
+
+                        for i  in   payments:
+                             
+                            paymentsArray.append(i)
+                        
+                        paymentArrayLength  = len(paymentsArray)
+
+                        print(paymentArrayLength)
+                        print(paymentsArray[0]['recipientFirstName'])
 
                         items = Database.find_one(constants.COLLECTION,{"email":request.cookies.get('login_email')})
                         
@@ -788,7 +827,7 @@ def welcome(email):
                         print("display ")
                         print(display); 
 
-                        return render_template('index.html',display=display, customerIsTrue=customerIsTrue,arrayLen=arrayLen, array=array, database_phone_number_data=database_phone_number_data, email=email,firstname=firstname,lastname = lastname ,_id=_id,date=date,image=image)
+                        return render_template('index.html',paymentsArray=paymentsArray,paymentArrayLength=paymentArrayLength, display=display, customerIsTrue=customerIsTrue,arrayLen=arrayLen, array=array, database_phone_number_data=database_phone_number_data, email=email,firstname=firstname,lastname = lastname ,_id=_id,date=date,image=image)
                     
                     else:
 

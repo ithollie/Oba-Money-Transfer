@@ -179,6 +179,7 @@ if(View.search != null){
 Controller.selectRecipient();
 Controller.paymentMethod();
 Controller.selectOption();
+Controller.selectOptionPayments();
 
 
 $("#amoutInDallor").on("keyup", function (e){
@@ -510,6 +511,41 @@ Controller.sendMoneyMainbutton = function(){
     
    
 }
+Controller.selectOptionPayments =  function(){
+
+    if(document.getElementById('my-select-payments') != null){
+
+        document.getElementById('my-select-payments').addEventListener('change', function(event) {
+
+              alert(this.value);
+
+              $.ajax({
+                type: "POST",
+                url: "/selectedPayment",
+
+                data: JSON.stringify({
+    
+                "currentSelectedPaymentId":this.value,
+                
+                } ),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+
+                    console.log(data);
+                    
+                }
+            })
+
+            setInterval(Controller.refreshPage, 1000);
+                
+
+            });
+    }
+    
+
+
+} 
 Controller.selectOption =  function(){
 
     if(document.getElementById('my-select') != null){
