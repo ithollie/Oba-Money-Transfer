@@ -65,12 +65,14 @@ class Recipient(object):
         else:
             return  False
             
-    @staticmethod
+   
     def insert(firstname,lastname, address, contact, country, reciverPhoneNumber,SenderPhoneNumber ):
         
         if  firstname != "" and Recipient.findByPhoneNumber(reciverPhoneNumber) == False:
             
-            Recipient.save_to_mongo()
+            save =  Recipient(firstname,lastname, address, contact, country, reciverPhoneNumber,SenderPhoneNumber )
+
+            save.save_to_mongo()
 
             return True
 
@@ -103,7 +105,7 @@ class Recipient(object):
     def update_image(cls, email, image):
         Database.updates(UserConstants.RECIPIENT_COLLECTION,{"email":email },{"$set":{"image":image}})
 
-
+   
     def json(self):
         return {
          "firstname":self.firstname,

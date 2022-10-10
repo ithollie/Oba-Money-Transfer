@@ -68,43 +68,7 @@
                               </div>
         </div>
 
-        <!-- modal 3 -->
-        <div id="modal2" class="modal" style="background-color:white; height:20%;top:1px;position: absolute;overflow-y:;">
-          
-          <div class="container" >
-              <div class="row">
-                  <div class="Absolute-Center is-Responsive">
-                  
-                      <div class="col-sm-12 col-md-10 col-md-offset-1">
-
-                          <form  id="loginForm" action="{{url_for('card')}}" method="post" enctype ="multipart/form-data">
-                              
-                            <div class="form-group input-group">
-                                  <input style="width:100%; border-radius: 0px;padding-left:12px;background-color:white" class="form-control" placeholder="email" type="text" cols="80" name="email"  />
-                            </div>
-                            <div class="form-group input-group">
-                              <input style="width:100%; border-radius: 0px;padding-left:12px;background-color:white" class="form-control" placeholder="card  number" type="text" cols="80" name="card"  />
-                            </div>
-                            <div class="form-group input-group">
-                              <input style="width:100%; border-radius: 0px;padding-left:12px;background-color:white" class="form-control" placeholder="month" type="text" cols="80" name="month"  />
-                            </div>
-                            <div class="form-group input-group">
-                              <input style="width:100%; border-radius: 0px;padding-left:12px;background-color:white" class="form-control" placeholder="year" type="text" cols="80" name="year"  />
-                            </div>
-                            <div class="form-group input-group">
-                              <input style="width:100%; border-radius: 0px;padding-left:12px;background-color:white" class="form-control" placeholder="Security code" type="text" cols="80" name="code"  />
-                            </div>
-                              <div class="form-group">
-                                  <button id="cardSubmitButton"  type="submit" class="btn btn-def btn-block">Submit</button>
-                              </div>
-                          
-                          </form>
-                      </div>
-                  </div>
-              </div>
-          </div>
-
-        </div>
+        
 
         <!-- start  of  wrapper -->
         <div id="wrapper" data-key-id="{{_id}}" data-key-email="{{email}}" data-key-first-name="{{firstname}}"  data-key-last-name="{{lastname}}">
@@ -114,11 +78,11 @@
                           
                          <!--  lastname ends -->
                         <div id="{{firstname}}" style="float:;width:50%;height:100%;background-color:#ff0066">
-                          <h1 id="login_user_first_name" class="iden" style="font-size:21px;color:black;font-weight:700;font-style:normal;text-transform: none;"> {{firstname}}</h1>
+                          <h1 id="login_user_first_name" class="iden" style="font-size:21px;color:white;font-weight:700;font-style:normal;text-transform: none;"> {{firstname}}</h1>
                         </div>
                         <!-- lastname starts -->
                         <div id="{{lastname}}" style="float:;width:50%;height:100%;background-color:#ff0066">
-                          <h1 id="login_user_last_name" style="font-size:21px;color:black;font-weight:700;font-style:bold; text-transform: none">{{lastname}} </h1>
+                          <h1 id="login_user_last_name" style="font-size:21px;color:white;font-weight:700;font-style:bold; text-transform: none">{{lastname}} </h1>
                         </div>
                         
                       </div>
@@ -127,8 +91,8 @@
                   <div id="notifications" style="width:100%; height:20%;background-color:#ffffff; margin-bottom: 39px;">
                     <div id="te" style="background-color:#ffffff; padding-top:0px;position:relative;margin-bottom: 39px;">
                         <ul>
-                            <li><a class="waves-effect waves-light btn white" style="width:100px;color:black; text-decoration:none;background-color:; font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;" href="">Ruler</a></li>
-                            <li id="logout" ><a class="waves-effect waves-light btn lightgray" style="text-transform: lowercase;color:black; text-decoration:none;background-color:;  font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;" href="/logout"><i class="material-icons"></i>logout</i></a></li>
+                            <li><a class="waves-effect waves-light btn white" style="width:100px;color:black; text-decoration:none;background-color:; font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;" href="">Help</a></li>
+                            <li id="logout" ><a class="waves-effect waves-light btn red" style="text-transform: lowercase;color:white; text-decoration:none;background-color:;  font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;" href="/logout"><i class="material-icons"></i>logout</i></a></li>
                             <li id="addRecipiant"><a class="waves-effect waves-light btn white" style="text-transform: uppercase;color:black; text-decoration:none;background-color:; font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;" href="{{url_for('welcome', email=email)}}"><i class="material-icons"></i>Home</i></a></li>
 
                         </ul>
@@ -188,7 +152,7 @@
                             <div id="te" style="background-color:#ffffff; padding-top:0px;position:relative;margin-bottom: 2px;">
                                 <ul>
                                     
-                              <h1  style="font-size: 1.5em;  font-weight:400;  color:black;text-transform: lowercase; font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;">Customer  is   found with  the number <span style="color:red">{{database_phone_number_data['phone']}}</span> </h1>
+                              <h1  style="font-size: 1.5em;  font-weight:400;  color:black;text-transform: lowercase; font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;">Customer  is   found with  the number <span style="color:red;font-size:24px;font-weight: 300;font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;">{{database_phone_number_data['phone']}}</span> </h1>
                               
                                 </ul>
                               </div>
@@ -204,31 +168,99 @@
                                 </ul>
                               </div>
                           </div>
+                          <div id="cardform" style="width:50%;margin:auto; display: none;background:">
+                            
+                                
+                                
+                                   
+              
+                                       
+                                            <div style="margin:auto; width:100%">
+                                              <div class="form-group input-group">
+                                                  <input id="email" style="width:100%; border-radius: 12px;border: 1px  red; padding-left:12px;background-color:black" class="form-control" placeholder="email" type="text" cols="80" name="email"  />
+                                              </div>
+                                              <div class="form-group input-group">
+                                                <input  id="cardNumber" style="width:100%; border-radius: 12px;border: 1px  red; padding-left:12px;background-color:black"placeholder="card  number" type="text" cols="80" name="card"  />
+                                              </div>
+                                              <div class="form-group input-group">
+                                                <input id="month" style="width:100%; border-radius: 12px;border: 1px  red; padding-left:12px;background-color:black" class="form-control" placeholder="month" type="text" cols="80" name="month"  />
+                                              </div>
+                                              <div class="form-group input-group">
+                                                <input id="year" style="width:100%; border-radius: 12px;border: 1px  red; padding-left:12px;background-color:black"class="form-control" placeholder="year" type="text" cols="80" name="year"  />
+                                              </div>
+                                              <div class="form-group input-group">
+                                                <input id="securityCode" style="width:100%; border-radius: 12px;border: 1px  red; padding-left:12px;background-color:black" class="form-control" placeholder="Security code" type="text" cols="80" name="code"  />
+                                              </div>
+                                          </div>
+                                            <div class="" style="margin:auto; width:50%">
+                                                <span id="cardSubmitButton" class="waves-effect waves-light btn " style="background-color: red; font-size:24px" type="submit" >Submit</span>
+                                            </div>
+                                        
+                                      
+                                    
+                                
+                            
+                        </div>
+                        <br>
+
                           <div id="cardMessage" style="background-color: ; display:none; font-size:20px; font-weight:300; margin-bottom: 20px;color:red">Card  has  been  added thank  you </div>
-                          <div id="" style="color:black; font-size: 24px;font-weight: 300;font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;">Payments sent</div>
+                          <div id="" class="waves-effect waves-light btn white" style="color:#646e70; font-size: 20px;font-weight: 300;font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;">sent payments</div>
                           <br>
                           <br>
-                          <div id="currentSent" style="width:50%; height:80%;background-color:red;margin:auto;margin-bottom: 34px;padding-block:0px;">
+                          <div id="currentSent" style="width:50%; height:80%;background-color:#ff0066;margin:auto;margin-bottom: 34px;padding-block:0px;">
                             
                             <div class="payment-select" style="border-radius: 0px black; margin:auto; width:100%; height:100px;background-color: ;">
+                              
                               {% if paymentsArray %} 
+
                               <select id="my-select-payments"  style="color:black; background-color:white; border-radius: 0px;">
                                 
+                                <option value="0" style="color:black">Select Payments</option>
+
                                 {% for i in range(0  , paymentArrayLength) %}
 
-                                <option value="0" style="color:black">Select Payments</option>
-                                <option value="{{paymentsArray[i]['recipient_id']}}" style="color:black">{{paymentsArray[i]['recipientFirstName']}}</option>
+
+                                  <option value="{{paymentsArray[i]['_id']}}" style="color:black"><span>{{paymentsArray[i]['recipientFirstName']  + " " + paymentsArray[i]['recipientLastName']}}</span> </option>
 
                                 {% endfor %}
                                 
                               </select>
+
+
+                              {% endif  %}
+
+                            </div>
+                            <div id="" >
+                              {% if paymentsArray %} 
+
+                              {% else %}
+                                <h1 onload = "functionName()">No  payment is  avaliable </h1>
                               {% endif  %}
                             </div>
-                            <div id="">
+                            <div id="paymentDisplay" style="display:none;">
 
-                                user  datails
-                                Current send money and  amount  and  name
+                              {% if currentSelectPayment %} 
 
+                               
+                                
+                                <h1 id="{{currentSelectPayment['_id']}}" style="color:black">{{currentSelectPayment['recipientFirstName']}}</h1>
+                                <h1 id="{{currentSelectPayment['_id']}}" style="color:black">{{currentSelectPayment['recipientLastName']}}</h1>
+                                <div id="notifications" style="width:100%; height:30%; background-color:;  display: flex; text-align: center;">
+                                  <div id="te">
+                                    <ul>
+                                      <li id="delete" style="text-decoration: none;"><a class="waves-effect waves-light btn " style="text-transform: lowercase;color:white; text-decoration:none;background-color:#ff0066;  font-size:20px; text-decoration: none;" ><i class="material-icons" style="text-decoration:none;font-weight: 700;color:black"></i>Delete</i></a></li>
+                                      
+                                      <li id="Edit" style="text-decoration: none;"><a class="waves-effect waves-light btn " style="text-transform: lowercase;color:white; text-decoration:none;background-color:#ff0066;  font-size:20px" ><i class="material-icons" style="text-decoration: none; font-weight: 700;;color:black"></i>Edit</i></a></li>
+                                      
+                                      <li id="pause" style="text-decoration: none;"><a class="waves-effect waves-light btn " style="text-transform:none;color:white; text-decoration:none;background-color:#ff0066;  font-size: 1.5em;" ><i class="material-icons" style="text-decoration: none; font-weight: 700;;color:black"></i>pause</i></a></li>
+  
+  
+                                    </ul>
+                                  </div>
+                            </div>
+                               
+                              
+                              {% endif  %}
                             </div>
                           
 
@@ -319,6 +351,7 @@
                               <div id="te" style="background-color:; padding-top:0px;position:relative;margin-bottom: 2px;">
                                   <ul>
                                     {% for i in range(0  , arrayLen) %}
+
                                         <h1 id="selectedRecipient" 
                                         
                                         data-key-id="{{array[i]['_id']}}"
@@ -663,6 +696,13 @@
          
         <!-- script  -->
         <script> 
+
+          function  functionName(){
+
+              alert("hello");
+              
+              console.log("hello"); 
+          }
 
                 document.addEventListener('DOMContentLoaded', function() {
                     var elems = document.querySelectorAll('.modal');

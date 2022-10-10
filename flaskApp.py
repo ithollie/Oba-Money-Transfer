@@ -13,6 +13,7 @@ from hashlib import md5
 from flask import   jsonify
 import  secrets
 import string 
+from bson.objectid import ObjectId
 from common.database import Database
 from common.Utils import utils
 from RegisterForm.RegisterForm import RegForm as Form
@@ -29,7 +30,6 @@ from models.user.restp import Restp
 from models.user import error as UserErrors
 from models.flask_wtf.register import RegisterForm
 from models.activate.active_account import activate_account
-
 
 app = Flask(__name__)
 
@@ -157,6 +157,7 @@ def insertRecipient():
             address =   request.get_json()['address']
             contact =   request.get_json()['contact']
             country = request.get_json()['country']
+            
             reciverPhoneNumber = request.get_json()['reciverPhoneNumber']
             SenderPhoneNumber =  session['phoneNumber']
 
@@ -212,39 +213,55 @@ def api():
 
 @app.route('/submitPayment' ,  methods=['GET', 'POST'])
 def  submitPayment():
-        if  request.method == "POST":
+    if  request.method == "POST":
 
-            try:
+            try:    
                     N = 3
+                    _id =  uuid.uuid4().hex
                     recipientFirstName  =  request.get_json()['firstname']
                     recipientLasttName  =  request.get_json()['lastname']
                     recipientAddress  =    request.get_json()['address']
                     recipientContact  =    request.get_json()['contact']
                     recipientCountry  =    request.get_json()['country']
-                    Recipient_id      =    request.get_json()['_id']
+                    recipient_id      =    request.get_json()['_id']
                     recipientPhoneNumber  =  request.get_json()['recipientPhoneNumber']
                     senderPhoneNumber  =   request.get_json()['senderPhoneNumber']
                     sentAmount          =  request.get_json()['sentAmount']
-
                     email  = request.cookies.get('login_email')
 
                     code = 'AA'.join(secrets.choice(string.ascii_uppercase + string.digits)
                         for i in range(N))
 
-                    Database.insert("payments", { "recipientFirstName":recipientFirstName,"recipientLastName":recipientLasttName, 
-                        "recipientAddress":recipientAddress,"recipientContact":recipientContact,"recipientCountry":recipientCountry,
-                        "recipient_id":Recipient_id,"recipientPhoneNumber":recipientPhoneNumber,
-                        "senderPhoneNumber":senderPhoneNumber,"amount":sentAmount,"code":code})
+                    _recipient_id = Database.find_one('payments' ,  {"_id":recipient_id})
 
-                    print("recipientFirstName => " + recipientLasttName)
+                
+                    if _recipient_id is None:
+                        
+                        session['customerPhoneNumber'] = senderPhoneNumber
 
-                    return redirect(url_for('welcome' ,  email=email))
+                        Database.insert("payments", {"_id":_id, "recipientFirstName":recipientFirstName,"recipientLastName":recipientLasttName, 
+                            
+                            "recipientAddress":recipientAddress,"recipientContact":recipientContact,"recipientCountry":recipientCountry,
+                            "recipient_id":recipient_id,"recipientPhoneNumber":recipientPhoneNumber,
+                            "senderPhoneNumber":senderPhoneNumber,"amount":sentAmount,"code":code
+                        })
+
+                        print("recipientFirstName => " + recipientLasttName)
+
+                        return redirect(url_for('welcome' ,  email=email))
+
+                    else:
+            
+                        return redirect(url_for('welcome' ,  email=email))
+
             except Exception  as  e:
                 print(e)
             
-        email  = request.cookies.get('login_email')
-        print("Some  thing is  wrong ")
-        return redirect(url_for('welcome' ,  email=email))  
+    email  = request.cookies.get('login_email')
+
+    print("Some  thing is  wrong ")
+
+    return redirect(url_for('welcome' ,  email=email))  
 
 @app.route('/selectedPayment' , methods=['GET', 'POST'])
 def selectedPayment():
@@ -252,8 +269,25 @@ def selectedPayment():
     if request.method == 'POST':
         try:
             currentSelectedPaymentId =  request.get_json()['currentSelectedPaymentId']
+            
+           
+            data  =  Database.find_one('payments',  {"_id":currentSelectedPaymentId})
+            
+            print("Here  I am ")
+            
+            print(currentSelectedPaymentId)
 
-            session['selectedPaymentId']  = currentSelectedPaymentId
+            print(data)
+
+
+            if  data is  not None:
+                
+                session['selectedPaymentId']  = data['_id']
+                
+
+                print("Im in")
+
+                print(session['selectedPaymentId'])
 
             email  = request.cookies.get('login_email')
 
@@ -262,6 +296,7 @@ def selectedPayment():
         except Exception  as  ex:
 
             print(ex)
+            print("That  is  good ")
 
     return redirect(url_for('login'))
 
@@ -589,7 +624,7 @@ def login_process():
 
         except Exception  as  ex:
 
-            print(ex.__str__()) 
+            print(ex) 
                        
     flash('User  name or  password  not   correct')
 
@@ -790,23 +825,31 @@ def welcome(email):
                     if  request.cookies.get('login_email') != "" :
                         
                         currentSelectedPaymentId  =  session.get('selectedPaymentId')
+                        customerPhoneNumber       =  session.get('customerPhoneNumber')
 
                         paymentsArray = []
                         
-                        currentPaymentSelected  =  Database.find("payments" ,  {"recipient_id":currentSelectedPaymentId})
-
-                        print("Hello " + currentPaymentSelected)
-
-                        payments  =  Database.find("payments",{})
-
-                        for i  in   payments:
-                             
-                            paymentsArray.append(i)
+                        currentSelectPayment =  Database.find_one("payments" ,  {"_id":currentSelectedPaymentId})
                         
+                        print(currentSelectedPaymentId)
+                        print("current Payment selected is here")
+                        print(currentSelectPayment)
+
+                        payments  =  Database.find("payments",{"senderPhoneNumber":customerPhoneNumber})
+
+                        if payments  is  not  None:
+
+                            for i  in   payments:
+                                
+                                paymentsArray.append(i)
+                            
                         paymentArrayLength  = len(paymentsArray)
 
+                        print("Paymet count ")
                         print(paymentArrayLength)
-                        print(paymentsArray[0]['recipientFirstName'])
+
+                        print("customer  phone  number " )
+                        print(customerPhoneNumber)
 
                         items = Database.find_one(constants.COLLECTION,{"email":request.cookies.get('login_email')})
                         
@@ -824,10 +867,8 @@ def welcome(email):
 
                         flash('Login is a success' + " "+ 'welcome' + " "+ request.cookies.get('login_email'))
                     
-                        print("display ")
-                        print(display); 
 
-                        return render_template('index.html',paymentsArray=paymentsArray,paymentArrayLength=paymentArrayLength, display=display, customerIsTrue=customerIsTrue,arrayLen=arrayLen, array=array, database_phone_number_data=database_phone_number_data, email=email,firstname=firstname,lastname = lastname ,_id=_id,date=date,image=image)
+                        return render_template('index.html', currentSelectPayment=currentSelectPayment, paymentsArray=paymentsArray,paymentArrayLength=paymentArrayLength, display=display, customerIsTrue=customerIsTrue,arrayLen=arrayLen, array=array, database_phone_number_data=database_phone_number_data, email=email,firstname=firstname,lastname = lastname ,_id=_id,date=date,image=image)
                     
                     else:
 
@@ -835,7 +876,7 @@ def welcome(email):
 
             except Exception as  ex:
 
-               print("Error Message" +  ex.__str__())
+               print(ex)
             
    flash("There is a problem   please contact an  adminstrtor")
 

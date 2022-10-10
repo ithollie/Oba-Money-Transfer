@@ -7,6 +7,7 @@ const  Controller =  {};
 Model.recipientSelectButtonState = window.localStorage.getItem('buttonState');
 Model.paymentMethod  =      window.localStorage.getItem('paymentMethod');
 Model.selectCountry        =      window.localStorage.getItem('selectCountry');
+Model.addCard              = window.localStorage.getItem('card');
 
 Controller.initialize  =  function(eventObject){
 
@@ -192,8 +193,6 @@ $("#amoutInDallor").on("keyup", function (e){
    
 }
 
-
-
 Controller.apiResult = function(amount, currentCountryCode,  receivingCountryCode){
 
         let  v  = document.getElementById("amountConverted");
@@ -285,12 +284,48 @@ Controller.cardSubmitButton = function(){
     carMessage.style.display = "block"; 
 
 }
-Controller.addcard =  function(){
-    
+Controller.addcard =  function(event){
+
     console.log("addcard button  has been  clicked ");
 
-}
+    let  email = document.getElementById("email").value; 
+    let  card  = document.getElementById("cardNumber").value; 
+    let  month = document.getElementById("month").value;
+    let  year  = document.getElementById("year").value;
+    let  securityCode = document.getElementById("securityCode").value;
 
+    let data = {"email":email, "card":card, "month":month,"year":year, "securtiyCode":securityCode};
+
+    window.localStorage.setItem('card', JSON.stringify(data)); 
+
+    Model.addCard  =  window.localStorage.getItem('card');
+
+    console.log(JSON.parse(Model.addCard));
+    console.log(card)
+
+    let submitButton  = document.getElementById("cardSubmitButton");
+
+    let  x  = document.getElementById("cardform");
+    
+    if (x.style.display === "none") {
+    
+            x.style.display = "block";
+    
+    } else {
+    
+            x.style.display = "none";
+    
+    }
+    
+    submitButton.addEventListener('click', function(event){
+
+        console.log(email); 
+
+    });
+
+    
+
+}
 Controller.checkPhoneNumber =  function(phone){
 
 
@@ -327,7 +362,6 @@ Controller.checkForSpecialCharacter =  function(checkString){
         }
     }
 }
-
 Controller.storeCustomer = function(){
 
         let firstname  =  View.inputFirstNameCustomer.value;
@@ -394,26 +428,14 @@ Controller.sendMoneyMainbutton = function(){
 
         &&  Model.selectCountry != null  &&  amountConverted  != "" && amoutInDallor != ""
 
-        && amoutInDallor.replace(/\s/g, "") !=  "" &&  amountConverted.replace(/\s/g, "") !=""
-        
-        && fee.replace(/\s/g, "") !=""
+        && amoutInDallor.replace(/\s/g, "") !=  "" &&  amountConverted.replace(/\s/g, "") !=""  && fee.replace(/\s/g, "") !=""
 
         ){  
             
             if(!isNaN(amountConverted) && !isNaN(amoutInDallor)){
 
-
-                console.log("CUSTOMER  DATA  "); 
-                console.log(Model.customerState);
-
-                console.log("RECIPIENT DATA ");
-                console.log(Model.recipient)
-
-                console.log("CLICK DATA ");
-                console.log(Model.recipientSelectButtonState);
-                
-                let  recipient  =  JSON.parse(Model.recipient);
-                let  customer   =  JSON.parse(Model.recipient);
+                let  recipient  =       JSON.parse(Model.recipient);
+                let  customer   =       JSON.parse(Model.recipient);
                 let  buttonState     =  JSON.parse(Model.recipientSelectButtonState);
 
                 if(Model.recipientSelectButtonState != null &&  buttonState['click'] == true){
@@ -422,9 +444,7 @@ Controller.sendMoneyMainbutton = function(){
                         let  customer   =  JSON.parse(Model.recipient);
                         let  buttonState     =  JSON.parse(Model.recipientSelectButtonState);
 
-                        console.log("Recipient name is " + recipient['firstname']);
-                        console.log(buttonState['click']);  
-
+        
                         $.ajax({
                             type: "POST",
                             url: "/submitPayment",
@@ -517,7 +537,7 @@ Controller.selectOptionPayments =  function(){
 
         document.getElementById('my-select-payments').addEventListener('change', function(event) {
 
-              alert(this.value);
+              console.log(this.value); 
 
               $.ajax({
                 type: "POST",
@@ -537,8 +557,11 @@ Controller.selectOptionPayments =  function(){
                 }
             })
 
-            setInterval(Controller.refreshPage, 1000);
-                
+            //setInterval(Controller.refreshPage, 1000);
+
+            document.getElementById("paymentDisplay").style.display="block";
+
+            
 
             });
     }
