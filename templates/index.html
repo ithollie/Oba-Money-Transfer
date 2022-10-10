@@ -215,12 +215,12 @@
 
                               <select id="my-select-payments"  style="color:black; background-color:white; border-radius: 0px;">
                                 
-                                <option value="0" style="color:black">Select Payments</option>
+                                <option value="0" style="font-size:20px;  font-weight:700;  color:black;font-style: normal;text-transform:; font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;">Select Payments</option>
 
                                 {% for i in range(0  , paymentArrayLength) %}
 
 
-                                  <option value="{{paymentsArray[i]['_id']}}" style="color:black"><span>{{paymentsArray[i]['recipientFirstName']  + " " + paymentsArray[i]['recipientLastName']}}</span> </option>
+                                  <option style="font-size:10px;  font-weight:700;  color:black;font-style: normal;text-transform:; font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;" value="{{paymentsArray[i]['_id']}}" style="color:black"><span>{{paymentsArray[i]['recipientFirstName']  + " " + paymentsArray[i]['recipientLastName']}}</span> </option>
 
                                 {% endfor %}
                                 
