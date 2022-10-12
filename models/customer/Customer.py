@@ -11,7 +11,8 @@ import uuid
 
 
 class Customer(object):
-    def __init__(self,firstname, lastname, address, contact, country, phone, date=datetime.datetime.utcnow(), _id=None):
+    def __init__(self,firstname, lastname, address, contact, country, phone, email, date=datetime.datetime.utcnow(), _id=None):
+        self.email     =  email
         self.firstname =  firstname
         self.lastname  =  lastname
         self.address   =  address
@@ -57,9 +58,9 @@ class Customer(object):
             return  False
             
     @classmethod
-    def insert(cls,firstname, lastname, address, contact, country, phone ):
+    def insert(cls,firstname, lastname, address, contact, country, phone,  email ):
         if  firstname:
-            new_user = cls(firstname, lastname, address, contact, country, phone)
+            new_user = cls(firstname, lastname, address, contact, country, phone,  email)
             new_user.save_to_mongo()
 
             return True
@@ -96,6 +97,7 @@ class Customer(object):
 
     def json(self):
         return {
+         "email":self.email, 
          "firstname":self.firstname,
          "lastname":self.lastname,
          "address":self.address,

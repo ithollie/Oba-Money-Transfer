@@ -1,9 +1,12 @@
+from tkinter import EXCEPTION
 from flask import Flask, render_template, escape, make_response, redirect,session, request,jsonify,json, flash,url_for
 import requests
 import ssl
 import sys
 import os
 import re
+from werkzeug.utils import secure_filename
+from werkzeug.datastructures import  FileStorage
 import uuid
 import stripe
 import logging 
@@ -82,13 +85,18 @@ def card():
         try:
             email  = request.cookies.get('login_email')
 
-            customerEmail = request.form['email']
-            cardNumber =  request.form['card']
-            month =   request.form['month']
-            year =   request.form['year']
-            secuirty_code =   request.form['code']
-        
-            print(customerEmail + " " + cardNumber + " " + month + " " + year + " " + secuirty_code )
+            _id =  uuid.uuid4().hex
+            customerId =   request.json['_id']
+            cardNumber =  request.json['cardNumber']
+            month =   request.json['cardMonth']
+            year =   request.json['cardYear']
+            code =   request.json['secuirtyCode']
+
+            data =  {"customerId":customerId,   "_id":_id, "number":cardNumber, "month":month, "year":year, "code":code}
+
+            Database.insert("cards",  data); 
+
+            print("Card  has  been  Inserted ")
             return redirect(url_for('welcome' ,  email=email))
 
         except  Exception as  ex:
@@ -130,10 +138,11 @@ def insertCustomer():
 
             session['phoneNumber'] =  phone
 
-            customer  = Customer(firstname, lastname ,  address,  contact,  country,  phone)
+            customer  = Customer(firstname, lastname ,  address,  contact,  country,  phone, email)
 
-            if  customer.insert(firstname, lastname ,  address,  contact,  country,  phone) is True:
+            if  customer.insert(firstname, lastname ,  address,  contact,  country,  phone, email) is True:
 
+                print("Not  a  problem")
                 return redirect(url_for('welcome' ,  email=email))
 
             else:
@@ -228,6 +237,7 @@ def  submitPayment():
                     senderPhoneNumber  =   request.get_json()['senderPhoneNumber']
                     sentAmount          =  request.get_json()['sentAmount']
                     email  = request.cookies.get('login_email')
+                    paymentStatus  = False
 
                     code = 'AA'.join(secrets.choice(string.ascii_uppercase + string.digits)
                         for i in range(N))
@@ -243,7 +253,7 @@ def  submitPayment():
                             
                             "recipientAddress":recipientAddress,"recipientContact":recipientContact,"recipientCountry":recipientCountry,
                             "recipient_id":recipient_id,"recipientPhoneNumber":recipientPhoneNumber,
-                            "senderPhoneNumber":senderPhoneNumber,"amount":sentAmount,"code":code
+                            "senderPhoneNumber":senderPhoneNumber,"amount":sentAmount,"code":code, "paymentStatus":paymentStatus
                         })
 
                         print("recipientFirstName => " + recipientLasttName)
@@ -262,6 +272,41 @@ def  submitPayment():
     print("Some  thing is  wrong ")
 
     return redirect(url_for('welcome' ,  email=email))  
+
+@app.route('/updateSession' , methods=['GET', 'POST'])
+def updateSession():
+
+    if request.method == 'POST':
+        try:
+
+            
+            email  = request.cookies.get('login_email')
+
+            customerPhoneNumber =  request.get_json()['customerPhoneNumber']
+
+            if customerPhoneNumber  is not None:
+
+                session['customerPhoneNumber'] = customerPhoneNumber
+                
+                print("Phone  number of  cutomer")
+                print(customerPhoneNumber)
+
+                email  = request.cookies.get('login_email')
+
+                return redirect(url_for('welcome' ,  email=email))
+
+            else:
+                print("Error  message on   updateSession ")
+
+                return redirect(url_for('welcome' ,  email=email))
+
+
+        except Exception  as  ex:
+
+            print(ex)
+        
+    print("There is a  problem  in  the  updateSession")
+    return redirect(url_for('login'))
 
 @app.route('/selectedPayment' , methods=['GET', 'POST'])
 def selectedPayment():
@@ -391,29 +436,42 @@ def editeprocess(email,blogtitle,blog_id):
     flash("these are technical errors please try login again")
     return render_template('login.html',loginform=loginform)
 
-@app.route('/delete', methods=['GET', 'POST'])
+@app.route('/deletePayment', methods=['GET', 'POST'])
 def delete():
-    loginform = LoginForm()
-    
-    post_title = request.get_json()['post_title']
-    post_email = request.get_json()['post_email']
-    post_id = request.get_json()['post_id']
-    
-    session['post_title']  = post_title
-    session['post_email']  = post_email
-    session['post_id']     = post_id
-     
-    if 'post_title' in  session:
-        if post_id:
-            print("that  is not quite")
-            Database.delete("blogs",{"title":post_title})
-            flash("blog deleted")
-            return redirect(url_for('welcome'))
-        else:
-            print("that  is not quite corrent")
-            return redirect(url_for('welcome'))
+
+    if request.method == 'POST':
+
+        try:
+            email  = request.cookies.get('login_email')
+
+            payment_id = request.get_json()['payment_id']
+
+            print("payment id ")
+
+            print(payment_id)
+
+            data  =  Database.find_one('payments' , {"_id":payment_id})
+
+            print(data)
+
+            if data['_id'] == payment_id:
+                
+                print("Pay is  deleted ")
+
+                Database.delete("payments",{"_id":payment_id})
+            
+                return redirect(url_for('welcome', email=email))
+            else:
+
+                print("payment id   is  None")
+
+        except  Exception  as  e:
+
+            print(e)
+        
     print("that  is not quite yet")
-    return redirect(url_for('welcome'))
+
+    return redirect(url_for('welcome', email=request.cookies.get('login_email')))
 
 @app.route('/auth/restpass',methods=['POST','GET'])
 def pass_rest():
@@ -747,9 +805,16 @@ def welcome(email):
 
    session.pop('_flashes', None)
 
+
+   print("card  details ")
+
    userInDatabase = Database.find_one("users", {"email": request.cookies.get('login_email')})
-   
-   if request.cookies.get('login_email') is not  None and userInDatabase  is not None:
+
+   if request.cookies.get('login_email')  is  not   None and  userInDatabase is not  None:
+
+          
+
+            card     =  Database.find_one("cards" , {"_id":userInDatabase['_id']})
 
             database_phone_number_data  = None
             customerIsTrue = None 

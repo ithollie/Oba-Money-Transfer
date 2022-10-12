@@ -44,7 +44,7 @@ class Database(object):
 
     @staticmethod
     def delete(collection, data):
-        Database.DATABASE[collection].remove(data)
+        Database.DATABASE[collection].delete_one(data)
 
     @staticmethod
     def find(collection, query):

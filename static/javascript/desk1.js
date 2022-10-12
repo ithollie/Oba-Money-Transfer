@@ -3,17 +3,22 @@ const  Model =  {};
 const  View =  {};
 const  Controller =  {};
 
-
 Model.recipientSelectButtonState = window.localStorage.getItem('buttonState');
 Model.paymentMethod  =      window.localStorage.getItem('paymentMethod');
 Model.selectCountry        =      window.localStorage.getItem('selectCountry');
 Model.addCard              = window.localStorage.getItem('card');
+Model.updateState          = window.localStorage.getItem('updateState');
+
 
 Controller.initialize  =  function(eventObject){
 
+
   Model.customerState =  window.localStorage.getItem("customer");
   Model.recipient =     window.localStorage.getItem('recipient');
-
+  
+  View.deletePayment = document.getElementById("deletePayment");
+  View.editPayment   = document.getElementById("editPayment")
+  View.pausePayment  = document.getElementById("pausePayment")
 
   View.paymentCard  =  document.getElementById("paymentCard");
   View.paymentCash  =  document.getElementById("paymentCash");
@@ -79,10 +84,108 @@ Controller.initialize  =  function(eventObject){
   View.amoutInDallor  = document.getElementById("amoutInDallor"); 
   View.amountConverted = document.getElementById("amountConverted");
   View.charge          = document.getElementById("charge"); 
+
+  if(View.pausePayment){
+
+    View.deletePayment.addEventListener('click',  function(event){
+
+        let  id = event.target.attributes[1].value;
+
+        console.log("CURRENT  ID  = " + id);
+         
+         alert("pause Payment");
+
+         $.ajax({
+             type: "POST",
+             url: "/pausePayment",
+             data: JSON.stringify({
+             "payment_id":id,
+           
+             } ),
+             contentType: "application/json; charset=utf-8",
+             dataType: "json",
+             success: function (data) {
+     
+                 console.log(data);
+                 
+             }
+         })
+
+         Controller.refreshPage();
+
+     });
+  }
+
+  if(View.deletePayment !=null){
+
+        View.deletePayment.addEventListener('click',  function(event){
+
+           let  id = event.target.attributes[1].value;
+
+           console.log("CURRENT  ID  = " + id);
+            
+            alert("deletePayment");
+
+            $.ajax({
+                type: "POST",
+                url: "/deletePayment",
+                data: JSON.stringify({
+                "payment_id":id,
+              
+                } ),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+        
+                    console.log(data);
+                    
+                }
+            })
+
+            Controller.refreshPage();
+
+        });
+  }
+
+  if(View.editPayment !=null){
+
+    View.deletePayment.addEventListener('click',  function(event){
+
+        let  id = event.target.attributes[1].value;
+
+        console.log("CURRENT  ID  = " + id);
+         
+         alert("edit Payment");
+
+         $.ajax({
+             type: "POST",
+             url: "/editPayment",
+             data: JSON.stringify({
+             "payment_id":id,
+           
+             } ),
+             contentType: "application/json; charset=utf-8",
+             dataType: "json",
+             success: function (data) {
+     
+                 console.log(data);
+                 
+             }
+         })
+
+         Controller.refreshPage();
+
+     });
+
+  }
   
   if(View.topup != null){
 
-    View.topup.addEventListener('click',  function(){
+    View.topup.addEventListener('click',  function(event){
+
+        let  x = event.target.attributes[0];
+
+        console.log(x);
 
         alert("View.topup has  been  clicked ");
     });
@@ -161,6 +264,8 @@ Controller.initialize  =  function(eventObject){
 
  }
 
+ 
+
 if(View.save_sender !=  null){
 
     View.save_sender.addEventListener('click' ,  Controller.editSender);
@@ -181,6 +286,7 @@ Controller.selectRecipient();
 Controller.paymentMethod();
 Controller.selectOption();
 Controller.selectOptionPayments();
+Controller.updateSession();
 
 
 $("#amoutInDallor").on("keyup", function (e){
@@ -191,6 +297,65 @@ $("#amoutInDallor").on("keyup", function (e){
 
 });
    
+}
+
+Controller.updateSession =  function(){
+
+    let  data = {"updateState":true}
+
+    window.localStorage.setItem('updateState', JSON.stringify(data));
+
+    if(JSON.parse(Model.updateState)['updateState'] ==  true){
+
+        Model.updateState =  window.localStorage.getItem('updateState');
+    }
+       
+
+    let  x  =  document.querySelectorAll("#inputPhoneNumberCustomer");
+
+    let  p = null;
+
+    if(x  !=null  &&  x != undefined){
+
+        if(x  !=null){
+
+            for(let  i = 0; i  < 1;  i++){
+
+
+                if(x[i] != undefined){
+
+                    p  =  x[i].attributes.value.nodeValue
+
+                    
+                }
+
+            }
+        }
+    }
+    
+
+    if(p != null){
+
+          $.ajax({
+        type: "POST",
+        url: "/updateSession",
+        data: JSON.stringify({
+        "customerPhoneNumber":p,
+      
+        } ),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+
+            console.log(data);
+            
+        }
+    })
+
+    setInterval(Controller.update, 1000);
+    }
+  
+
 }
 
 Controller.apiResult = function(amount, currentCountryCode,  receivingCountryCode){
@@ -279,29 +444,85 @@ $(document).keyup(function(event) {
 });
 Controller.cardSubmitButton = function(){
 
+    let  cardNumber = document.getElementById("cardNumber").value; 
+
+    let  cardMonth = document.getElementById("cardMonth").value; 
+
+    let  cardYear = document.getElementById("cardYear").value; 
+
+    let  secuirtyCode = document.getElementById("securityCode").value; 
+
     let carMessage  = document.getElementById("cardMessage");
 
-    carMessage.style.display = "block"; 
+    let formCard        = document.getElementById("cardform"); 
+
+    let paymentMessage  = document.getElementById("paymentMessageSpan"); 
+
+    let _id        =  View.inputFirstNameCustomer.attributes[1].nodeValue;
+
+    let data  =  {"cardNumber":cardNumber,"cardMonth":cardMonth, "cardYear":cardYear, "secuirtyCode":secuirtyCode};
+
+    if(cardMonth.replace(/\s/g, "") != "", cardNumber.replace(/\s/g, "") !=  "" , cardYear.replace(/\s/g, "") !=  "",  secuirtyCode.replace(/\s/g, "") !="" ){
+            
+            if(!isNaN(cardNumber) && !isNaN(cardMonth) &&  !isNaN(cardYear) &&  !isNaN(secuirtyCode)){
+
+                if((cardYear.length == 4  &&  cardYear > 2021)  &&  (cardMonth != 0 &&  (cardMonth.length == 1 || cardMonth.length == 2)) &&  cardNumber.length ==  16 &&  secuirtyCode.length == 3 ){
+
+                    console.log(data);
+
+                    paymentMessage.style.color = "red";
+
+                    formCard.style.display  = "none";
+
+                    carMessage.style.display = "block";
+                    
+                    $.ajax({
+
+                        type: "POST",
+                        url: "/card",
+
+                        data: JSON.stringify({
+                        "_id":_id,
+                        "cardNumber":cardNumber,
+                        "cardMonth":cardMonth,
+                        "cardYear":cardYear,
+                        "secuirtyCode":secuirtyCode
+                        
+                        } ),
+
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (data) {
+
+                            console.log(data);
+                            
+                        }
+                    })
+
+                    //setInterval(Controller.refreshPage, 1000);
+                }else{
+
+                    alert("Check  the length  of   the  inputs "); 
+                }
+
+            }
+            else{
+
+                alert("One  or  more fields  is  not a  number  ");    
+            }
+    }else{
+
+        alert("One  or  more fields  is  empty ");
+    }
+
+   
+
+
+
 
 }
 Controller.addcard =  function(event){
 
-    console.log("addcard button  has been  clicked ");
-
-    let  email = document.getElementById("email").value; 
-    let  card  = document.getElementById("cardNumber").value; 
-    let  month = document.getElementById("month").value;
-    let  year  = document.getElementById("year").value;
-    let  securityCode = document.getElementById("securityCode").value;
-
-    let data = {"email":email, "card":card, "month":month,"year":year, "securtiyCode":securityCode};
-
-    window.localStorage.setItem('card', JSON.stringify(data)); 
-
-    Model.addCard  =  window.localStorage.getItem('card');
-
-    console.log(JSON.parse(Model.addCard));
-    console.log(card)
 
     let submitButton  = document.getElementById("cardSubmitButton");
 
@@ -317,12 +538,6 @@ Controller.addcard =  function(event){
     
     }
     
-    submitButton.addEventListener('click', function(event){
-
-        console.log(email); 
-
-    });
-
     
 
 }
@@ -826,7 +1041,7 @@ Controller.runRecipient = function(event){
 }
 Controller.customerNotFoundNumber = function(){
 
-    let  x  = document.getElementById("found_user_false");
+    let  x  = document.getElementById("found_false");
 
     if (x.style.display === "none") {
 
@@ -837,8 +1052,6 @@ Controller.customerNotFoundNumber = function(){
         x.style.display = "none";
 
       }
-
-    //v.style.display="block";
 }
 Controller.showAddrecipiant =  function(event){
 
@@ -1186,15 +1399,12 @@ Controller.inputStatus = function(event){
 }
 Controller.validateForm  = function(event) {
 
-   
-    
-    let  value = View.phoneInput.value;
 
-   
+    let  value = View.phoneInput.value;
 
     if(value != "" && !isNaN(value) && value.length > 9 && value.length == 10 &&  value != null){
 
-         
+        
 
         $.ajax({
             type: "POST",
@@ -1223,6 +1433,7 @@ Controller.validateForm  = function(event) {
 
         View.found_user.style.display ="block";
 
+        
 
         event.preventDefault(); 
         
@@ -1254,6 +1465,26 @@ Controller.validateForm  = function(event) {
 if( Model.inputStatus == true){
 
     View.found_user.style = "block"; 
+}
+
+Controller.update = function(){
+
+
+    if(JSON.parse(Model.updateState)['updateState'] ==  true){
+
+
+        window.localStorage.removeItem("updateState");
+
+        window.localStorage.setItem('updateState', JSON.stringify({"updateState":false}));
+
+        Model.updateState =  window.localStorage.getItem('updateState');
+
+        window.location.reload();
+        
+    }
+
+
+
 }
 Controller.refreshPage = function(){
 
