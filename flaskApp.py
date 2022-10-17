@@ -5,6 +5,7 @@ import ssl
 import sys
 import os
 import re
+import jinja2
 from werkzeug.utils import secure_filename
 from werkzeug.datastructures import  FileStorage
 import uuid
@@ -606,7 +607,7 @@ def register_process():
 
            Users.registration(firstname, lastname , email, password, filename, image=image, phoneNumber=phoneNumber)
            
-           flash("You  have  successful login ")
+           flash("You  have  successful registered ")
 
            return redirect(url_for('login'))
 

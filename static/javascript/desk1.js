@@ -15,6 +15,9 @@ Controller.initialize  =  function(eventObject){
 
   Model.customerState =  window.localStorage.getItem("customer");
   Model.recipient =     window.localStorage.getItem('recipient');
+
+  View.sentPayment   = document.getElementById("sentPayment");
+  View.editcustomer  = document.getElementById("editcustomer");
   
   View.deletePayment = document.getElementById("deletePayment");
   View.editPayment   = document.getElementById("editPayment")
@@ -264,7 +267,43 @@ Controller.initialize  =  function(eventObject){
 
  }
 
- 
+ if(View.sentPayment != null){
+
+    let  currentSent  = document.getElementById("currentSent");
+
+    View.sentPayment.addEventListener('mouseover',  function(event){
+
+        currentSent.style.display="block";
+
+    });
+ }
+
+ if(View.editcustomer !=null){
+
+    View.editcustomer.addEventListener('click',  function(){
+
+
+        let senderTable  = document.getElementById("senderTable");
+
+        let save_sender =  document.getElementById("save_sender");
+
+
+        if (senderTable.style.display === "none" && save_sender.style.display === "none") {
+
+    
+            senderTable.style.display = "block";
+            save_sender.style.display = "inline-block"
+            
+    
+        } else {
+    
+            senderTable.style.display = "none";
+            save_sender.style.display = "none";
+    
+        }
+
+    });
+ }
 
 if(View.save_sender !=  null){
 
