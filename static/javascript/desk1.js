@@ -18,6 +18,8 @@ Controller.initialize  =  function(eventObject){
 
   View.sentPayment   = document.getElementById("sentPayment");
   View.editcustomer  = document.getElementById("editcustomer");
+
+  View.borderline    = document.getElementById("borderline");
   
   View.deletePayment = document.getElementById("deletePayment");
   View.editPayment   = document.getElementById("editPayment")
@@ -87,14 +89,34 @@ Controller.initialize  =  function(eventObject){
   View.amoutInDallor  = document.getElementById("amoutInDallor"); 
   View.amountConverted = document.getElementById("amountConverted");
   View.charge          = document.getElementById("charge"); 
+ 
+  if(View.borderline != null){
 
-  if(View.pausePayment){
+    View.borderline.addEventListener('click',  function(){
+        
+  
+        let sendMoney  = document.getElementById("sendMoney");
 
-    View.deletePayment.addEventListener('click',  function(event){
+        if (sendMoney.style.display === "none") {
+    
+            sendMoney.style.display = "block";
+    
+        } else {
+    
+            sendMoney.style.display = "none";
+    
+        }
+        
+    });
+  }
+
+  if(View.pausePayment != null){
+
+    View.pausePayment.addEventListener('click',  function(event){
 
         let  id = event.target.attributes[1].value;
 
-        console.log("CURRENT  ID  = " + id);
+        console.log("CURRENT PAYMENT ID  = " + id);
          
          alert("pause Payment");
 
@@ -102,7 +124,7 @@ Controller.initialize  =  function(eventObject){
              type: "POST",
              url: "/pausePayment",
              data: JSON.stringify({
-             "payment_id":id,
+             "_id":id,
            
              } ),
              contentType: "application/json; charset=utf-8",
@@ -114,7 +136,7 @@ Controller.initialize  =  function(eventObject){
              }
          })
 
-         Controller.refreshPage();
+         //Controller.refreshPage();
 
      });
   }
@@ -188,9 +210,22 @@ Controller.initialize  =  function(eventObject){
 
         let  x = event.target.attributes[0];
 
-        console.log(x);
+        let topUpInput   = document.getElementById("topUpInput"); 
 
-        alert("View.topup has  been  clicked ");
+        let mainInput   =  document.getElementById("put");
+
+        if (topUpInput.style.display === "none") {
+    
+            topUpInput.style.display = "block";
+            mainInput.style.display= "none";
+    
+        } else {
+    
+            topUpInput.style.display = "none";
+            mainInput.style.display="block";
+    
+        }
+        
     });
   }
 

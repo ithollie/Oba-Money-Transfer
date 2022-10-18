@@ -94,9 +94,9 @@
                 <div id="notifications" style="width:100%; height:20%;background-color:#ffffff; margin-bottom: 39px;">
                   <div id="te" style="background-color:#ffffff; padding-top:0px;position:relative;margin-bottom: 39px;">
                       <ul>
-                          <li><a class="waves-effect waves-light btn white" style="width:100px;color:black; text-decoration:none;background-color:; font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;" href="">Help</a></li>
-                          <li id="logout" ><a class="waves-effect waves-light btn red" style="text-transform: lowercase;color:white; text-decoration:none;background-color:;  font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;" href="/logout"><i class="material-icons"></i>logout</i></a></li>
-                          <li id="addRecipiant"><a class="waves-effect waves-light btn white" style="text-transform: uppercase;color:black; text-decoration:none;background-color:; font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;" href="{{url_for('welcome', email=email)}}"><i class="material-icons"></i>Home</i></a></li>
+                          <li><a class="waves-effect waves-light btn white" style="width:100px;color:black; text-decoration:none;background-color:; font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;" href=""><i class="large material-icons">help</i></a></li>
+                          <li id="logout" ><a class="waves-effect waves-light btn red" style="text-transform: lowercase;color:white; text-decoration:none;background-color:;  font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;" href="/logout"><i class="material-icons"></i><i class="large material-icons">settings_power</i></i></a></li>
+                          <li id="addRecipiant"><a class="waves-effect waves-light btn white" style="text-transform: uppercase;color:black; text-decoration:none;background-color:; font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;" href="{{url_for('welcome', email=email)}}"><i class="material-icons"></i><i class="large material-icons">home</i></i></a></li>
   
                       </ul>
                     </div>
@@ -114,7 +114,7 @@
   
                 <!--  profile  button photo  click -->
                 <div id="addphote" style="text-align: center;text-decoration:none;"><a class="modal-trigger" id="pasue" style="text-transform: lowercase;color:black; text-decoration:none;font-weight: bold;" href="#modal1"><i class=" small material-icons ">add_a_photo</i></a></div>
-  
+  h
                 <!-- header starts -->
                 <div  id="main" data-login="{{email}}" data-login-id="{{_id}}" style="background-position: 100px 5px;  background-size: 150px;text-align:center;    z-index: auto; background-color:white !important;background-image: url({{url_for('static', filename='images/.jpg')}});background-repeat:no-repeat;background-size:cover;background-position:center;" class="carousel-item red white-text" href="#one!">
   
@@ -125,15 +125,24 @@
   
                           </div>
                           <br>
+
+                          <div id="topUpInput" style="margin:auto;width:80%;padding: 7px; display:none">
+
+                             <h1 style="color:black">Find  phone   number   to  send topup credit </h1>
+  
+                            <input id="creditInput" style="border: 2px solid gray;background:#f9f9f9;font-weight:500; font-size:20px;padding-left:2px;background-color:#f9f9f9;color:black;border-radius:6px;width:60%;height:50px;-webkit-transition: width 0.4s ease-in-out;transition: width 0.4s ease-in-out;font-family: Times, Times New Roman, Georgia, serif;" type="text" name="post" placeholder="Enter phone number to  send credit" required="required">
+                            
+                           
+                          </div>
       
                         <div id="notifications" style="width:100%; height:30%; background-color:;  display: flex; text-align: center;">
                               <div id="te">
                                 <ul>
-                                  <li id="search" style="text-decoration: none;"><a class="waves-effect waves-light btn " style="text-transform: lowercase;color:white; text-decoration:none;background-color:#660029;  font-size:20px; text-decoration: none;" ><i class="material-icons" style="text-decoration:none;font-weight: 700;color:black"></i>Search</i></a></li>
+                                  <li id="search" style="text-decoration: none;"><a class="waves-effect waves-light btn " style="text-transform: lowercase;color:white; text-decoration:none;background-color:#660029;  font-size:20px; text-decoration: none;" ><i class="material-icons" style="text-decoration:none;font-weight: 700;color:black"></i><i class="large material-icons">search</i></i></a></li>
                                   
-                                  <li id="clear" style="text-decoration: none;"><a class="waves-effect waves-light btn " style="text-transform: lowercase;color:white; text-decoration:none;background-color:red;  font-size:20px" ><i class="material-icons" style="text-decoration: none; font-weight: 700;;color:black"></i>Clear</i></a></li>
+                                  <li id="clear" style="text-decoration: none;"><a class="waves-effect waves-light btn " style="text-transform: lowercase;color:white; text-decoration:none;background-color:red;  font-size:20px" ><i class="material-icons" style="text-decoration: none; font-weight: 700;;color:black"></i><i class="large material-icons">clear</i></i></a></li>
                                   
-                                  <li id="topup" style="text-decoration: none;"><a class="waves-effect waves-light btn " style="text-transform:none;color:white; text-decoration:none;background-color:#660029;  font-size: 1.5em;" ><i class="material-icons" style="text-decoration: none; font-weight: 700;;color:black"></i>Topup</i></a></li>
+                                  <li id="topup" style="text-decoration: none;"><a class="waves-effect waves-light btn " style="text-transform:none;color:white; text-decoration:none;background-color:#660029;  font-size: 1.5em;" ><i class="material-icons" style="text-decoration: none; font-weight: 700;;color:black"></i><i class="large material-icons">credit_card</i></i></a></li>
   
   
                                 </ul>
@@ -143,7 +152,7 @@
                     </div>
                    
                 </div>
-         
+                <!-- start  of  found user -->
                 <div id="found_user" style="width:100%; height:100%;  background-color:;text-align: center;display:">
                   {% block content %}
   
@@ -160,13 +169,15 @@
                               </ul>
                             </div>
                         </div>
+
+                       
                         <div id="notifications" style="width:100%; height:10%;background-color:#ffffff; margin-bottom: 20px;">
                     
                           <div id="te" style="background-color:#ffffff; padding-top:0px;position:relative;margin-bottom: 2px;">
                               <ul>
                                   
                             <h1 id="paymentMessage" class="waves-effect waves-light btn white modal-trigger" style="font-size:20px;  font-weight:700;  color:black;font-style: normal;text-transform:; font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;"><a class="modal-trigger"  style="color:black; font-size:12px" >Payment card end in  <span  id="paymentMessageSpan" style="color:black">2489</span></a> </h1>
-                            <h1 id="addcard" data-key="24556" class="waves-effect waves-light btn white modal-trigger" style="font-size:20px;  font-weight:700;  color:black;font-style: normal;text-transform:none; font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;"><a class="modal-trigger" href="#modal2" style="color:black; font-size:12px" > Add payment  card</a> </h1>
+                            <h1 id="addcard" data-key="24556" class="waves-effect waves-light btn white modal-trigger" style="font-size:20px;  font-weight:700;  color:black;font-style: normal;text-transform:none; font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;"><a class="modal-trigger" href="#modal2" style="color:black; font-size:12px" ><i class="large material-icons">credit_card</i> </a> </h1>
   
                               </ul>
                             </div>
@@ -201,8 +212,8 @@
                                   
                               
                           
-                      </div>
-                      <br>
+                        </div>
+                        <br>
   
                         <div id="cardMessage" style="background-color: ; display:none; font-size:20px; font-weight:400; margin-bottom: 20px;color:red">Card  has  been  added thank  you </div>
                         <div id="sentPayment" class=" btn white" style="background-color:#660029;color:#646e70; font-size: 20px;font-weight: 300;font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;">payments</div>
@@ -258,7 +269,7 @@
   
                                     <li style="text-decoration: none;"><a id="deletePayment" data-key="{{currentSelectPayment['_id']}}" class="waves-effect waves-light btn red" style="text-transform: lowercase;color:white; text-decoration:none;background-color:;  font-size:20px; text-decoration: none;" ><i class="material-icons" style="text-decoration:none;font-weight: 700;color:black"></i>Delete</i></a></li>
                                     
-                                    <li  style="text-decoration: none;"><a id="editPayment" data-key="{{currentSelectPayment['_id']}}"  class="waves-effect waves-light btn " style="text-transform: lowercase;color:white; text-decoration:none;background-color:#ff0066;  font-size:20px" ><i class="material-icons" style="text-decoration: none; font-weight: 700;;color:black"></i>Edit</i></a></li>
+                                    <li  style="text-decoration: none;"><a id="editPayment" data-key="{{currentSelectPayment['_id']}}"  class="waves-effect waves-light btn " style="text-transform: lowercase;color:white; text-decoration:none;background-color:#ff0066;  font-size:20px" ><i class="material-icons" style="text-decoration: none; font-weight: 700;;color:black"></i><i class="large material-icons">edit</i></i></a></li>
                                     
                                     <li  style="text-decoration: none;"><a id="pausePayment"  data-key="{{currentSelectPayment['_id']}}"  class="waves-effect waves-light btn " style="text-transform:none;color:white; text-decoration:none;background-color:#ff0066;  font-size: 1.5em;" ><i class="material-icons" style="text-decoration: none; font-weight: 700;;color:black"></i>pause</i></a></li>
   
@@ -276,18 +287,23 @@
   
                         <div id="customerDiv" style="background-color:">
   
-                        <div id="customer_firstname&lastname" style="width:100%;  height:50%;position: relative; background-color:;text-align: center">
+                        <div id="customer_firstname&lastname" style="width:100%;  height:50%;position: relative; background-color:;text-align: center;    margin-bottom: 12px;">
                           <div id="lastfirst" style="width:100%;height:100%;top:0px; background-color:;display: inline-flex">
                             
                              <!-- lastname starts -->
                             <div id="{{firstname}}" style="float:;width:50%;height:100%;background-color:#ff0066">
-                              <h1 id="login_user_last_name" style="font-size:21px;color:black;font-weight:700;font-style:bold">{{database_phone_number_data['firstname']}}</h1>
+                              <h1 id="login_user_last_name" style="font-size:21px;color:white;font-weight:700;font-style:bold">{{database_phone_number_data['firstname']}}</h1>
                             </div>
   
-                      
+                            <div id=""  style="float:;width:20%;height:100%;color:white; margin:auto;background-color:#000000;">
+                              <h1 id="editcustomer" style="font-size:21px;color:white;font-weight:700;font-style:bold;"><i class="small material-icons">edit</i></h1>
+                            </div>
+                            <div id="borderline"  style="float:;width:20%;height:100%;color:black; margin:auto;background-color:yellow;">
+                              <h1 id="borderline" style="font-size:21px;color:black;font-weight:700;font-style:bold;">Expend</h1>
+                            </div>
                             <!--  lastname ends -->
                             <div id="{{lastname}}"  style="float:;width:50%;height:100%;background-color:#ff0066">
-                              <h1 id="login_user_first_name" class="iden" style="font-size:21px;color:black;font-weight:700;font-style:normal">{{ database_phone_number_data['lastname']}}</h1>
+                              <h1 id="login_user_first_name" class="iden" style="font-size:21px;color:white;font-weight:700;font-style:normal">{{ database_phone_number_data['lastname']}}</h1>
                             </div>
                           </div>
 
@@ -295,14 +311,7 @@
                         
                        <br>
                        <br>
-                          <div id="edit" style="width:100%;height:100%;top:0px; background-color:;display: inline-flex; margin: auto">
-                            
-                        
-                            <div id=""  class=" btn white"  style="float:;width:20%;height:100%;color:black; margin:auto;     border-radius: 12px;">
-                             <h1 id="editcustomer" style="font-size:15px;color:white;font-weight:300;font-style:bold;color:black">edit customer</h1>
-                           </div>
                           
-                         </div>
                        </div>
   
                       
@@ -337,183 +346,186 @@
                           
                         </table>
                        
-                        <span id="save_sender" class=" btn " style="display:none; text-align: center  ; border-radius: 50%;  width:90px; height:90px;background-color:"><h1 style="color:black;font-size: 15px;font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;"> save</h1></span>
-                        <br>
-                        <br> 
-                        <div id="" class="waves-effect waves-light btn  modal-trigger" style="width:100%; height:50px; background-color:#ff0066"></div>
-                      </div>
-                        <br>
-  
+                        <span id="save_sender" class=" btn " style="display:none; text-align: center  ; border-radius: 50%;  width:90px; height:90px;background-color:;padding: 23px;"><h1 style="color:white;font-size: 15px;font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;"><i class="large material-icons">send</i></h1></span>
                         
-                       
-                        <div id="notifications" style="width:100%; height:10%;background-color:#ffffff; margin-bottom: 20px;">
-                    
-                          <div id="te" style="background-color:#ffffff; padding-top:0px;position:relative;margin-bottom: 2px;">
-                              <ul>
-                                  
-      
-                            <h1 id="" class="waves-effect waves-light btn " style="background-color:;  color:white;font-size:12px;  font-weight:300;  color:white;font-style: normal;text-transform: lowercase"> <span id="recipiantAddOtherRecipient" style="color:white;font-weight:300; font-size:18px;font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;">add recipient</span></h1>
-    
-    
-                              </ul>
-                            </div>
-                        </div>
-                       
-  
-                        {% if array %}
-                                  
-                  
-                          <div id="notifications" style="width:100%; height:10%;background-color:#ffffff; margin-bottom: 20px;">
+                        <br>
                       
-                            <div id="te" style="background-color:; padding-top:0px;position:relative;margin-bottom: 2px;">
-                                <ul>
-                                  {% for i in range(0  , arrayLen) %}
-  
-                                      <h1 id="selectedRecipient" 
-                                      
-                                      data-key-id="{{array[i]['_id']}}"
-                                      data-key-firstname="{{array[i]['firstname']}}"
-                                      data-key-lastname="{{array[i]['lastname']}}"
-                                      data-key-address="{{array[i]['address']}}"
-                                      data-key-contact="{{array[i]['contact']}}"
-                                      data-key-country="{{array[i]['country']}}"
-                                      data-key-senderPhoneNumber="{{array[i]['SenderPhoneNumber']}}"
-                                      data-key-reciverPhoneNumber="{{array[i]['reciverPhoneNumber']}}"
-                                      
-                                       class="recipient waves-effect waves-light btn " style="font-size:20px;  font-weight:40;  color:white;font-style: normal;text-transform: lowercase;font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;">{{array[i]['firstname']}}</h1>
-                                  {% endfor %}
-  
-                                </ul>
-                            </div>
-                          </div>
-  
-                          <div id="selectMessage" style="border-radius: 8px;display:none; width:50%;margin: auto; height:50px; background-color:#ff0066;    padding-top: 12px;"><span style="color:white; font-weight:700px; font-size:large;font-style: normal;text-transform: lowercase;font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;"></span></div>
-                          
-                          <div id="recipiantAddOtherRecipientTable" style="display:none">
-                          
-                            <table>
-  
-                            <tr style="border-bottom: 1px solid white;">
-                              <th style="color:black;font-weight: 700;font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;">First Name</th>
-                              <th style="color:black;font-weight: 700;font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;">Last Name</th>
-                              <th style="color:black;font-weight: 700;font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;">Address</th>
-                              <th style="color:black;font-weight: 700;font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;">Contact</th>
-                              <th style="color:black;font-weight: 700;font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;">Country</th>
-                              <th style="color:black;font-weight: 700;font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;">Phone  Number</th>
-                            </tr>
-                            <tr style="border-bottom: 1px solid white;">
-                              <td style="color:black;font-weight: 700;"><input id="inputFirstNameRecipient"  name="inputFirstName" style="font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;;border: 1px solid gray;background:white;font-weight:500; font-size:20px;padding-left:2px;background-color:white;color:black;border-radius:6px;width:100%;height:50px;-webkit-transition: width 0.4s ease-in-out;transition: width 0.4s ease-in-out;font-family: Times, Times New Roman, Georgia, serif;" type="text" name="post" placeholder="" value="" required="required"></td>
-                              <td style="color:black;font-weight: 700;"><input id="inputLastNameRecipient"   name="inputLastName" style="font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;;border: 1px solid gray;background:white;font-weight:500; font-size:20px;padding-left:2px;background-color:white;color:black;border-radius:6px;width:100%;height:50px;-webkit-transition: width 0.4s ease-in-out;transition: width 0.4s ease-in-out;font-family: Times, Times New Roman, Georgia, serif;" type="text" name="post" placeholder="" value="" required="required"></td>
-                              <td style="color:black;font-weight: 700;"><input id="inputAddressRecipient"    name="inputAddress" style="font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;;border: 1px solid gray;background:white;font-weight:500; font-size:20px;padding-left:2px;background-color:white;color:black;border-radius:6px;width:100%;height:50px;-webkit-transition: width 0.4s ease-in-out;transition: width 0.4s ease-in-out;font-family: Times, Times New Roman, Georgia, serif;" type="text" name="post" placeholder="" value="" required="required"></td>
-                              <td style="color:black;font-weight: 700;"><input id="inputContactRecipient"    name="inputContact" style="font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;;border: 1px solid gray;background:white;font-weight:500; font-size:20px;padding-left:2px;background-color:white;color:black;border-radius:6px;width:100%;height:50px;-webkit-transition: width 0.4s ease-in-out;transition: width 0.4s ease-in-out;font-family: Times, Times New Roman, Georgia, serif;" type="text" name="post" placeholder="" value="" required="required"></td>
-                              <td style="color:black;font-weight: 700;"><input id="inputCountryRecipient"    name="inputCountry" style="font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;;border: 1px solid gray;background:white;font-weight:500; font-size:20px;padding-left:2px;background-color:white;color:black;border-radius:6px;width:100%;height:50px;-webkit-transition: width 0.4s ease-in-out;transition: width 0.4s ease-in-out;font-family: Times, Times New Roman, Georgia, serif;" type="text" name="post" placeholder="" value="" required="required"></td>
-                              <td style="color:black;font-weight: 700;"><input id="inputPhoneNumberRecipient" name="inputPhoneNumber" style="font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;;border: 1px solid gray;background:white;font-weight:500; font-size:20px;padding-left:2px;background-color:white;color:black;border-radius:6px;width:100%;height:50px;-webkit-transition: width 0.4s ease-in-out;transition: width 0.4s ease-in-out;font-family: Times, Times New Roman, Georgia, serif;" type="text" name="post" placeholder="" value="" required="required"></td>
-                            </tr>
-                            
-                          </table>
-  
-                          <span id="save_reciver" style="text-align: center  ; border-radius: 50%;width: 82px;    margin: 0.67em 0;
-                          height: 82px;background-color:#ff0066; display: inline-block;"><h1 style="color:white;font-size: 23px;    margin: 0.99em 0;  "> submit</h1></span>
-                          <div id="" style="width:100%; height:50px; background-color:#2f1e1e"></div>
-                          </div>
-                          
-                          <br>
-                          {% else %}
-                          <br>
-                        <h1 class="waves-effect waves-light btn yellow" style="font-size:15px;  font-weight:300;  color:black;text-transform:; font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;display:block">No Recipient found Add recipient  below</h1>
-  
-                    
-                        <table>
-                          <tr style="border-bottom: 1px solid white;">
-                            <th style="color:black;font-weight: 700;font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;">First Name</th>
-                            <th style="color:black;font-weight: 700;font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;">Last Name</th>
-                            <th style="color:black;font-weight: 700;font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;">Address</th>
-                            <th style="color:black;font-weight: 700;font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;">Contact</th>
-                            <th style="color:black;font-weight: 700;font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;">Country</th>
-                            <th style="color:black;font-weight: 700;font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;">Phone  Number</th>
-                          </tr>
-                          <tr style="border-bottom: 1px solid white;">
-                            <td style="color:black;font-weight: 700;"><input id="inputFirstNameRecipient"  name="inputFirstName" style="font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;;border: 1px solid gray;background:white;font-weight:500; font-size:20px;padding-left:2px;background-color:white;color:black;border-radius:6px;width:60%;height:50px;-webkit-transition: width 0.4s ease-in-out;transition: width 0.4s ease-in-out;font-family: Times, Times New Roman, Georgia, serif;" type="text" name="post" placeholder="" value="" required="required"></td>
-                            <td style="color:black;font-weight: 700;"><input id="inputLastNameRecipient"   name="inputLastName" style="font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;;border: 1px solid gray;background:white;font-weight:500; font-size:20px;padding-left:2px;background-color:white;color:black;border-radius:6px;width:60%;height:50px;-webkit-transition: width 0.4s ease-in-out;transition: width 0.4s ease-in-out;font-family: Times, Times New Roman, Georgia, serif;" type="text" name="post" placeholder="" value="" required="required"></td>
-                            <td style="color:black;font-weight: 700;"><input id="inputAddressRecipient"    name="inputAddress" style="font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;;border: 1px solid gray;background:white;font-weight:500; font-size:20px;padding-left:2px;background-color:white;color:black;border-radius:6px;width:60%;height:50px;-webkit-transition: width 0.4s ease-in-out;transition: width 0.4s ease-in-out;font-family: Times, Times New Roman, Georgia, serif;" type="text" name="post" placeholder="" value="" required="required"></td>
-                            <td style="color:black;font-weight: 700;"><input id="inputContactRecipient"    name="inputContact" style="font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;;border: 1px solid gray;background:white;font-weight:500; font-size:20px;padding-left:2px;background-color:white;color:black;border-radius:6px;width:60%;height:50px;-webkit-transition: width 0.4s ease-in-out;transition: width 0.4s ease-in-out;font-family: Times, Times New Roman, Georgia, serif;" type="text" name="post" placeholder="" value="" required="required"></td>
-                            <td style="color:black;font-weight: 700;"><input id="inputCountryRecipient"    name="inputCountry" style="font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;;border: 1px solid gray;background:white;font-weight:500; font-size:20px;padding-left:2px;background-color:white;color:black;border-radius:6px;width:60%;height:50px;-webkit-transition: width 0.4s ease-in-out;transition: width 0.4s ease-in-out;font-family: Times, Times New Roman, Georgia, serif;" type="text" name="post" placeholder="" value="" required="required"></td>
-                            <td style="color:black;font-weight: 700;"><input id="inputPhoneNumberRecipient" name="inputPhoneNumber" style="font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;;border: 1px solid gray;background:white;font-weight:500; font-size:20px;padding-left:2px;background-color:white;color:black;border-radius:6px;width:60%;height:50px;-webkit-transition: width 0.4s ease-in-out;transition: width 0.4s ease-in-out;font-family: Times, Times New Roman, Georgia, serif;" type="text" name="post" placeholder="" value="" required="required"></td>
-                          </tr>
-                          
-                        </table>
-  
-                        <span id="save_reciver" style="text-align: center  ; border-radius: 50%;  width:120px; height:120px;background-color: red; display: inline-block;"><h1 style="color:white;font-size: 40px;  "> submit</h1></span>
+
                         
-                        {% endif %}
-  
-                       
-                        
-                        <br>
-                        
-                        <div class="custom-select" style="border-radius: 2px black; margin:auto; width:50%; height:100px;background-color: ;">
-                          <select id="my-select"  style="color:white; background-color:#ff0066; border-radius: 5px;">
-                            <option value="0" style="color:white">Select Country:</option>
-                            <option value="1" style="color:white">Sierra Leone</option>
-                            <option value="2" style="color:white">Guinea</option>
-                            <option value="3" style="color:white">Guinea-Bissau</option>
-                            <option value="4" style="color:white">Liberia</option>
-                            <option value="5" style="color:white">Mali</option>
-                            <option value="6" style="color:white">Mauritania</option>
-                            <option value="7" style="color:white">Niger</option>
-                            <option value="9" style="color:white">Nigeria</option>
-                            <option value="10" style="color:white">Senegal</option>
-                            <option value="11" style="color:white">Togo</option>
-                            <option value="13" style="color:white">Ghana</option>
-                            <option value="14" style="color:white">Gambia</option>
-                            <option value="15" style="color:white">Côte D'Ivoire</option>
-                            <option value="16" style="color:white">Cape Verde</option>
-                            <option value="17" style="color:white">Burkina Faso</option>
-                            <option value="18" style="color:white">Benin</option>
-  
-                          </select>
-                        </div>
-                        <table id="currencyTable">
-                        
-                            <tr style="border-bottom: 12px solid white">
-  
-                              <td style="color:black;font-weight: 300;margin: 16px;"></td><input type=number” id="amoutInDallor"  placeholder="$amout" style="border: 1px solid black;background:white;font-weight:300; font-size:20px;padding-left:2px;margin:16px; background-color:white;color:black;border-radius:6px;width:20%;height:50px;-webkit-transition: width 0.4s ease-in-out;transition: width 0.4s ease-in-out;font-family: Times, Times New Roman, Georgia, serif;" /></td>
-                              
-                              <td style="color:black;font-weight: 300;margin: 16px;"></td><input type=number” id="amountConverted" placeholder="amountConverted" style="border: 1px solid black;background:white;font-weight:300; font-size:20px;padding-left:2px; margin:16px; background-color:white;color:black;border-radius:6px;width:20%;height:50px;-webkit-transition: width 0.4s ease-in-out;transition: width 0.4s ease-in-out;font-family: Times, Times New Roman, Georgia, serif;"/></td>
-                              
-                              <td style="color:black;font-weight: 300;margin: 16px;"></td><input type=number” id="charge" placeholder="fee" style="border: 1px solid black;background:white;font-weight:500; font-size:20px;padding-left:2px; margin:16px; background-color:white;color:black;border-radius:6px;width:20%;height:50px;-webkit-transition: width 0.4s ease-in-out;transition: width 0.4s ease-in-out;font-family: Times, Times New Roman, Georgia, serif;"/></td>
-                            </tr>
-                        
-                        </table>
-                        
-                        
-  
-                        <div id="notifications" style="width:100%; height:10%;background-color:; margin-bottom: 20px;">
+                        <div id="sendMoney" style="background-color:; display:none">                                        
+                                <!-- add  recipient -->
+                                <div id="notifications" style="width:100%; height:10%;background-color:#ffffff; margin-bottom: 20px;">
+                                    
+                                          <div id="te" style="background-color:#ffffff; padding-top:0px;position:relative;margin-bottom: 2px;">
+                                              <ul>
+                                                  
                       
-                          <div id="te" style="background-color:; padding-top:0px;position:relative;margin-bottom: 2px;">
-                              <ul>
-                                    <h1 id="paymentCard"    paymentType="card"  class="paymentMethod waves-effect  btn " style="background-color:#660029; font-size:20px;  font-weight:40;  color:white;font-style: normal;text-transform: lowercase;font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;">card</h1>
-                                    <h1 id="paymentCash"    paymentType="cash"  class="paymentMethod waves-effect  btn " style="background-color:#660029; font-size:20px;  font-weight:40;  color:white;font-style: normal;text-transform: lowercase;font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;">cash</h1>
-                                    <h1 id="paymentPayPal"  paymentType="paypal"  class="paymentMethod waves-effect  btn " style="background-color:#660029; font-size:20px;  font-weight:40;  color:white;font-style: normal;text-transform: lowercase;font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;">PayPal</h1>
-  
-                              </ul>
-                          </div>
+                                            <h1 id="" class=" btn " style="background-color:#ff0066;  color:white;font-size:12px;  font-weight:300;  color:white;font-style: normal;text-transform: lowercase"> <span id="recipiantAddOtherRecipient" style="color:white;font-weight:300; font-size:18px;font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;"><i class="large material-icons">person</i></span></h1>
+                    
+                    
+                                              </ul>
+                                            </div>
+                                </div>
+                                <!--  add recipient  ends -->
+          
+                                {% if array %}
+
+                                <div id="notifications" style="width:100%; height:10%;background-color:#ffffff; margin-bottom: 20px;">
+                                    
+                                          <div id="te" style="background-color:; padding-top:0px;position:relative;margin-bottom: 2px;">
+                                              <ul>
+                                                {% for i in range(0  , arrayLen) %}
+                
+                                                    <h1 id="selectedRecipient" 
+                                                    
+                                                    data-key-id="{{array[i]['_id']}}"
+                                                    data-key-firstname="{{array[i]['firstname']}}"
+                                                    data-key-lastname="{{array[i]['lastname']}}"
+                                                    data-key-address="{{array[i]['address']}}"
+                                                    data-key-contact="{{array[i]['contact']}}"
+                                                    data-key-country="{{array[i]['country']}}"
+                                                    data-key-senderPhoneNumber="{{array[i]['SenderPhoneNumber']}}"
+                                                    data-key-reciverPhoneNumber="{{array[i]['reciverPhoneNumber']}}"
+                                                    
+                                                    class="recipient waves-effect waves-light btn " style="font-size:20px;  font-weight:40;  color:white;font-style: normal;text-transform: lowercase;font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;">{{array[i]['firstname']}}</h1>
+                                                {% endfor %}
+                
+                                              </ul>
+                                          </div>
+                                </div>
+              
+                                <div id="selectMessage" style="border-radius: 8px;display:none; width:50%;margin: auto; height:50px; background-color:#ff0066;    padding-top: 12px;"><span style="color:white; font-weight:700px; font-size:large;font-style: normal;text-transform: lowercase;font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;"></span></div>
+                                        
+                                <div id="recipiantAddOtherRecipientTable" style="display:none">
+                                        
+                                          <table>
+                
+                                          <tr style="border-bottom: 1px solid white;">
+                                            <th style="color:black;font-weight: 700;font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;">First Name</th>
+                                            <th style="color:black;font-weight: 700;font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;">Last Name</th>
+                                            <th style="color:black;font-weight: 700;font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;">Address</th>
+                                            <th style="color:black;font-weight: 700;font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;">Contact</th>
+                                            <th style="color:black;font-weight: 700;font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;">Country</th>
+                                            <th style="color:black;font-weight: 700;font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;">Phone  Number</th>
+                                          </tr>
+                                          <tr style="border-bottom: 1px solid white;">
+                                            <td style="color:black;font-weight: 700;"><input id="inputFirstNameRecipient"  name="inputFirstName" style="font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;;border: 1px solid gray;background:white;font-weight:500; font-size:20px;padding-left:2px;background-color:white;color:black;border-radius:6px;width:100%;height:50px;-webkit-transition: width 0.4s ease-in-out;transition: width 0.4s ease-in-out;font-family: Times, Times New Roman, Georgia, serif;" type="text" name="post" placeholder="" value="" required="required"></td>
+                                            <td style="color:black;font-weight: 700;"><input id="inputLastNameRecipient"   name="inputLastName" style="font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;;border: 1px solid gray;background:white;font-weight:500; font-size:20px;padding-left:2px;background-color:white;color:black;border-radius:6px;width:100%;height:50px;-webkit-transition: width 0.4s ease-in-out;transition: width 0.4s ease-in-out;font-family: Times, Times New Roman, Georgia, serif;" type="text" name="post" placeholder="" value="" required="required"></td>
+                                            <td style="color:black;font-weight: 700;"><input id="inputAddressRecipient"    name="inputAddress" style="font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;;border: 1px solid gray;background:white;font-weight:500; font-size:20px;padding-left:2px;background-color:white;color:black;border-radius:6px;width:100%;height:50px;-webkit-transition: width 0.4s ease-in-out;transition: width 0.4s ease-in-out;font-family: Times, Times New Roman, Georgia, serif;" type="text" name="post" placeholder="" value="" required="required"></td>
+                                            <td style="color:black;font-weight: 700;"><input id="inputContactRecipient"    name="inputContact" style="font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;;border: 1px solid gray;background:white;font-weight:500; font-size:20px;padding-left:2px;background-color:white;color:black;border-radius:6px;width:100%;height:50px;-webkit-transition: width 0.4s ease-in-out;transition: width 0.4s ease-in-out;font-family: Times, Times New Roman, Georgia, serif;" type="text" name="post" placeholder="" value="" required="required"></td>
+                                            <td style="color:black;font-weight: 700;"><input id="inputCountryRecipient"    name="inputCountry" style="font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;;border: 1px solid gray;background:white;font-weight:500; font-size:20px;padding-left:2px;background-color:white;color:black;border-radius:6px;width:100%;height:50px;-webkit-transition: width 0.4s ease-in-out;transition: width 0.4s ease-in-out;font-family: Times, Times New Roman, Georgia, serif;" type="text" name="post" placeholder="" value="" required="required"></td>
+                                            <td style="color:black;font-weight: 700;"><input id="inputPhoneNumberRecipient" name="inputPhoneNumber" style="font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;;border: 1px solid gray;background:white;font-weight:500; font-size:20px;padding-left:2px;background-color:white;color:black;border-radius:6px;width:100%;height:50px;-webkit-transition: width 0.4s ease-in-out;transition: width 0.4s ease-in-out;font-family: Times, Times New Roman, Georgia, serif;" type="text" name="post" placeholder="" value="" required="required"></td>
+                                          </tr>
+                                          
+                                        </table>
+                
+                                        <span id="save_reciver" style="text-align: center  ; border-radius: 50%;width: 82px;    margin: 0.67em 0;
+                                        height: 82px;background-color:#ff0066; display: inline-block;"><h1 style="color:white;font-size: 23px;    margin: 0.99em 0;  "> submit</h1></span>
+                                        <div id="" style="width:100%; height:50px; background-color:#2f1e1e"></div>
+                                </div>
+                                      
+                                <br>
+                                {% else %}
+                                <br>
+                                <h1 class="waves-effect waves-light btn yellow" style="font-size:15px;  font-weight:300;  color:black;text-transform:; font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;display:block">No Recipient found  and  Add recipient  below</h1>
+
+                                <table>
+                                  <tr style="border-bottom: 1px solid white;">
+                                    <th style="color:black;font-weight: 700;font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;">First Name</th>
+                                    <th style="color:black;font-weight: 700;font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;">Last Name</th>
+                                    <th style="color:black;font-weight: 700;font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;">Address</th>
+                                    <th style="color:black;font-weight: 700;font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;">Contact</th>
+                                    <th style="color:black;font-weight: 700;font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;">Country</th>
+                                    <th style="color:black;font-weight: 700;font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;">Phone  Number</th>
+                                  </tr>
+                                  <tr style="border-bottom: 1px solid white;">
+                                    <td style="color:black;font-weight: 700;"><input id="inputFirstNameRecipient"  name="inputFirstName" style="font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;;border: 1px solid gray;background:white;font-weight:500; font-size:20px;padding-left:2px;background-color:white;color:black;border-radius:6px;width:60%;height:50px;-webkit-transition: width 0.4s ease-in-out;transition: width 0.4s ease-in-out;font-family: Times, Times New Roman, Georgia, serif;" type="text" name="post" placeholder="" value="" required="required"></td>
+                                    <td style="color:black;font-weight: 700;"><input id="inputLastNameRecipient"   name="inputLastName" style="font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;;border: 1px solid gray;background:white;font-weight:500; font-size:20px;padding-left:2px;background-color:white;color:black;border-radius:6px;width:60%;height:50px;-webkit-transition: width 0.4s ease-in-out;transition: width 0.4s ease-in-out;font-family: Times, Times New Roman, Georgia, serif;" type="text" name="post" placeholder="" value="" required="required"></td>
+                                    <td style="color:black;font-weight: 700;"><input id="inputAddressRecipient"    name="inputAddress" style="font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;;border: 1px solid gray;background:white;font-weight:500; font-size:20px;padding-left:2px;background-color:white;color:black;border-radius:6px;width:60%;height:50px;-webkit-transition: width 0.4s ease-in-out;transition: width 0.4s ease-in-out;font-family: Times, Times New Roman, Georgia, serif;" type="text" name="post" placeholder="" value="" required="required"></td>
+                                    <td style="color:black;font-weight: 700;"><input id="inputContactRecipient"    name="inputContact" style="font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;;border: 1px solid gray;background:white;font-weight:500; font-size:20px;padding-left:2px;background-color:white;color:black;border-radius:6px;width:60%;height:50px;-webkit-transition: width 0.4s ease-in-out;transition: width 0.4s ease-in-out;font-family: Times, Times New Roman, Georgia, serif;" type="text" name="post" placeholder="" value="" required="required"></td>
+                                    <td style="color:black;font-weight: 700;"><input id="inputCountryRecipient"    name="inputCountry" style="font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;;border: 1px solid gray;background:white;font-weight:500; font-size:20px;padding-left:2px;background-color:white;color:black;border-radius:6px;width:60%;height:50px;-webkit-transition: width 0.4s ease-in-out;transition: width 0.4s ease-in-out;font-family: Times, Times New Roman, Georgia, serif;" type="text" name="post" placeholder="" value="" required="required"></td>
+                                    <td style="color:black;font-weight: 700;"><input id="inputPhoneNumberRecipient" name="inputPhoneNumber" style="font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;;border: 1px solid gray;background:white;font-weight:500; font-size:20px;padding-left:2px;background-color:white;color:black;border-radius:6px;width:60%;height:50px;-webkit-transition: width 0.4s ease-in-out;transition: width 0.4s ease-in-out;font-family: Times, Times New Roman, Georgia, serif;" type="text" name="post" placeholder="" value="" required="required"></td>
+                                  </tr>
+                                  
+                                </table>
+          
+                                <span id="save_reciver" style="text-align: center  ; border-radius: 50%;  width:120px; height:120px;background-color: red; display: inline-block;"><h1 style="color:white;font-size: 40px;  "> submit</h1></span>
+                                
+                                {% endif %}
+
+                                <br>
+                                
+                                <!--  select  country   ends -->
+                                <div class="custom-select" style="border-radius: 2px black; margin:auto; width:50%; height:100px;background-color: ;">
+                                  <select id="my-select"  style="color:white; background-color:#ff0066; border-radius: 5px;">
+                                    <option value="0" style="color:white">Select Country:</option>
+                                    <option value="1" style="color:white">Sierra Leone</option>
+                                    <option value="2" style="color:white">Guinea</option>
+                                    <option value="3" style="color:white">Guinea-Bissau</option>
+                                    <option value="4" style="color:white">Liberia</option>
+                                    <option value="5" style="color:white">Mali</option>
+                                    <option value="6" style="color:white">Mauritania</option>
+                                    <option value="7" style="color:white">Niger</option>
+                                    <option value="9" style="color:white">Nigeria</option>
+                                    <option value="10" style="color:white">Senegal</option>
+                                    <option value="11" style="color:white">Togo</option>
+                                    <option value="13" style="color:white">Ghana</option>
+                                    <option value="14" style="color:white">Gambia</option>
+                                    <option value="15" style="color:white">Côte D'Ivoire</option>
+                                    <option value="16" style="color:white">Cape Verde</option>
+                                    <option value="17" style="color:white">Burkina Faso</option>
+                                    <option value="18" style="color:white">Benin</option>
+          
+                                  </select>
+                                </div>
+                                <!-- select country   ends  -->
+
+
+                                <!-- currency  table  -->
+                                <table id="currencyTable">
+                                
+                                    <tr style="border-bottom: 12px solid white">
+          
+                                      <td style="color:black;font-weight: 300;margin: 16px;"></td><input type=number” id="amoutInDallor"  placeholder="$amout" style="border: 1px solid black;background:white;font-weight:300; font-size:20px;padding-left:2px;margin:16px; background-color:white;color:black;border-radius:6px;width:20%;height:50px;-webkit-transition: width 0.4s ease-in-out;transition: width 0.4s ease-in-out;font-family: Times, Times New Roman, Georgia, serif;" /></td>
+                                      
+                                      <td style="color:black;font-weight: 300;margin: 16px;"></td><input type=number” id="amountConverted" placeholder="amountConverted" style="border: 1px solid black;background:white;font-weight:300; font-size:20px;padding-left:2px; margin:16px; background-color:white;color:black;border-radius:6px;width:20%;height:50px;-webkit-transition: width 0.4s ease-in-out;transition: width 0.4s ease-in-out;font-family: Times, Times New Roman, Georgia, serif;"/></td>
+                                      
+                                      <td style="color:black;font-weight: 300;margin: 16px;"></td><input type=number” id="charge" placeholder="fee" style="border: 1px solid black;background:white;font-weight:500; font-size:20px;padding-left:2px; margin:16px; background-color:white;color:black;border-radius:6px;width:20%;height:50px;-webkit-transition: width 0.4s ease-in-out;transition: width 0.4s ease-in-out;font-family: Times, Times New Roman, Georgia, serif;"/></td>
+                                    </tr>
+                                
+                                </table>
+                                
+                                <!-- end  currency  table  -->
+                                
+                                <!-- payment choice start  -->
+                                <div id="notifications" style="width:100%; height:10%;background-color:; margin-bottom: 20px;">
+                              
+                                  <div id="te" style="background-color:; padding-top:0px;position:relative;margin-bottom: 2px;">
+                                      <ul>
+                                            <h1 id="paymentCard"    paymentType="card"  class="paymentMethod waves-effect  btn " style="background-color:#660029; font-size:20px;  font-weight:40;  color:white;font-style: normal;text-transform: lowercase;font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;">card</h1>
+                                            <h1 id="paymentCash"    paymentType="cash"  class="paymentMethod waves-effect  btn " style="background-color:#660029; font-size:20px;  font-weight:40;  color:white;font-style: normal;text-transform: lowercase;font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;">cash</h1>
+                                            <h1 id="paymentPayPal"  paymentType="paypal"  class="paymentMethod waves-effect  btn " style="background-color:#660029; font-size:20px;  font-weight:40;  color:white;font-style: normal;text-transform: lowercase;font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;">PayPal</h1>
+          
+                                      </ul>
+                                  </div>
+                                </div>
+
+                                <!-- payment choice  ends  -->
+
+                                <div id="paymentSelectMessage" style="display: none; width:50%; height:30%; background-color: beige;margin:auto;">
+          
+                                  <h1 style="color:black"><span style="color:green"> </span>  payment has been selected </h1>
+          
+                                </div>
+          
+                                <span id="" style="text-align: center  ; border-radius: 50%;  width:90px; height:90px;background-color:black; display: inline-block;"><h1 style="color:white;font-size: 30px;" id="sendMoneyMainbutton">send </h1></span>
+          
                         </div>
-                        
-                        <div id="paymentSelectMessage" style="display: none; width:50%; height:30%; background-color: beige;margin:auto;">
-  
-                          <h1 style="color:black"><span style="color:green"> </span>  payment has been selected </h1>
-  
-                        </div>
-  
-                        <span id="" style="text-align: center  ; border-radius: 50%;  width:90px; height:90px;background-color:black; display: inline-block;"><h1 style="color:white;font-size: 30px;" id="sendMoneyMainbutton">send </h1></span>
-  
-                     
   
                   {% else %}
                   
                         
-                        
+                  <!-- add  customer -->
                   <div id="addNewCustomer" data-key="{{database_phone_number_data}}" style="display:'{{display}}'">
   
                     {% if session['phoneNumberStatus']  !=  false %}
@@ -543,8 +555,10 @@
                         </ul>
                       </div>
                   </div>
-                </div>
-  
+                  </div>
+                  <!-- add customer ends -->
+
+                  <!-- customr  not  found -->
                   <div id="found_user_false" style="display:none">
   
                           {% if session['phoneNumberStatus']  ==  false %}
@@ -664,14 +678,16 @@
                         {% endif %}
   
                   </div> 
-                        
+                  
+                  <!-- customer  not  found ends -->
                   {% endif %}
                   
                   {% endblock content %}
   
                   
                 </div>
-  
+                <!-- end  of  found user -->
+
                 <div id="found_false" style="display:none">
                     <table>
                       <tr style="border-bottom: 1px solid white">
@@ -705,9 +721,10 @@
                           </ul>
                         </div>
                     </div>
-  
+                    
                 </div>
-  
+                
+                </div>
                 <!-- content items ends  -->
                 <footer class="page-footer" style="height:30%;position:relative;clear:both;background-color:#ff0066;">
                             <div class="container">
@@ -742,11 +759,11 @@
                             </div>
                 </footer>
                 <!--  footer ends-->
-      </div>
-      <!--  end  of wrapper  end  -->
-       
-      <!-- script  -->
-      <script> 
+          </div>
+          <!--  end  of wrapper  end  -->
+          
+          <!-- script  -->
+          <script> 
   
         
   

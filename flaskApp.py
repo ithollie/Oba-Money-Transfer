@@ -239,6 +239,7 @@ def  submitPayment():
                     sentAmount          =  request.get_json()['sentAmount']
                     email  = request.cookies.get('login_email')
                     paymentStatus  = False
+                    pausePayment   = False
 
                     code = 'AA'.join(secrets.choice(string.ascii_uppercase + string.digits)
                         for i in range(N))
@@ -254,7 +255,7 @@ def  submitPayment():
                             
                             "recipientAddress":recipientAddress,"recipientContact":recipientContact,"recipientCountry":recipientCountry,
                             "recipient_id":recipient_id,"recipientPhoneNumber":recipientPhoneNumber,
-                            "senderPhoneNumber":senderPhoneNumber,"amount":sentAmount,"code":code, "paymentStatus":paymentStatus
+                            "senderPhoneNumber":senderPhoneNumber,"amount":sentAmount,"code":code, "paymentStatus":paymentStatus, "pausePayment":pausePayment
                         })
 
                         print("recipientFirstName => " + recipientLasttName)
@@ -274,6 +275,38 @@ def  submitPayment():
 
     return redirect(url_for('welcome' ,  email=email))  
 
+@app.route('/pausePayment' ,  methods=['GET', 'POST'])
+def  pausePayment():
+    if  request.method == "POST":
+
+            try:    
+                    email  = request.cookies.get('login_email')
+
+                    _id  =  request.get_json()['_id']
+                
+                    current_payment_id = Database.find_one('payments' ,  {"_id":_id})
+                
+                    if current_payment_id is not None and current_payment_id['_id'] == _id:
+
+                        print("Payment is  paused ")
+
+                        Database.updates("payments",{"_id":_id},{"$set": {"pausePayment":True}})
+
+                        return redirect(url_for('welcome' ,  email=email))
+
+                    else:
+                        
+                        print("Payment is  not  paused ")
+                        return redirect(url_for('welcome' ,  email=email))
+
+            except Exception  as  e:
+                print(e)
+            
+    email  = request.cookies.get('login_email')
+
+    print("Some  thing is  wrong ")
+
+    return redirect(url_for('welcome' ,  email=email))  
 @app.route('/updateSession' , methods=['GET', 'POST'])
 def updateSession():
 
