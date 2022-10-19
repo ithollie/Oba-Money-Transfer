@@ -46,9 +46,6 @@
   </head>
 
   <body>
-
-
-
       <!-- model 3 -->
       <div id="modal1" class="modal" style="background-color:white; height:10%;top:1px;position: absolute;overflow-y:;">
           
@@ -118,7 +115,7 @@
                 <!-- header starts -->
                 <div  id="main" data-login="{{email}}" data-login-id="{{_id}}" style="background-position: 100px 5px;  background-size: 150px;text-align:center;    z-index: auto; background-color:white !important;background-image: url({{url_for('static', filename='images/.jpg')}});background-repeat:no-repeat;background-size:cover;background-position:center;" class="carousel-item red white-text" href="#one!">
   
-                  <div id="putid">
+                <div id="putid">
                           <div id="put" style="margin:auto;width:80%;padding: 7px;">
   
                               <input id="input" style="border: 2px solid gray;background:#f9f9f9;font-weight:500; font-size:20px;padding-left:2px;background-color:#f9f9f9;color:black;border-radius:6px;width:60%;height:50px;-webkit-transition: width 0.4s ease-in-out;transition: width 0.4s ease-in-out;font-family: Times, Times New Roman, Georgia, serif;" type="text" name="post" placeholder="Enter phone number" required="required">
@@ -140,7 +137,7 @@
                                 <ul>
                                   <li id="search" style="text-decoration: none;"><a class="waves-effect waves-light btn " style="text-transform: lowercase;color:white; text-decoration:none;background-color:#660029;  font-size:20px; text-decoration: none;" ><i class="material-icons" style="text-decoration:none;font-weight: 700;color:black"></i><i class="large material-icons">search</i></i></a></li>
                                   
-                                  <li id="clear" style="text-decoration: none;"><a class="waves-effect waves-light btn " style="text-transform: lowercase;color:white; text-decoration:none;background-color:red;  font-size:20px" ><i class="material-icons" style="text-decoration: none; font-weight: 700;;color:black"></i><i class="large material-icons">clear</i></i></a></li>
+                                  <li id="clear" style="text-decoration: none;"><a  id="clear" class="waves-effect waves-light btn " style="text-transform: lowercase;color:white; text-decoration:none;background-color:red;  font-size:20px" ><i  class="material-icons" style="text-decoration: none; font-weight: 700;;color:black"></i><i class="large material-icons">clear</i></i></a></li>
                                   
                                   <li id="topup" style="text-decoration: none;"><a class="waves-effect waves-light btn " style="text-transform:none;color:white; text-decoration:none;background-color:#660029;  font-size: 1.5em;" ><i class="material-icons" style="text-decoration: none; font-weight: 700;;color:black"></i><i class="large material-icons">credit_card</i></i></a></li>
   
@@ -149,7 +146,7 @@
                               </div>
                         </div>
                           
-                    </div>
+                </div>
                    
                 </div>
                 <!-- start  of  found user -->
@@ -185,9 +182,6 @@
                         <div id="cardform" style="width:50%;margin:auto; display: none;background:">
                           
                               
-                              
-                                 
-            
                                      
                                           <div style="margin:auto; width:100%">
                                             
@@ -535,7 +529,7 @@
                     <div id="te" style="background-color:#ffffff; padding-top:0px;position:relative;margin-bottom: 2px;">
                         <ul>
                             
-                      <h1 class=" btn green" style="font-size:15px;  font-weight:300;  color:white;font-style: normal;text-transform: lowercase; font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;">Customer  is not  found </h1>
+                      <h1 class=" btn red" style="font-size:15px;  font-weight:300;  color:white;font-style: normal;text-transform: lowercase; font-family: CNN,Helvetica Neue,Verdana,Helvetica,Arial,Utkal,sans-serif;">Customer  is not  found </h1>
                       
                         </ul>
                       </div>
@@ -549,7 +543,7 @@
                         <ul>
                             
   
-                      <h1 id="" class="waves-effect waves-light btn lightgray" style="font-size:12px;  font-weight:700;  color:white;font-style: normal;text-transform: lowercase"> <span id="customerNotFoundNumber" style="color:white; font-size:18px">add customer</span></h1>
+                      <h1 id="signal" class="waves-effect waves-light btn lightgray" onload="Controller.myfunction()"  style="font-size:12px;  font-weight:700;  color:white;font-style: normal;text-transform: lowercase"> <span id="customerNotFoundNumber" style="color:white; font-size:18px">add customer</span></h1>
   
   
                         </ul>
@@ -759,13 +753,11 @@
                             </div>
                 </footer>
                 <!--  footer ends-->
-          </div>
-          <!--  end  of wrapper  end  -->
+      </div>
+      <!--  end  of wrapper  end  -->
           
           <!-- script  -->
-          <script> 
-  
-        
+      <script> 
   
               document.addEventListener('DOMContentLoaded', function() {
                   var elems = document.querySelectorAll('.modal');

@@ -8,6 +8,7 @@ Model.paymentMethod  =      window.localStorage.getItem('paymentMethod');
 Model.selectCountry        =      window.localStorage.getItem('selectCountry');
 Model.addCard              = window.localStorage.getItem('card');
 Model.updateState          = window.localStorage.getItem('updateState');
+Model.search               = window.localStorage.getItem('search');
 
 
 Controller.initialize  =  function(eventObject){
@@ -272,6 +273,10 @@ Controller.initialize  =  function(eventObject){
   if(View.insertCustomer != null){
 
     View.insertCustomer.addEventListener('click', Controller.insertCustomer);
+
+  }else{
+
+    console.log(View.insertCustomer ==  null); 
   }
   
   if(View.save_reciver != null ){
@@ -284,13 +289,16 @@ Controller.initialize  =  function(eventObject){
      View.addrecipiant.addEventListener('click', Controller.showAddrecipiant);
   }
 
- if(View.search !=  null && Model.search == null){
+ if(Model.search == null){
 
-    
-     View.search.addEventListener('click', Controller.customerState);
+    View.search.addEventListener('click', Controller.customerState);
 
+  }else{
+
+    alert(View.search == null &&  Model.search == null);
 
   }
+
  if(View.search !=  null  &&   View.search.attributes['data-key'] != null){
 
     View.search.addEventListener('click', Controller.customerIsNoTAvaliable);
@@ -346,9 +354,24 @@ if(View.save_sender !=  null){
 
 }
   
-if(View.clear  != null){
+View.clear.addEventListener('click', function(){
 
-    View.clear.addEventListener('click', Controller.clear);
+    alert("Clear  is  not  functional"); 
+});
+
+if(Model.search !=null){
+    
+    if(JSON.parse(Model.search)['search'] ==  true){
+
+        View.clear.addEventListener('click', Controller.clear);
+
+        
+
+    }else{
+
+        alert("It  is clear ");
+    }
+
 }
 
 if(View.search != null){
@@ -361,7 +384,7 @@ Controller.paymentMethod();
 Controller.selectOption();
 Controller.selectOptionPayments();
 Controller.updateSession();
-
+Controller.myfunction();
 
 $("#amoutInDallor").on("keyup", function (e){
 
@@ -373,62 +396,103 @@ $("#amoutInDallor").on("keyup", function (e){
    
 }
 
+Controller.myfunction =  function(){
+
+    let signal  =  document.getElementById("signal"); 
+
+    let  array  = ["red", "yellow" ,  "blue"]
+
+    let  i  =  -1
+
+    if(signal !=  null){
+
+        if(i <=3){
+
+            
+
+            setInterval(function(event){
+
+                
+
+                    i=i+1
+                    
+                    console.log(i);
+
+                    console.log(array[i]);
+                
+                    signal.style.backgroundColor = array[i];
+            
+                    if(i == 2){
+
+                        i = -1
+
+                    }
+
+            }, 5000);
+        }
+    }
+
+        
+       
+
+    
+
+}
+
 Controller.updateSession =  function(){
 
-    let  data = {"updateState":true}
-
-    window.localStorage.setItem('updateState', JSON.stringify(data));
-
-    if(JSON.parse(Model.updateState)['updateState'] ==  true){
-
-        Model.updateState =  window.localStorage.getItem('updateState');
-    }
-       
 
     let  x  =  document.querySelectorAll("#inputPhoneNumberCustomer");
 
     let  p = null;
 
-    if(x  !=null  &&  x != undefined){
+    window.localStorage.setItem('updateState',{"updateState":true});
 
-        if(x  !=null){
+    Model.updateState = window.localStorage.getItem('updateState');
 
-            for(let  i = 0; i  < 1;  i++){
+    if(Model.updateState ==  true){
 
+        if(x  !=null  &&  x != undefined){
 
-                if(x[i] != undefined){
-
-                    p  =  x[i].attributes.value.nodeValue
-
-                    
+            if(x  !=null){
+    
+                for(let  i = 0; i  < 1;  i++){
+    
+    
+                    if(x[i] != undefined){
+    
+                        p  =  x[i].attributes.value.nodeValue
+    
+                        
+                    }
+    
                 }
-
             }
         }
-    }
-    
 
-    if(p != null){
+        if(p != null){
 
-          $.ajax({
-        type: "POST",
-        url: "/updateSession",
-        data: JSON.stringify({
-        "customerPhoneNumber":p,
-      
-        } ),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (data) {
-
-            console.log(data);
-            
-        }
-    })
-
-    setInterval(Controller.update, 1000);
-    }
+            $.ajax({
+          type: "POST",
+          url: "/updateSession",
+          data: JSON.stringify({
+          "customerPhoneNumber":p,
+        
+          } ),
+          contentType: "application/json; charset=utf-8",
+          dataType: "json",
+          success: function (data) {
   
+              console.log(data);
+              
+          }
+      })
+  
+      setInterval(Controller.update, 1000);
+      }
+    }
+       
+
 
 }
 
@@ -617,14 +681,11 @@ Controller.addcard =  function(event){
 }
 Controller.checkPhoneNumber =  function(phone){
 
+    let  phoneNumber  =  phone.toString(phone);
 
-    if (phone != "") {
+    if (phone) {
 
-        if (/^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/g.test(phone)) {
-
-            //alert("Please enter a  valiable  phone  number ");
-
-            //document.formname.txt.focus();
+        if (/^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/g.test(phone) == false) {
 
             return false;
 
@@ -642,7 +703,6 @@ Controller.checkForSpecialCharacter =  function(checkString){
 
             alert("Please enter only letter and numeric characters");
 
-            //document.formname.txt.focus();
 
             return false;
         }else{
@@ -683,25 +743,29 @@ Controller.storeCustomer = function(){
         
         
 }
-Controller.customerState =  function(){
+Controller.customerState =  function(event){
 
-    
-    Model.search  =  {"click":true}; 
+    if(Model.search == null){
 
-    if(Model.search['click']  == true &&  View.phoneInput.value != undefined &&  View.phoneInput.value !=""){
+        window.localStorage.setItem('search', JSON.stringify({"search":true})); 
+
+        Model.search  =  window.localStorage.getItem('search');
+
+        if(JSON.parse(Model.search)['search']  == true &&  View.phoneInput.value != undefined &&  View.phoneInput.value !=""){
+
+            Controller.validateForm();
+
+        }else{
+
+            alert("Input  field is  empty please  enter  a   valiable phone number "); 
+        }
 
 
-        Model.search = {"click":false};
-
-        Controller.validateForm();
-
-
-    }else{
-
-        alert("Input  field is  empty please  enter  a   valiable phone number "); 
     }
 
+  
 }
+
 Controller.sendMoneyMainbutton = function(){
 
      alert("You  are  sending  money "); 
@@ -1133,8 +1197,6 @@ Controller.showAddrecipiant =  function(event){
 }
 Controller.insertCustomer = function(event){
 
-    alert("insertCustomer  has  been  clicked yaya ");
-
     // Customer  table id's 
     let firstname  =  View.inputFirstNameCustomer.value;
     let lastname   =  View.inputLastNameCustomer.value;
@@ -1182,7 +1244,7 @@ Controller.insertCustomer = function(event){
     
     if(Controller.senderLoop(inputArray) == 0){
 
-        alert("The  function  return " +  Controller.senderLoop(inputArray));
+        //alert("The  function  return " +  Controller.senderLoop(inputArray));
 
 
         $.ajax({
@@ -1308,6 +1370,10 @@ Controller.save_reciver =  function(event){
 }
 Controller.clear = function(event){
 
+        window.localStorage.removeItem('search');
+        
+        Model.search = window.localStorage.getItem('search');
+
     if (View.phoneInput !=null){
 
     
@@ -1363,7 +1429,7 @@ Controller.editSender = function(event){
     let contact = View.inputContactCustomer.value.replace(/\s/g, "");
     let country = View.inputCountryCustomer.value.replace(/\s/g, "");
     let phone = View.inputPhoneNumberCustomer.value.replace(/\s/g, ""); 
-    let _id = View.senderTable.attributes[1].nodeValue.replace(/\s/g, "")
+    let _id = View.senderTable.attributes[2].nodeValue;
 
     console.log(country);
     // sender table  ids ends
@@ -1506,6 +1572,8 @@ Controller.validateForm  = function(event) {
         setInterval(Controller.refreshPage, 1000);
 
         View.found_user.style.display ="block";
+
+        Controller.clear();
 
         
 

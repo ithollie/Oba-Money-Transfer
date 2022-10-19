@@ -396,19 +396,25 @@ def editSender():
 
             print("Edit  sender  " +  "firstname => " + firstname)
             print("Edit  sender  " +  "lastname => " + lastname)
-            print(_id)
+            print("Phone  number  = > "+ phone)
+            print("current id" + _id)
 
-            Database.updates("customers",{"_id":_id},{"$set": {"firstname":firstname}})
-            Database.updates("customers",{"_id":_id},{"$set": {"lastname":lastname}})
-            Database.updates("customers",{"_id":_id},{"$set": {"address":address}})
-            Database.updates("customers",{"_id":_id},{"$set": {"contact":contact}})
-            Database.updates("customers",{"_id":_id},{"$set": {"country":country}})
-            Database.updates("customers",{"_id":_id},{"$set": {"phone":phone}})
+            if len(phone) == 10:
 
-            email  = request.cookies.get('login_email')
+                Database.updates("customers",{"_id":_id},{"$set": {"firstname":firstname}})
+                Database.updates("customers",{"_id":_id},{"$set": {"lastname":lastname}})
+                Database.updates("customers",{"_id":_id},{"$set": {"address":address}})
+                Database.updates("customers",{"_id":_id},{"$set": {"contact":contact}})
+                Database.updates("customers",{"_id":_id},{"$set": {"country":country}})
+                Database.updates("customers",{"_id":_id},{"$set": {"phone":phone}})
+
+                email  = request.cookies.get('login_email')
 
 
-            return redirect(url_for('welcome' ,  email=email))
+                return redirect(url_for('welcome' ,  email=email))
+            else:
+                print("Phone  number must  be greater  than  9")
+            
 
         return redirect(url_for('login'))
 
