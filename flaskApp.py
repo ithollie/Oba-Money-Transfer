@@ -1,3 +1,4 @@
+from cmath import e
 from tkinter import EXCEPTION
 from flask import Flask, render_template, escape, make_response, redirect,session, request,jsonify,json, flash,url_for
 import requests
@@ -7,14 +8,16 @@ import os
 import re
 import jinja2
 from werkzeug.utils import secure_filename
-from werkzeug.datastructures import  FileStorage
+import time
+from time import sleep
+
+from twilio.rest import Client
 import uuid
 import stripe
 import logging 
 import datetime
 import socket
 from hashlib import md5
-from flask import   jsonify
 import  secrets
 import string 
 from bson.objectid import ObjectId
@@ -93,12 +96,21 @@ def card():
             year =   request.json['cardYear']
             code =   request.json['secuirtyCode']
 
+            collection  =  "card_" + customerId
+
             data =  {"customerId":customerId,   "_id":_id, "number":cardNumber, "month":month, "year":year, "code":code}
 
-            Database.insert("cards",  data); 
+            findCard  = Database.find_one(collection , {"customerId":customerId})
 
-            print("Card  has  been  Inserted ")
-            return redirect(url_for('welcome' ,  email=email))
+            if findCard  is  None:
+
+                Database.insert(collection,  data); 
+
+                print("Card  has  been  Inserted ")
+
+                return redirect(url_for('welcome' ,  email=email))
+            else:
+                print("Card  already inserted ")
 
         except  Exception as  ex:
             print(ex)
@@ -222,6 +234,7 @@ def api():
     return redirect(url_for('welcome' ,  email=email))
 
 @app.route('/submitPayment' ,  methods=['GET', 'POST'])
+
 def  submitPayment():
     if  request.method == "POST":
 
@@ -234,6 +247,7 @@ def  submitPayment():
                     recipientContact  =    request.get_json()['contact']
                     recipientCountry  =    request.get_json()['country']
                     recipient_id      =    request.get_json()['_id']
+                    customer_id      =    request.get_json()['customer_id']
                     recipientPhoneNumber  =  request.get_json()['recipientPhoneNumber']
                     senderPhoneNumber  =   request.get_json()['senderPhoneNumber']
                     sentAmount          =  request.get_json()['sentAmount']
@@ -251,7 +265,7 @@ def  submitPayment():
                         
                         session['customerPhoneNumber'] = senderPhoneNumber
 
-                        Database.insert("payments", {"_id":_id, "recipientFirstName":recipientFirstName,"recipientLastName":recipientLasttName, 
+                        Database.insert("payments", {"_id":_id, "customer_id":customer_id,  "recipientFirstName":recipientFirstName,"recipientLastName":recipientLasttName, 
                             
                             "recipientAddress":recipientAddress,"recipientContact":recipientContact,"recipientCountry":recipientCountry,
                             "recipient_id":recipient_id,"recipientPhoneNumber":recipientPhoneNumber,
@@ -274,7 +288,6 @@ def  submitPayment():
     print("Some  thing is  wrong ")
 
     return redirect(url_for('welcome' ,  email=email))  
-
 @app.route('/pausePayment' ,  methods=['GET', 'POST'])
 def  pausePayment():
     if  request.method == "POST":
@@ -504,6 +517,47 @@ def delete():
             else:
 
                 print("payment id   is  None")
+
+        except  Exception  as  e:
+
+            print(e)
+        
+    print("that  is not quite yet")
+
+    return redirect(url_for('welcome', email=request.cookies.get('login_email')))
+
+@app.route('/deleteCard', methods=['GET', 'POST'])
+def deleteCard():
+
+    if request.method == 'POST':
+
+        try:
+            email  = request.cookies.get('login_email')
+
+            customer_card_id = request.get_json()['customer_card_id']
+
+            collection  = "card_"+customer_card_id
+            
+            print("server  collection here ")
+            print("Hello" + collection)
+
+            data  =  Database.find_one(collection, {"customerId":customer_card_id})
+
+            if  data  is not None and  customer_card_id  is not None:
+
+                if data['customerId'] == customer_card_id:
+                    
+                    print("card is  deleted ")
+
+                    Database.delete(collection,{"customerId":customer_card_id})
+                
+                    return redirect(url_for('welcome', email=email))
+
+                else:
+
+                    print("card id is  not  equal and it  is  None")
+            else:
+                print("Data  is  none  and  customer_card_id is  also  none ")
 
         except  Exception  as  e:
 
@@ -843,17 +897,15 @@ def welcome_payer():
 @app.route('/welcome/Oba/<string:email>' )
 def welcome(email):
 
+   sendSMS("4844746760")
+
    session.pop('_flashes', None)
-
-
-   print("card  details ")
 
    userInDatabase = Database.find_one("users", {"email": request.cookies.get('login_email')})
 
    if request.cookies.get('login_email')  is  not   None and  userInDatabase is not  None:
 
-          
-
+        
             card     =  Database.find_one("cards" , {"_id":userInDatabase['_id']})
 
             database_phone_number_data  = None
@@ -941,7 +993,43 @@ def welcome(email):
                         print(currentSelectPayment)
 
                         payments  =  Database.find("payments",{"senderPhoneNumber":customerPhoneNumber})
+                        customer_id = Database.find_one("payments",{"senderPhoneNumber":customerPhoneNumber})
 
+                        print("Object is ")
+
+                        print("Getting  customer  id  from  payment ")
+                        print(customer_id)
+                        
+                        collection = None
+                        card_customer_Id = None
+                        card = None
+
+                        if customer_id  is  not  None:
+
+                            collection  = "card_"+customer_id['customer_id']
+
+                        else:
+                            print("Customer_id  is  None ")
+                                
+                        if collection  is not  None and card is None:
+
+                            card_customer_Id = Database.find_one(collection, {})
+
+                            
+                            if customer_id is not None  and card_customer_Id is  not  None:
+
+                                card = Database.find_one(collection, {})['number'][-4:]
+
+                            
+                                card_customer_Id =  card_customer_Id['customerId']
+
+                            else:
+                                card  =""
+                        else:
+                            card = ""
+
+                                
+                
                         if payments  is  not  None:
 
                             for i  in   payments:
@@ -954,26 +1042,35 @@ def welcome(email):
                         print(paymentArrayLength)
 
                         print("customer  phone  number " )
+
                         print(customerPhoneNumber)
 
                         items = Database.find_one(constants.COLLECTION,{"email":request.cookies.get('login_email')})
                         
-                        img = File_system.image(request.cookies.get('login_email'))
+                        if items  is not None:
 
-                        date = datetime.datetime.utcnow()
+                            print("Print Items ")
 
-                        # login user  data 
-                        firstname=items['firstname']
-                        lastname = items['lastname']
-                        email        =     request.cookies.get('login_email')
-                        image       =   items['image']
-                        _id=items['_id']
-                        #end  of  login  user data
+                            print(items)
 
-                        flash('Login is a success' + " "+ 'welcome' + " "+ request.cookies.get('login_email'))
+                            img = File_system.image(request.cookies.get('login_email'))
+
+                            date = datetime.datetime.utcnow()
+
+                            # login user  data 
+                            firstname=items['firstname']
+                            lastname = items['lastname']
+                            email    =     request.cookies.get('login_email')
+                            image    =   items['image']
+                            _id=items['_id']
+
+                            #end  of  login  user data
+                            flash('Login is a success' + " "+ 'welcome' + " "+ request.cookies.get('login_email'))
+                        else:
+                            print(" Items  is  None ")
+
                     
-
-                        return render_template('index.html', currentSelectPayment=currentSelectPayment, paymentsArray=paymentsArray,paymentArrayLength=paymentArrayLength, display=display, customerIsTrue=customerIsTrue,arrayLen=arrayLen, array=array, database_phone_number_data=database_phone_number_data, email=email,firstname=firstname,lastname = lastname ,_id=_id,date=date,image=image)
+                        return render_template('index.html', card_customer_Id=card_customer_Id, card=card,currentSelectPayment=currentSelectPayment, paymentsArray=paymentsArray,paymentArrayLength=paymentArrayLength, display=display, customerIsTrue=customerIsTrue,arrayLen=arrayLen, array=array, database_phone_number_data=database_phone_number_data, email=email,firstname=firstname,lastname = lastname ,_id=_id,date=date,image=image)
                     
                     else:
 
@@ -998,6 +1095,24 @@ def logout():
 
     return  response
 
+
+# function for sending SMS
+def sendSMS(number):
+    
+    # Your Account SID from twilio.com/console
+    account_sid = "ACed87d015d3845502bc00eefafe7eaa34"
+    # Your Auth Token from twilio.com/console
+    auth_token  = "12e86a8f7d82436e4a04037a3ca0f062"
+
+    client = Client(account_sid, auth_token)
+
+    message = client.messages.create(
+        to="+4844746760", 
+        from_="+15017250604",
+        body="Hello from Python!")
+
+    print(message.sid)
+    
 @app.route('/outPage')
 def  out():
     if request.cookies.get('login_email') is None:

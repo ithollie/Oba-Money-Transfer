@@ -5,7 +5,7 @@ const  Controller =  {};
 
 Model.recipientSelectButtonState = window.localStorage.getItem('buttonState');
 Model.paymentMethod  =      window.localStorage.getItem('paymentMethod');
-Model.selectCountry        =      window.localStorage.getItem('selectCountry');
+Model.selectCountry        = window.localStorage.getItem('selectCountry');
 Model.addCard              = window.localStorage.getItem('card');
 Model.updateState          = window.localStorage.getItem('updateState');
 Model.search               = window.localStorage.getItem('search');
@@ -22,7 +22,9 @@ Controller.initialize  =  function(eventObject){
 
   View.borderline    = document.getElementById("borderline");
   
-  View.deletePayment = document.getElementById("deletePayment");
+  View.deletePayment = document.getElementById("deletePayment"); 
+  View.deletecard    = document.getElementById("deletecard");
+
   View.editPayment   = document.getElementById("editPayment")
   View.pausePayment  = document.getElementById("pausePayment")
 
@@ -52,19 +54,15 @@ Controller.initialize  =  function(eventObject){
   View.customerNotFoundNumber = document.getElementById("customerNotFoundNumber");
   View.recipiantNotFoundNumber = document.getElementById("recipiantNotFoundNumber");
   View.recipiantNotFoundNumberTable  = document.getElementById("recipiantNotFoundNumberTable");
-
   View.addrecipiant = document.getElementById("addrecipiant");
 
   View.save_sender = document.getElementById("save_sender");
   View.save_reciver = document.getElementById("save_reciver")
-  
   View.insertCustomer = document.getElementById("insertCustomer");
   
   View.found_user   = document.getElementById("found_user")
   View.clear        = document.getElementById("clear")
   View.inputPhoneNumber = document.getElementById("inputPhoneNumber");
-  
- 
   View.addrecipiant     = document.getElementById("addrecipiant");
   
   // Customer  table id's 
@@ -111,6 +109,38 @@ Controller.initialize  =  function(eventObject){
     });
   }
 
+  if( View.deletecard  != null){
+
+    View.deletecard.addEventListener('click', function(){
+
+        alert("Delete  card ");
+
+        let  customer_id  =  document.getElementById("deletecard").attributes[1].nodeValue;
+
+        console.log(customer_id); 
+
+        $.ajax({
+            type: "POST",
+            url: "/deleteCard",
+            data: JSON.stringify({
+            "customer_card_id":customer_id,
+          
+            } ),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+    
+                console.log(data);
+                
+            }
+        })
+
+        Controller.refreshPage();
+
+
+    })
+
+  }
   if(View.pausePayment != null){
 
     View.pausePayment.addEventListener('click',  function(event){
@@ -144,7 +174,7 @@ Controller.initialize  =  function(eventObject){
 
   if(View.deletePayment !=null){
 
-        View.deletePayment.addEventListener('click',  function(event){
+    View.deletePayment.addEventListener('click',  function(event){
 
            let  id = event.target.attributes[1].value;
 
@@ -170,7 +200,7 @@ Controller.initialize  =  function(eventObject){
 
             Controller.refreshPage();
 
-        });
+    });
   }
 
   if(View.editPayment !=null){
@@ -522,7 +552,9 @@ Controller.apiResult = function(amount, currentCountryCode,  receivingCountryCod
     console.log(x);
 }
 $(document).keyup(function(event) {
+
     if (event.which === 13) {
+
         let value =  View.phoneInput.value;
 
 
@@ -580,7 +612,9 @@ $(document).keyup(function(event) {
     }
     }
 });
-Controller.cardSubmitButton = function(){
+Controller.cardSubmitButton = function(){   
+
+    let  email = document.getElementById("cardform").attributes[1].nodeValue;
 
     let  cardNumber = document.getElementById("cardNumber").value; 
 
@@ -608,6 +642,8 @@ Controller.cardSubmitButton = function(){
 
                     console.log(data);
 
+                    console.log("Customer  email = " + email );
+
                     paymentMessage.style.color = "red";
 
                     formCard.style.display  = "none";
@@ -621,6 +657,7 @@ Controller.cardSubmitButton = function(){
 
                         data: JSON.stringify({
                         "_id":_id,
+                        "customerEmail":email,
                         "cardNumber":cardNumber,
                         "cardMonth":cardMonth,
                         "cardYear":cardYear,
@@ -637,7 +674,7 @@ Controller.cardSubmitButton = function(){
                         }
                     })
 
-                    //setInterval(Controller.refreshPage, 1000);
+                    setInterval(Controller.refreshPage, 1000);
                 }else{
 
                     alert("Check  the length  of   the  inputs "); 
@@ -765,7 +802,6 @@ Controller.customerState =  function(event){
 
   
 }
-
 Controller.sendMoneyMainbutton = function(){
 
      alert("You  are  sending  money "); 
@@ -787,6 +823,7 @@ Controller.sendMoneyMainbutton = function(){
             
             if(!isNaN(amountConverted) && !isNaN(amoutInDallor)){
 
+                let  customer_id   =    View.inputFirstNameCustomer.attributes[1].nodeValue;
                 let  recipient  =       JSON.parse(Model.recipient);
                 let  customer   =       JSON.parse(Model.recipient);
                 let  buttonState     =  JSON.parse(Model.recipientSelectButtonState);
@@ -797,7 +834,6 @@ Controller.sendMoneyMainbutton = function(){
                         let  customer   =  JSON.parse(Model.recipient);
                         let  buttonState     =  JSON.parse(Model.recipientSelectButtonState);
 
-        
                         $.ajax({
                             type: "POST",
                             url: "/submitPayment",
@@ -810,6 +846,7 @@ Controller.sendMoneyMainbutton = function(){
                             "contact":recipient['contact'],
                             "country":recipient['country'],
                             "_id":recipient['_id'],
+                            "customer_id":customer_id,
                             "senderPhoneNumber":recipient['senderPhoneNumber'],
                             "recipientPhoneNumber":recipient['recipientPhoneNumber'], 
                             "sentAmount":recipient['amount']
@@ -832,8 +869,7 @@ Controller.sendMoneyMainbutton = function(){
                         window.localStorage.removeItem('paymentMethod');
                         window.localStorage.removeItem('selectCountry');
 
-                        event.preventDefault(); 
-                        
+                   
                 }else{
 
                         alert("One   or  more  fields don't   meet  the requirement ");
@@ -993,7 +1029,7 @@ Controller.paymentMethod =  function(){
                 View.paymentMethods[i].addEventListener('click', Controller.activePayment);
 
             }
-             if(Model.paymentMethod != null){
+            if(Model.paymentMethod != null){
 
 
                 View.paymentMethods[i].addEventListener('click', Controller.activePayment);
@@ -1005,23 +1041,37 @@ Controller.paymentMethod =  function(){
 Controller.activePayment = function(event){
 
     let  payment  = event.target.attributes[1].value; 
+    let  card  =  document.getElementById("paymentMessage").attributes[1].nodeValue;
 
-    if(payment == "card"){
+    if(payment == "card" ){
 
+        if(card !="None"){
+
+           let  paymentSelectMessage  =  document.getElementById("paymentSelectMessage");
+
+            let  data  =  {"paymentMethod":"card"}; 
+
+            window.localStorage.setItem('paymentMethod', JSON.stringify(data));
+
+            Model.paymentMethod =  window.localStorage.getItem('paymentMethod');
+
+            paymentSelectMessage.style.display="block";
+
+            console.log(window.localStorage.getItem('paymentMethod')); 
+
+            paymentSelectMessage.childNodes[1].childNodes[0].innerText = JSON.parse(window.localStorage.getItem('paymentMethod'))['paymentMethod']; 
+
+        }else{
+
+            alert("Please  enter card payment  information  to  continue "); 
+
+            let  x  =  document.getElementById("cardform");
+
+            x.style.display = "block";
+
+        }
     
-        let  paymentSelectMessage  =  document.getElementById("paymentSelectMessage");
-
-        let  data  =  {"paymentMethod":"card"}; 
-
-        window.localStorage.setItem('paymentMethod', JSON.stringify(data));
-
-        Model.paymentMethod =  window.localStorage.getItem('paymentMethod');
-
-        paymentSelectMessage.style.display="block";
-
-        console.log(window.localStorage.getItem('paymentMethod')); 
-
-        paymentSelectMessage.childNodes[1].childNodes[0].innerText = JSON.parse(window.localStorage.getItem('paymentMethod'))['paymentMethod'];
+        
 
     }
     
@@ -1043,9 +1093,9 @@ Controller.activePayment = function(event){
 
 
     }
+
     if(payment == "paypal"){
 
-      
         let  paymentSelectMessage  =  document.getElementById("paymentSelectMessage");
 
         let  data  =  {"paymentMethod":"paypal"}; 
@@ -1100,6 +1150,7 @@ Controller.runRecipient = function(event){
        charge.value =  "8.5";
 
        var xhttp = new XMLHttpRequest();
+
        xhttp.onreadystatechange = function() {
 
             if (this.readyState == 4 && this.status == 200) {
@@ -1401,7 +1452,9 @@ Controller.clear = function(event){
         event.preventDefault(); 
 
     }else{
-        alert("Problem "); 
+
+        alert("Problem ");
+
     }
     
 }
@@ -1446,17 +1499,97 @@ Controller.editSender = function(event){
 
     console.log("Save  sender  has been  clicked " +  inputArray[0] + " " + inputArray[1] + " " + inputArray[2] + " " + inputArray[3] + " " + inputArray[4] + " " + inputArray[5]);
 
-    if (firstname.length > 3   &&  lastname.length > 3 &&  address.length > 3 ) {
+    if (firstname.length > 3   &&  lastname.length > 3 &&  address.length > 3 && phone.length == 10 ) {
 
         if(firstname ==  undefined  &&  lastname == undefined  &&  address == undefined &&  contact == undefined  && country== undefined &&  phone== undefined){
 
             alert("Input  fields are undefined "); 
 
+        }else{
+
+             
+    if(Controller.senderLoop(inputArray) == 0 
+    
+    
+    &&  Controller.checkForSpecialCharacter(firstname) ==  true
+
+    &&  Controller.checkForSpecialCharacter(lastname)  == true
+
+    && Controller.checkForSpecialCharacter(contact) ==    true
+
+    && Controller.checkForSpecialCharacter(country) ==    true
+
+    && Controller.checkPhoneNumber(phone) ==  true
+    
+    ){
+
+
+$.ajax({
+type: "POST",
+url: "/editSender",
+
+data: JSON.stringify({
+"firstname":firstname,
+"lastname":lastname,
+"address":address,
+"contact":contact,
+"country":country,
+"phone":phone,
+"_id":_id
+
+} ),
+contentType: "application/json; charset=utf-8",
+dataType: "json",
+
+success: function (data) {
+
+    console.log(data);
+    
+}
+})
+
+View.phoneInput.value = ""; 
+
+setInterval(Controller.refreshPage, 1000);
+event.preventDefault(); 
+
+}else{
+
+if(Controller.senderLoop(inputArray) != 0 ){
+
+ alert("One   or  more  fields don't   meet  the requirement ");
+
+}else if(Controller.checkPhoneNumber(phone) ==  false) {
+
+alert("pleas enter a  valiable  phone  number and  phone  number  must  contain 2  sets  of  3  and  one  set  of 4 ");
+
+}else{
+
+alert("One  or more   fields  have  a   special  character except email  address "); 
+
+}
+
+}
         }
 
     }else{
 
-        alert("Fields are  Empty ")
+        if(phone.length != 10){
+
+            alert("Phone is not equal  to  10");
+        }
+
+        if(firstname.length < 3){
+
+            alert("first  name  must be  greater  than 3");
+        }
+        
+
+        
+        if(lastname.length < 3){
+
+            alert("lastname  must be  greater  than 3");
+        }
     }
     
     if(isNaN(phone)){
@@ -1466,68 +1599,7 @@ Controller.editSender = function(event){
         return  false
     }
 
-    
-    if(Controller.senderLoop(inputArray) == 0 
-    
-    
-                &&  Controller.checkForSpecialCharacter(firstname) ==  true
-
-                &&  Controller.checkForSpecialCharacter(lastname)  == true
-
-                && Controller.checkForSpecialCharacter(contact) ==    true
-
-                && Controller.checkForSpecialCharacter(country) ==    true
-
-                && Controller.checkPhoneNumber(phone) ==  true
-                
-                ){
-
-
-        $.ajax({
-            type: "POST",
-            url: "/editSender",
-
-            data: JSON.stringify({
-            "firstname":firstname,
-            "lastname":lastname,
-            "address":address,
-            "contact":contact,
-            "country":country,
-            "phone":phone,
-            "_id":_id
-          
-            } ),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (data) {
-
-                console.log(data);
-                
-            }
-        })
-
-        View.phoneInput.value = ""; 
-
-        setInterval(Controller.refreshPage, 1000);
-        event.preventDefault(); 
-        
-    }else{
-
-        if(Controller.senderLoop(inputArray) != 0 ){
-
-             alert("One   or  more  fields don't   meet  the requirement ");
-
-        }else if(Controller.checkPhoneNumber(phone) ==  false) {
-            
-            alert("pleas enter a  valiable  phone  number and  phone  number  must  contain 2  sets  of  3  and  one  set  of 4 ");
-    
-       }else{
-
-        alert("One  or more   fields  have  a   special  character except email  address "); 
-
-       }
-
-    }
+   
 
     
 }
