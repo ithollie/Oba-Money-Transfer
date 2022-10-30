@@ -16,10 +16,10 @@ class File_system(object):
 
 		@staticmethod
 		def image(email):
-			data = Database.find(const.COLLECTION, {"email":email})
+			data = Database.find_one(const.COLLECTION, {"email":email})
 			if data is not None:
 				for database in data:
-					return database
+					return data['image']
 				else:
 					return  None
 			else:

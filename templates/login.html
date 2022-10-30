@@ -26,31 +26,38 @@
 
 </head>
 <body style="background:;background-image: url({{url_for('static', filename='images/nature.jp')}});background-repeat:no-repeat;background-size:cover;background-position:center;">
-	<div id="titlelogins" style="text-align:center;width:100%; height:10%;background-color:">
-        <div id="site_title" style="text-align:center">
-            <h1 style="text-align:center;margin: auto;padding-top:11px;text-align:center;background-color:#ff0066; font-size:42px; font-weight:700;color:rgb(7, 0, 0)">Oba Money Transfer</h1>
 
-        </div>
-   
-            <div id="" style="text-align:center; background-color:#ff0066;">
-                {% block body %}
-                    {% with messages = get_flashed_messages() %}
-                        {% if messages %}
-                        <ul>
-                            {% for message in messages %}
-                                <li style="font-family: Times, Times New Roman, Georgia, serif;color:black;font-size:43px;font-weight:700">{{ message }}</li>
-                            {% endfor %}
-                        </ul>
-                        {% endif %}
-                    {% endwith %}
-                {% endblock %}
-            </div>
-	</div>
-  
 	<div id="wrapper">
-		<div id="state" style="padding-top: 1px;text-align:center; width:100%; height:100%">
-			<div id="stt" style="padding-top: 5px;width:60%; height:100%; text-align:center;margin:auto">
-				<div class="container">
+
+    <nav>
+      <div class="nav-wrapper" style="background-color:#ff0066">
+        <a href="#" class="brand-logo" style="color:white">Oba</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><a href="sass.html">Help</a></li>
+          <li><a href="badges.html">Mission  statement</a></li>
+          <li><a href="collapsible.html">Locations</a></li>
+        </ul>
+      </div>
+    </nav>
+      
+    <div id="" style="text-align:center; background-color:#ff0066;">
+      {% block body %}
+          {% with messages = get_flashed_messages() %}
+              {% if messages %}
+              <ul>
+                  {% for message in messages %}
+                      <li style="font-size:24px;   font-family: Times, Times New Roman, Georgia, serif;color:black;font-size:43px;font-weight:">{{ message }}</li>
+                  {% endfor %}
+              </ul>
+              {% endif %}
+          {% endwith %}
+      {% endblock %}
+  </div>
+  <br>
+  <br>
+
+			
+				<div class="container" style="position:absolute">
           <div class="row">
             <div class="Absolute-Center is-Responsive">
               
@@ -65,59 +72,21 @@
                     <input id="password" style="border-radius: 10px;font-size:24px;padding-left:12px;color:white;background-color:black" class="form-control" type="password" name="password" placeholder="password" required/>
                   </div>
                   
-                  <div class="payer" style="font-size: 30px;">
-                    
-                       <a href="{{url_for('admin_login')}}" style="font-weight: 700;color:red">Payer login</a>
-                   
-                  </div>
                   <div class="form-group" style="text-align:center;background-color:white;width:100%;">
-                    <button  id="btn" style="text-align: center;" type="submit" class="btnlogin btn btn-def btn-block">login</button>
+                    <button  id="btn" style="text-align: center; width:100px;
+                    margin: auto;" type="submit" class="btnlogin btn btn-def btn-block">login</button>
                   </div>
                   <div class="form-group text-center">
-                    <a href="{{url_for('changePassword')}}" style="color:black;text-decoration: none;  font-weight:300;">Forgot Password</a>&nbsp;|&nbsp;<a href="#" style="color:white;font-weight:700;text-decoration: none;">Support</a>|&nbsp;<a href="{{url_for('register')}}" style="color:black;  font-weight:300;text-decoration: none;">signup</a>
+                    <a href="{{url_for('changePassword')}}" style="color:black;text-decoration: none;">Forgot Password</a>&nbsp;|&nbsp;<a href="#" style="color:black;text-decoration: none;">Support</a>|&nbsp;<a href="{{url_for('register')}}" style="color:black;text-decoration: none;">signup</a>
                   </div>
                 </form>
               </div>
             </div>
           </div>
         </div>
-			</div>		
-			
-			</div>
-			
+				
         <!-- content items ends  -->
-        <footer class="page-footer" style="height:30%;position:relative;clear:both;background-color:#ff0066;">
-          <div class="container">
-            <div class="row">
-              <div class="col l6 s12">
-                <h5 class="white-text">Mission Statement</h5>
-                <span style="background:;color:white">Send with joy</span>
-              </div>
-              <div class="col l4 offset-l2 s12">
-                <ul>
-                  <li><a class="grey-text text-lighten-3" href="#!"></a></li>
-                  <li><a class="grey-text text-lighten-3" href="#!"></a></li>
-
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="">
-            <div class="container">
-              phone : 4844746760
-            </div>
-          </div>
-          <div class="">
-            <div class="container">
-              email :ithollie@yahoo.com
-            </div>
-          </div>
-          <div class="footer-copyright">
-            <div class="container">
-            © 2022 Copyright Oba Banking & Money  Transfer LLC.
-            </div>
-          </div>
-</footer>
+      
 <!--  footer ends-->
 </div>
 

@@ -19,6 +19,12 @@ Controller.initialize  =  function(eventObject){
 
   View.sentPayment   = document.getElementById("sentPayment");
   View.editcustomer  = document.getElementById("editcustomer");
+  View.deleteCustomer  =  document.getElementById("deleteCustomer");
+
+  View.imageButton     =  document.getElementById("imageButton");
+
+  View.add_reciver     =  document.getElementById("add_reciver");
+
 
   View.borderline    = document.getElementById("borderline");
   
@@ -43,6 +49,7 @@ Controller.initialize  =  function(eventObject){
   View.senderTable = document.getElementById("senderTable")
 
   View.addNewCustomer = document.getElementById("addNewCustomer");
+  View.success =  document.getElementById("success");
   
   View.recipients   = document.querySelectorAll(".recipient");
   View.paymentMethods =  document.querySelectorAll(".paymentMethod");
@@ -72,6 +79,8 @@ Controller.initialize  =  function(eventObject){
   View.inputContactCustomer = document.getElementById("inputContactCustomer");
   View.inputCountryCustomer = document.getElementById("inputCountryCustomer");
   View.inputPhoneNumberCustomer = document.getElementById("inputPhoneNumberCustomer");
+  View.inputEmailAddressCustomer = document.getElementById("inputEmailAddressCustomer");
+
   // Customer table  ids ends
 
   // reciver  table id's 
@@ -88,7 +97,56 @@ Controller.initialize  =  function(eventObject){
   View.amoutInDallor  = document.getElementById("amoutInDallor"); 
   View.amountConverted = document.getElementById("amountConverted");
   View.charge          = document.getElementById("charge"); 
- 
+
+  if(View.add_reciver != null){
+
+    View.add_reciver.addEventListener('clkick',function(event){
+
+        alert("Alert  Alert ");
+    });
+  }
+
+  if(View.deleteCustomer != null){
+
+        View.deleteCustomer.addEventListener('click',  function(event){
+
+            let condition =  false; 
+
+            let  customer_id  =  document.getElementById("deleteCustomer").attributes[1].nodeValue;
+            
+            if(condition  ==  false){
+
+                $.ajax({
+
+                    type: "POST",
+                    url: "/deleteCustomer",
+                    data: JSON.stringify({
+                    "customer_id":customer_id,
+                
+                    } ),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+            
+                        console.log(data);
+                        
+                    }
+                })
+            
+                document.getElementById("customerDiv").style.display="none";
+
+                document.getElementById("currentCustomer").style.display="none";
+
+                condition  =  true; 
+            }
+
+            if(condition  ==   true){
+                
+                alert("Customer  is removed "); 
+            }
+        
+        })
+  }
   if(View.borderline != null){
 
     View.borderline.addEventListener('click',  function(){
@@ -99,6 +157,7 @@ Controller.initialize  =  function(eventObject){
         if (sendMoney.style.display === "none") {
     
             sendMoney.style.display = "block";
+            sendMoney.style.height  = "auto";
     
         } else {
     
@@ -113,29 +172,36 @@ Controller.initialize  =  function(eventObject){
 
     View.deletecard.addEventListener('click', function(){
 
-        alert("Delete  card ");
+            let  customer_id  =  document.getElementById("deletecard").attributes[1].nodeValue;
+            
+            if(customer_id != "None"){
 
-        let  customer_id  =  document.getElementById("deletecard").attributes[1].nodeValue;
+                alert("Delete  card ");
 
-        console.log(customer_id); 
+            
+                console.log(customer_id); 
 
-        $.ajax({
-            type: "POST",
-            url: "/deleteCard",
-            data: JSON.stringify({
-            "customer_card_id":customer_id,
-          
-            } ),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (data) {
-    
-                console.log(data);
+                $.ajax({
+                    type: "POST",
+                    url: "/deleteCard",
+                    data: JSON.stringify({
+                    "customer_id":customer_id,
                 
-            }
-        })
+                    } ),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+            
+                        console.log(data);
+                        
+                    }
+                })
 
-        Controller.refreshPage();
+                Controller.refreshPage();
+            }else{
+
+                alert("There  is  no  card  to remove, please  insert  a valiable card "); 
+            }
 
 
     })
@@ -323,10 +389,6 @@ Controller.initialize  =  function(eventObject){
 
     View.search.addEventListener('click', Controller.customerState);
 
-  }else{
-
-    alert(View.search == null &&  Model.search == null);
-
   }
 
  if(View.search !=  null  &&   View.search.attributes['data-key'] != null){
@@ -351,28 +413,37 @@ Controller.initialize  =  function(eventObject){
     });
  }
 
+
+if(View.imageButton   != null && document.getElementById("imageId") !=null){
+
+    View.imageButton.addEventListener('click',  Controller.functionImage);
+}
+    
  if(View.editcustomer !=null){
 
     View.editcustomer.addEventListener('click',  function(){
 
+        alert("You  have  entered  the  edit page ");
 
         let senderTable  = document.getElementById("senderTable");
 
         let save_sender =  document.getElementById("save_sender");
 
+        if(senderTable  !=  null &&  save_sender != null){
 
-        if (senderTable.style.display === "none" && save_sender.style.display === "none") {
+            if (senderTable.style.display === "none" && save_sender.style.display === "none") {
+        
+                senderTable.style.display = "block"
 
-    
-            senderTable.style.display = "block";
-            save_sender.style.display = "inline-block"
-            
-    
-        } else {
-    
-            senderTable.style.display = "none";
-            save_sender.style.display = "none";
-    
+                save_sender.style.display = "inline-block"
+                
+            } else {
+        
+                senderTable.style.display = "none";
+
+                save_sender.style.display = "none";
+        
+            }
         }
 
     });
@@ -424,6 +495,17 @@ $("#amoutInDallor").on("keyup", function (e){
 
 });
    
+}
+
+Controller.functionImage =  function(){
+    
+    let  x  = document.getElementById("imageId").value.match(/\.(jpeg|jpg|gif|png)$/)
+
+    if(x !=null) {
+
+        alert("Thank  you  for  inserting  a   photo ")
+    }
+    
 }
 
 Controller.myfunction =  function(){
@@ -677,7 +759,7 @@ Controller.cardSubmitButton = function(){
                     setInterval(Controller.refreshPage, 1000);
                 }else{
 
-                    alert("Check  the length  of   the  inputs "); 
+                    alert("Input  code  must  be  equals  to   3 "); 
                 }
 
             }
@@ -810,8 +892,10 @@ Controller.sendMoneyMainbutton = function(){
      let  amountConverted  = View.amountConverted.value;
      let  fee              = View.charge.value;
 
-    if (amountConverted.length <= 9 && amoutInDallor.length >= 1 &&  fee.length >= 1 
-
+    if (amountConverted.length <= 9 
+        
+        
+        && amoutInDallor.length >= 1 &&  fee.length >= 1 
         
         &&  Model.customerState != null &&  Model.recipient !=  null && Model.paymentMethod != null 
 
@@ -821,35 +905,32 @@ Controller.sendMoneyMainbutton = function(){
 
         ){  
             
-            if(!isNaN(amountConverted) && !isNaN(amoutInDallor)){
+            if(!isNaN(amountConverted) && !isNaN(amoutInDallor) && !isNaN(fee)){
 
                 let  customer_id   =    View.inputFirstNameCustomer.attributes[1].nodeValue;
                 let  recipient  =       JSON.parse(Model.recipient);
                 let  customer   =       JSON.parse(Model.recipient);
                 let  buttonState     =  JSON.parse(Model.recipientSelectButtonState);
 
-                if(Model.recipientSelectButtonState != null &&  buttonState['click'] == true){
+                if(Model.recipientSelectButtonState != null &&  buttonState['click'] == true && Model.paymentMethod  !=null){
 
-                        let  recipient  =  JSON.parse(Model.recipient);
-                        let  customer   =  JSON.parse(Model.recipient);
-                        let  buttonState     =  JSON.parse(Model.recipientSelectButtonState);
-
+            
                         $.ajax({
                             type: "POST",
                             url: "/submitPayment",
 
                             data: JSON.stringify({
                             
-                            "firstname":recipient['firstname'],
-                            "lastname":recipient['lastname'],
-                            "address":recipient['address'],
-                            "contact":recipient['contact'],
-                            "country":recipient['country'],
-                            "_id":recipient['_id'],
-                            "customer_id":customer_id,
-                            "senderPhoneNumber":recipient['senderPhoneNumber'],
-                            "recipientPhoneNumber":recipient['recipientPhoneNumber'], 
-                            "sentAmount":recipient['amount']
+                                "firstname":recipient['firstname'],
+                                "lastname":recipient['lastname'],
+                                "address":recipient['address'],
+                                "contact":recipient['contact'],
+                                "country":recipient['country'],
+                                "_id":recipient['_id'],
+                                "customer_id":customer_id,
+                                "senderPhoneNumber":recipient['senderPhoneNumber'],
+                                "recipientPhoneNumber":recipient['recipientPhoneNumber'], 
+                                "sentAmount":recipient['amount']
                            
                             } ),
                             contentType: "application/json; charset=utf-8",
@@ -861,13 +942,23 @@ Controller.sendMoneyMainbutton = function(){
                             }
                         })
 
-                        setInterval(Controller.refreshPage, 1000);
-
                         window.localStorage.removeItem('customer');
                         window.localStorage.removeItem('recipient');
                         window.localStorage.removeItem('buttonState');
                         window.localStorage.removeItem('paymentMethod');
                         window.localStorage.removeItem('selectCountry');
+
+                        
+                        Model.recipientSelectButtonState = null;
+                        Model.paymentMethod  =      null;
+                        Model.selectCountry  =       null;
+                        Model.addCard         =      null;
+                        Model.updateState          = null;
+                        Model.search               = null;
+
+                        setInterval(Controller.refreshPage, 1000);
+
+                      
 
                    
                 }else{
@@ -1041,6 +1132,7 @@ Controller.paymentMethod =  function(){
 Controller.activePayment = function(event){
 
     let  payment  = event.target.attributes[1].value; 
+
     let  card  =  document.getElementById("paymentMessage").attributes[1].nodeValue;
 
     if(payment == "card" ){
@@ -1255,6 +1347,7 @@ Controller.insertCustomer = function(event){
     let contact    =  View.inputContactCustomer.value;
     let country    =  View.inputCountryCustomer.value;
     let phone      =  View.inputPhoneNumberCustomer.value; 
+    let email      =  View.inputEmailAddressCustomer.value;
 
     // Customer table  ids ends
 
@@ -1266,18 +1359,16 @@ Controller.insertCustomer = function(event){
     inputArray[3] = contact; 
     inputArray[4] = country; 
     inputArray[5] = phone; 
+    inputArray[6] = email;
 
     console.log("Save  sender  has been  clicked " +  inputArray[0] + " " + inputArray[1] + " " + inputArray[2] + " " + inputArray[3] + " " + inputArray[4] + " " + inputArray[5]);
 
-    if (firstname.length > 3   &&  lastname.length > 3 &&  address.length > 3 &&  phone.length > 9 && phone.length == 10) {
+    if (firstname.length > 3   &&  lastname.length > 3 &&  address.length > 3 &&  phone.length > 9 && phone.length == 10 &&email.length > 5) {
 
-        if(firstname ==  undefined  &&  lastname == undefined  &&  address == undefined &&  contact == undefined  && country== undefined &&  phone== undefined){
+        if(firstname ==  undefined  &&  lastname == undefined  &&  address == undefined &&  contact == undefined  && country== undefined &&  phone== undefined && email == undefined){
 
             alert("Input  fields are undefined "); 
 
-        }else{
-
-            alert("correct ");
         }
      
     }else{
@@ -1295,9 +1386,6 @@ Controller.insertCustomer = function(event){
     
     if(Controller.senderLoop(inputArray) == 0){
 
-        //alert("The  function  return " +  Controller.senderLoop(inputArray));
-
-
         $.ajax({
             type: "POST",
             url: "/insertCustomer",
@@ -1308,7 +1396,8 @@ Controller.insertCustomer = function(event){
             "address":address,
             "contact":contact,
             "country":country,
-            "phone":phone
+            "phone":phone,
+            "email":email
           
             } ),
             contentType: "application/json; charset=utf-8",
@@ -1481,7 +1570,8 @@ Controller.editSender = function(event){
     let address = View.inputAddressCustomer.value.replace(/\s/g, "");
     let contact = View.inputContactCustomer.value.replace(/\s/g, "");
     let country = View.inputCountryCustomer.value.replace(/\s/g, "");
-    let phone = View.inputPhoneNumberCustomer.value.replace(/\s/g, ""); 
+    let phone = View.inputPhoneNumberCustomer.value.replace(/\s/g, "");
+    let email = View.inputEmailAddressCustomer.value.replace(/\s/g, ""); 
     let _id = View.senderTable.attributes[2].nodeValue;
 
     console.log(country);
@@ -1495,7 +1585,8 @@ Controller.editSender = function(event){
     inputArray[3] = contact; 
     inputArray[4] = country; 
     inputArray[5] = phone; 
-    inputArray[6] = _id; 
+    inputArray[6] = email;
+    inputArray[7] = _id; 
 
     console.log("Save  sender  has been  clicked " +  inputArray[0] + " " + inputArray[1] + " " + inputArray[2] + " " + inputArray[3] + " " + inputArray[4] + " " + inputArray[5]);
 
@@ -1524,84 +1615,84 @@ Controller.editSender = function(event){
     ){
 
 
-$.ajax({
-type: "POST",
-url: "/editSender",
+            $.ajax({
+            type: "POST",
+            url: "/editSender",
 
-data: JSON.stringify({
-"firstname":firstname,
-"lastname":lastname,
-"address":address,
-"contact":contact,
-"country":country,
-"phone":phone,
-"_id":_id
+            data: JSON.stringify({
+            "firstname":firstname,
+            "lastname":lastname,
+            "address":address,
+            "contact":contact,
+            "country":country,
+            "phone":phone,
+            "email":email,
+            "_id":_id
 
-} ),
-contentType: "application/json; charset=utf-8",
-dataType: "json",
+            } ),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
 
-success: function (data) {
+            success: function (data) {
 
-    console.log(data);
-    
-}
-})
+                console.log(data);
+                
+            }
+            })
 
-View.phoneInput.value = ""; 
+            View.phoneInput.value = ""; 
 
-setInterval(Controller.refreshPage, 1000);
-event.preventDefault(); 
 
-}else{
+            alert("You  have made  the  correction "); 
 
-if(Controller.senderLoop(inputArray) != 0 ){
+            setInterval(Controller.refreshPage, 1000);
+            event.preventDefault(); 
 
- alert("One   or  more  fields don't   meet  the requirement ");
+            }else{
 
-}else if(Controller.checkPhoneNumber(phone) ==  false) {
+            if(Controller.senderLoop(inputArray) != 0 ){
 
-alert("pleas enter a  valiable  phone  number and  phone  number  must  contain 2  sets  of  3  and  one  set  of 4 ");
+            alert("One   or  more  fields don't   meet  the requirement ");
 
-}else{
+            }else if(Controller.checkPhoneNumber(phone) ==  false) {
 
-alert("One  or more   fields  have  a   special  character except email  address "); 
+            alert("pleas enter a  valiable  phone  number and  phone  number  must  contain 2  sets  of  3  and  one  set  of 4 ");
 
-}
+            }else{
 
-}
-        }
+            alert("One  or more   fields  have  a   special  character except email  address "); 
 
-    }else{
+            }
 
-        if(phone.length != 10){
+            }
+                    }
 
-            alert("Phone is not equal  to  10");
-        }
+                }else{
 
-        if(firstname.length < 3){
+                    if(phone.length != 10){
 
-            alert("first  name  must be  greater  than 3");
-        }
-        
+                        alert("Phone is not equal  to  10");
+                    }
 
-        
-        if(lastname.length < 3){
+                    if(firstname.length < 3){
 
-            alert("lastname  must be  greater  than 3");
-        }
-    }
-    
-    if(isNaN(phone)){
+                        alert("first  name  must be  greater  than 3");
+                    }
+                    
 
-        alert("The  phone  filed must be   a   number  to  edit  customer or  sender");
+                    
+                    if(lastname.length < 3){
 
-        return  false
-    }
+                        alert("lastname  must be  greater  than 3");
+                    }
+                }
+                
+                if(isNaN(phone)){
 
-   
+                    alert("The  phone  filed must be   a   number  to  edit  customer or  sender");
 
-    
+                    return  false
+                }
 }
 Controller.inputStatus = function(event){
 
@@ -1611,12 +1702,10 @@ Controller.inputStatus = function(event){
 }
 Controller.validateForm  = function(event) {
 
-
     let  value = View.phoneInput.value;
 
     if(value != "" && !isNaN(value) && value.length > 9 && value.length == 10 &&  value != null){
 
-        
 
         $.ajax({
             type: "POST",
@@ -1680,7 +1769,6 @@ if( Model.inputStatus == true){
 
     View.found_user.style = "block"; 
 }
-
 Controller.update = function(){
 
 

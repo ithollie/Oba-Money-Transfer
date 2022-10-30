@@ -263,5 +263,6 @@ class Users(object):
          "youtube":self.youtube,
          "img":self.img,
          "date":self.date,
-         "phoneNumber":self.phoneNumber
+         "phoneNumber":self.phoneNumber,
+         "activation":False
         }

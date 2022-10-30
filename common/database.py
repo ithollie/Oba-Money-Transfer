@@ -47,6 +47,10 @@ class Database(object):
         Database.DATABASE[collection].delete_one(data)
 
     @staticmethod
+    def deleteMany(collection, data):
+        Database.DATABASE[collection].delete_one(data)
+
+    @staticmethod
     def find(collection, query):
         return Database.DATABASE[collection].find(query)
 

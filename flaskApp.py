@@ -108,6 +108,8 @@ def card():
 
                 print("Card  has  been  Inserted ")
 
+                sendSMS("+14844746760", "+18643653044", "Card has been  insert  successfuly")
+
                 return redirect(url_for('welcome' ,  email=email))
             else:
                 print("Card  already inserted ")
@@ -147,15 +149,19 @@ def insertCustomer():
             contact =   request.get_json()['contact']
             country = request.get_json()['country']
             phone = request.get_json()['phone']
+            customer_email = request.get_json()['email']
             email  = request.cookies.get('login_email')
 
             session['phoneNumber'] =  phone
 
-            customer  = Customer(firstname, lastname ,  address,  contact,  country,  phone, email)
+            customer  = Customer(firstname, lastname ,  address,  contact,  country,  phone, customer_email)
 
-            if  customer.insert(firstname, lastname ,  address,  contact,  country,  phone, email) is True:
+            if  customer.insert(firstname, lastname ,  address,  contact,  country,  phone, customer_email) is True:
 
                 print("Not  a  problem")
+
+                sendSMS("+14844746760", "+18643653044", "Customer has  been  inserted  successfuly")
+
                 return redirect(url_for('welcome' ,  email=email))
 
             else:
@@ -168,7 +174,6 @@ def insertCustomer():
 
 @app.route('/insertRecipient' , methods=['POST', 'GET'])
 def insertRecipient():
-
     if request.method == 'POST':
 
             print("Insert recipient  wow ")
@@ -198,7 +203,6 @@ def insertRecipient():
                 return redirect(url_for('login' ,  email=email))
 
     return redirect(url_for('login'))
-
 @app.route('/api')
 def api():
     if request.method == 'POST':
@@ -232,9 +236,7 @@ def api():
         print(result)
       
     return redirect(url_for('welcome' ,  email=email))
-
 @app.route('/submitPayment' ,  methods=['GET', 'POST'])
-
 def  submitPayment():
     if  request.method == "POST":
 
@@ -258,10 +260,9 @@ def  submitPayment():
                     code = 'AA'.join(secrets.choice(string.ascii_uppercase + string.digits)
                         for i in range(N))
 
-                    _recipient_id = Database.find_one('payments' ,  {"_id":recipient_id})
-
+                    payment_id = Database.find_one('payments' ,  {"_id":_id})
                 
-                    if _recipient_id is None:
+                    if payment_id is None:
                         
                         session['customerPhoneNumber'] = senderPhoneNumber
 
@@ -272,7 +273,7 @@ def  submitPayment():
                             "senderPhoneNumber":senderPhoneNumber,"amount":sentAmount,"code":code, "paymentStatus":paymentStatus, "pausePayment":pausePayment
                         })
 
-                        print("recipientFirstName => " + recipientLasttName)
+                        sendSMS("+14844746760", "+18643653044", "Payment has  been  submitted  successfuly")
 
                         return redirect(url_for('welcome' ,  email=email))
 
@@ -405,6 +406,7 @@ def editSender():
             contact =   request.get_json()['contact']
             country = request.get_json()['country']
             phone = request.get_json()['phone']
+            email = request.get_json()['email']
             _id   = request.get_json()['_id']
 
             print("Edit  sender  " +  "firstname => " + firstname)
@@ -420,6 +422,9 @@ def editSender():
                 Database.updates("customers",{"_id":_id},{"$set": {"contact":contact}})
                 Database.updates("customers",{"_id":_id},{"$set": {"country":country}})
                 Database.updates("customers",{"_id":_id},{"$set": {"phone":phone}})
+                Database.updates("customers",{"_id":_id},{"$set": {"email":email}})
+
+                sendSMS("+14844746760", "+18643653044", "User  has  been  successfuly  edited")
 
                 email  = request.cookies.get('login_email')
 
@@ -511,12 +516,58 @@ def delete():
                 
                 print("Pay is  deleted ")
 
+                sendSMS("+14844746760", "+18643653044", "The  payment you  selected to  delete  have been deleted  successfuly")
+
                 Database.delete("payments",{"_id":payment_id})
             
                 return redirect(url_for('welcome', email=email))
             else:
 
                 print("payment id   is  None")
+
+        except  Exception  as  e:
+
+            print(e)
+        
+    print("that  is not quite yet")
+
+    return redirect(url_for('welcome', email=request.cookies.get('login_email')))
+
+@app.route('/deleteCustomer', methods=['GET', 'POST'])
+def deleteCustomer():
+
+    if request.method == 'POST':
+
+        try:
+            email  = request.cookies.get('login_email')
+
+            customer_id = request.get_json()['customer_id']
+
+            data  =  Database.find_one("customers", {"_id":customer_id})
+
+            print("Customer  data ------------------------->")
+
+            print(data)
+
+            if  data  is not None and  customer_id  is not None:
+
+                if data['_id'] == customer_id:
+
+                    sendSMS("+14844746760", "+18643653044", "You have successfuly remove  the customer")
+                    
+                    print(" customer is  deleted ")
+
+                    Database.delete("customers",{"_id":customer_id})
+
+                    Database.deleteMany("payments" , {"customer_id":customer_id})
+                
+                    return redirect(url_for('welcome', email=email))
+
+                else:
+
+                    print("customer id is  not  equal and it  is  None")
+            else:
+                print("Data  is  none  and  customer_id is  also  none ")
 
         except  Exception  as  e:
 
@@ -546,6 +597,8 @@ def deleteCard():
             if  data  is not None and  customer_card_id  is not None:
 
                 if data['customerId'] == customer_card_id:
+
+                    sendSMS("+14844746760", "+18643653044", "You have successfuly remove  debt card")
                     
                     print("card is  deleted ")
 
@@ -615,6 +668,7 @@ def changePassword():
 @app.route('/login')
 def login():
     session.pop('login_email', None)
+
     return render_template('login.html')
 
 @app.route('/profile')
@@ -641,9 +695,12 @@ def register():
 def profile_picture():
     if  request.method == 'POST':
         file = request.files['file']
+
+        print(file.filename)
         if file == '':
             print("No file  seleted file")
-        if file.filename:
+
+        if file.filename and  file.filename[4:] ==  ".jpg":
             
             email = request.cookies.get('login_email')
             filename = secure_filename(file.filename)
@@ -654,9 +711,20 @@ def profile_picture():
             response.set_cookie('login_email',request.cookies.get('login_email'))
             response.set_cookie('login_author', request.cookies.get('login_author'))
             response.set_cookie('login_id', request.cookies.get('login_id'))
+
+            session.pop('_flashes', None)
+
+            flash("Image is  uploaded ")
+            
             return response
         else:
             print("file type not allowed")
+            email = request.cookies.get('login_email')
+
+            session.pop('_flashes', None)
+
+            flash("Image can't  be  uploaded ")
+            return redirect(url_for('welcome' ,  email=email))
     
     return redirect(url_for('welcome'))
 
@@ -679,12 +747,6 @@ def register_process():
        
        image = 'https://www.gravatar.com/avatar/{}?d=identicon&s={}'.format(md5(request.form['email'].lower().encode('utf-8')).hexdigest(), 128)
 
-       f  = request.files['file']
-
-       filename = secure_filename(f.filename)
-     
-       f.save(os.path.join(os.getcwd() +'/static/uploads/reg', filename))
-    
        firstname = request.form['firstname'].lower()
        lastname = request.form['lastname'].lower()
        password = request.form['password'].lower()
@@ -694,11 +756,13 @@ def register_process():
 
        if  Users.get_by_email(request.form['email'].lower()) == False and password == confirm  and phoneNumber.__len__() > 9:
 
+           sendSMS("+14844746760", "+18643653044", "You have  registered  successfuly")
+
            registeremail  = Regmail(email)
 
            registeremail.send()
 
-           Users.registration(firstname, lastname , email, password, filename, image=image, phoneNumber=phoneNumber)
+           Users.registration(firstname, lastname , email, password, "image", image=image, phoneNumber=phoneNumber)
            
            flash("You  have  successful registered ")
 
@@ -765,6 +829,9 @@ def login_process():
                         response.set_cookie('login_email', request.form['email'])
                         response.set_cookie('login_author', data['firstname'])
                         response.set_cookie('login_id', data['_id'])
+
+                        sendSMS("+14844746760", "+18643653044", "You have  loged in  successfuly")
+
                         return response
                         
                     else:
@@ -897,8 +964,6 @@ def welcome_payer():
 @app.route('/welcome/Oba/<string:email>' )
 def welcome(email):
 
-   sendSMS("4844746760")
-
    session.pop('_flashes', None)
 
    userInDatabase = Database.find_one("users", {"email": request.cookies.get('login_email')})
@@ -979,7 +1044,7 @@ def welcome(email):
                     com_text = Users.text_avaliable(Database.find_one('profileImage', {"useremail":request.cookies.get('login_email')}))
                     
         
-                    if  request.cookies.get('login_email') != "" :
+                    if  request.cookies.get('login_email') != ""  and  userInDatabase['activation'] !=  False:
                         
                         currentSelectedPaymentId  =  session.get('selectedPaymentId')
                         customerPhoneNumber       =  session.get('customerPhoneNumber')
@@ -1047,6 +1112,8 @@ def welcome(email):
 
                         items = Database.find_one(constants.COLLECTION,{"email":request.cookies.get('login_email')})
                         
+                        image  = None
+
                         if items  is not None:
 
                             print("Print Items ")
@@ -1060,21 +1127,22 @@ def welcome(email):
                             # login user  data 
                             firstname=items['firstname']
                             lastname = items['lastname']
-                            email    =     request.cookies.get('login_email')
-                            image    =   items['image']
+                            pictureImage = items['image']
                             _id=items['_id']
+                            email    =     request.cookies.get('login_email')
+                            image =  items['img']
 
                             #end  of  login  user data
-                            flash('Login is a success' + " "+ 'welcome' + " "+ request.cookies.get('login_email'))
+                            
                         else:
                             print(" Items  is  None ")
 
-                    
-                        return render_template('index.html', card_customer_Id=card_customer_Id, card=card,currentSelectPayment=currentSelectPayment, paymentsArray=paymentsArray,paymentArrayLength=paymentArrayLength, display=display, customerIsTrue=customerIsTrue,arrayLen=arrayLen, array=array, database_phone_number_data=database_phone_number_data, email=email,firstname=firstname,lastname = lastname ,_id=_id,date=date,image=image)
+                        flash('Login is a success' + " "+ 'welcome' + " "+ request.cookies.get('login_email'))
+                        return render_template('index.html',pictureImage=pictureImage,  card_customer_Id=card_customer_Id, card=card,currentSelectPayment=currentSelectPayment, paymentsArray=paymentsArray,paymentArrayLength=paymentArrayLength, display=display, customerIsTrue=customerIsTrue,arrayLen=arrayLen, array=array, database_phone_number_data=database_phone_number_data, email=email,firstname=firstname,lastname = lastname ,_id=_id,date=date,image=image)
                     
                     else:
 
-                        print("it doesnt work please  try  again ")
+                        print("it doesnt work please  try  again  or  activation is  false")
 
             except Exception as  ex:
 
@@ -1095,9 +1163,8 @@ def logout():
 
     return  response
 
-
 # function for sending SMS
-def sendSMS(number):
+def sendSMS(number, from_, body):
     
     # Your Account SID from twilio.com/console
     account_sid = "ACed87d015d3845502bc00eefafe7eaa34"
@@ -1106,10 +1173,7 @@ def sendSMS(number):
 
     client = Client(account_sid, auth_token)
 
-    message = client.messages.create(
-        to="+4844746760", 
-        from_="+15017250604",
-        body="Hello from Python!")
+    message = client.messages.create(to=number,from_=from_,body=body)
 
     print(message.sid)
     
@@ -1122,6 +1186,9 @@ def  out():
         response.set_cookie('login_email', "")
         response.set_cookie('login_author', "")
         response.set_cookie('login_id', "")
+        flash("You  have  successfuly logged  out ")
+        sendSMS("+14844746760", "+18643653044", "You have  loged out  successfuly")
+
         return  response
     return redirect(url_for('welcome', email="none"))
     
