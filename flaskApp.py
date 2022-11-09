@@ -1,6 +1,7 @@
+
+from flask import Flask, render_template, escape, make_response, redirect,session, request,jsonify,json, flash,url_for
 from cmath import e
 from tkinter import EXCEPTION
-from flask import Flask, render_template, escape, make_response, redirect,session, request,jsonify,json, flash,url_for
 import requests
 import ssl
 import sys
@@ -715,7 +716,7 @@ def profile_picture():
             session.pop('_flashes', None)
 
             flash("Image is  uploaded ")
-            
+
             return response
         else:
             print("file type not allowed")

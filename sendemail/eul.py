@@ -60,6 +60,6 @@ class Emails(object):
         server.starttls()
         server.ehlo()
         
-        server.login("boysthollie@gmail.com", "hawaibrahB1a1@$$")
+        server.login("newnurdscoding@gmail.com", "hawaibrahB1a1@@@@")
         server.sendmail(self.sender_email, self.receiver_email, message.as_string())
         server.quit()
